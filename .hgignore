@@ -16,6 +16,7 @@ syntax: glob
 .dev
 log
 tmp
+db/development.sqlite3
 
 
 
