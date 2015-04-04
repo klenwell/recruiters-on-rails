@@ -1,0 +1,28 @@
+#
+# GLOB
+#
+syntax: glob
+
+# glob defaults
+*.elc
+*.pyc
+*~
+.svn
+.hgtags
+
+
+# project excludes
+.coverage
+.dev
+log
+tmp
+
+
+
+#
+# REGEX
+#
+syntax: regexp
+
+# regex defaults
+^\.pc/
