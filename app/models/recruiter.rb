@@ -6,4 +6,8 @@ class Recruiter < ActiveRecord::Base
   def phone=(value)
     write_attribute(:phone, value.gsub(/[^\d+x]/, ""))
   end
+
+  def name
+    format('%s %s', self.first_name, self.last_name)
+  end
 end
