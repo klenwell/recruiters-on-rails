@@ -1,15 +1,16 @@
-h1 Listing Recruiters
+h1 Recruiters
+
+div.actions
+  = link_to 'New Recruiter', new_recruiter_path, {class: "btn btn-primary", type: "button"}
 
 table.table.table-striped
   thead
     tr
-      th First name
-      th Last name
+      th First Name
+      th Last Name
       th Email
       th Company
       th Phone
-      th
-      th
       th
 
   tbody
@@ -20,10 +21,9 @@ table.table.table-striped
         td = recruiter.email
         td = recruiter.company
         td = recruiter.phone
-        td = link_to 'Show', recruiter
-        td = link_to 'Edit', edit_recruiter_path(recruiter)
-        td = link_to 'Destroy', recruiter, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td
+          a.btn.btn-default href=edit_recruiter_path(recruiter)
+            span.glyphicon.glyphicon-edit aria-hidden="true"
+            |  Edit
 
 br
-
-= link_to 'New Recruiter', new_recruiter_path

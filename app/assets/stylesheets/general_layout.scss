@@ -1,3 +1,22 @@
 body {
   margin-top: 60px;
 }
+
+footer {
+  border-top: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+table.table.table-striped {
+  margin: 12px 0;
+  border-bottom: 2px solid #ddd;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+div.actions {
+  padding: 8px;
+}
