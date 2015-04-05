@@ -1,37 +1,24 @@
-<%= form_for(@recruiter) do |f| %>
-  <% if @recruiter.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@recruiter.errors.count, "error") %> prohibited this recruiter from being saved:</h2>
+= form_for @recruiter do |f|
+  - if @recruiter.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@recruiter.errors.count, "error")} prohibited this recruiter from being saved:"
+      ul
+        - @recruiter.errors.full_messages.each do |message|
+          li = message
 
-      <ul>
-      <% @recruiter.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :company %><br>
-    <%= f.text_field :company %>
-  </div>
-  <div class="field">
-    <%= f.label :phone %><br>
-    <%= f.text_field :phone %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  .field
+    = f.label :first_name
+    = f.text_field :first_name
+  .field
+    = f.label :last_name
+    = f.text_field :last_name
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :company
+    = f.text_field :company
+  .field
+    = f.label :phone
+    = f.text_field :phone
+  .actions = f.submit
