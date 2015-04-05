@@ -7,8 +7,12 @@ gem 'rails', '4.2.1'
 #gem 'sqlite3'
 gem 'pg'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+# Bootstrap/SCSS
+# https://github.com/twbs/bootstrap-sass
+gem 'bootstrap-sass', '~> 3.3.4'
+gem 'sass-rails', '>= 3.2'
+gem 'font-awesome-sass'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
