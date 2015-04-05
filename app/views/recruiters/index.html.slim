@@ -20,7 +20,7 @@ table.table.table-striped
         td = recruiter.last_name
         td = recruiter.email
         td = recruiter.company
-        td = recruiter.phone
+        td = number_to_phone(recruiter.phone)
         td
           a.btn.btn-default href=edit_recruiter_path(recruiter)
             span.glyphicon.glyphicon-edit aria-hidden="true"

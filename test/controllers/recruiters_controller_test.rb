@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RecruitersControllerTest < ActionController::TestCase
   setup do
-    @recruiter = recruiters(:one)
+    @recruiter = recruiters(:alice)
   end
 
   test "should get index" do
@@ -17,8 +17,10 @@ class RecruitersControllerTest < ActionController::TestCase
   end
 
   test "should create recruiter" do
+    recruiter_params = @recruiter.attributes.merge(email: "alice@gmail.com")
+
     assert_difference('Recruiter.count') do
-      post :create, recruiter: { company: @recruiter.company, email: @recruiter.email, first_name: @recruiter.first_name, last_name: @recruiter.last_name, phone: @recruiter.phone }
+      post :create, recruiter: recruiter_params
     end
 
     assert_redirected_to recruiter_path(assigns(:recruiter))
