@@ -6,9 +6,7 @@ class Ping < ActiveRecord::Base
     # recruiter pinging you
     spam: 0,
     email: 1,
-    phone_call: 2,
-    meeting: 3,
-    lunch: 5,
+    phone_call: 1,
 
     # you pinging recruiter
     email_out: 0,

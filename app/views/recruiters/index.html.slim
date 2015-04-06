@@ -13,10 +13,11 @@ table.table.table-striped
       th Company
       th Phone
       th
+      th
 
   tbody
     - @recruiters.each do |recruiter|
-      tr
+      tr.recruiter-id id="recruiter-#{recruiter.id}"
         td = recruiter.name
         td = recruiter.email
         td = recruiter.company
@@ -25,5 +26,8 @@ table.table.table-striped
           a.btn.btn-default href=edit_recruiter_path(recruiter)
             span.glyphicon.glyphicon-edit aria-hidden="true"
             |  Edit
+        td
+          a.btn.btn-default#ping href='#' title="ping / interaction"
+            span.glyphicon.glyphicon-bell aria-hidden="true"
 
 br
