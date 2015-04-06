@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405035321) do
+ActiveRecord::Schema.define(version: 20150406040507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "pings", force: :cascade do |t|
+    t.integer  "recruiter_id"
+    t.string   "kind"
+    t.string   "note"
+    t.text     "transcript"
+    t.integer  "value"
+    t.date     "date"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "recruiters", force: :cascade do |t|
     t.string   "first_name"

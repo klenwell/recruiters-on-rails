@@ -1,17 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  recruiter: 
-  kind: 
-  note: 
-  transcript: 
-  value: 
+recruiter_spam:
+  recruiter_id: alice
+  kind: 'spam'
+  note: 'Typical job opening spam sent by recruiter you never met.'
+  transcript: 'Paste raw email here'
+  value: Ping::KINDS[:spam]
   date: 2015-04-05
 
-two:
-  recruiter: 
-  kind: 
-  note: 
-  transcript: 
-  value: 
-  date: 2015-04-05
