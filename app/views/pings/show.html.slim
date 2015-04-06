@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Recruiter:
+  = @ping.recruiter
+p
+  strong Kind:
+  = @ping.kind
+p
+  strong Note:
+  = @ping.note
+p
+  strong Transcript:
+  = @ping.transcript
+p
+  strong Value:
+  = @ping.value
+p
+  strong Date:
+  = @ping.date
+
+= link_to 'Edit', edit_ping_path(@ping)
+'|
+= link_to 'Back', pings_path

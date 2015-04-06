@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  recruiter: 
+  kind: 
+  note: 
+  transcript: 
+  value: 
+  date: 2015-04-05
+
+two:
+  recruiter: 
+  kind: 
+  note: 
+  transcript: 
+  value: 
+  date: 2015-04-05

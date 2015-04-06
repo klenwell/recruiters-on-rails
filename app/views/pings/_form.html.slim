@@ -1,0 +1,27 @@
+= form_for @ping do |f|
+  - if @ping.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@ping.errors.count, "error")} prohibited this ping from being saved:"
+      ul
+        - @ping.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :recruiter
+    = f.text_field :recruiter
+  .field
+    = f.label :kind
+    = f.text_field :kind
+  .field
+    = f.label :note
+    = f.text_field :note
+  .field
+    = f.label :transcript
+    = f.text_field :transcript
+  .field
+    = f.label :value
+    = f.text_field :value
+  .field
+    = f.label :date
+    = f.date_select :date
+  .actions = f.submit

@@ -1,0 +1,31 @@
+h1 Listing pings
+
+table
+  thead
+    tr
+      th Recruiter
+      th Kind
+      th Note
+      th Transcript
+      th Value
+      th Date
+      th
+      th
+      th
+
+  tbody
+    - @pings.each do |ping|
+      tr
+        td = ping.recruiter
+        td = ping.kind
+        td = ping.note
+        td = ping.transcript
+        td = ping.value
+        td = ping.date
+        td = link_to 'Show', ping
+        td = link_to 'Edit', edit_ping_path(ping)
+        td = link_to 'Destroy', ping, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Ping', new_ping_path
