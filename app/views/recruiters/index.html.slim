@@ -1,13 +1,14 @@
 h1 Recruiters
 
+p#notice = notice
+
 div.actions
   = link_to 'New Recruiter', new_recruiter_path, {class: "btn btn-primary", type: "button"}
 
 table.table.table-striped
   thead
     tr
-      th First Name
-      th Last Name
+      th Name
       th Email
       th Company
       th Phone
@@ -16,8 +17,7 @@ table.table.table-striped
   tbody
     - @recruiters.each do |recruiter|
       tr
-        td = recruiter.first_name
-        td = recruiter.last_name
+        td = recruiter.name
         td = recruiter.email
         td = recruiter.company
         td = number_to_phone(recruiter.phone)

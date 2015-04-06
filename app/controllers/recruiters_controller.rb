@@ -4,7 +4,7 @@ class RecruitersController < ApplicationController
   # GET /recruiters
   # GET /recruiters.json
   def index
-    @recruiters = Recruiter.all
+    @recruiters = Recruiter.recently_updated
   end
 
   # GET /recruiters/1
@@ -28,7 +28,7 @@ class RecruitersController < ApplicationController
 
     respond_to do |format|
       if @recruiter.save
-        format.html { redirect_to @recruiter, notice: 'Recruiter was successfully created.' }
+        format.html { redirect_to recruiters_path, notice: 'Recruiter was successfully created.' }
         format.json { render :show, status: :created, location: @recruiter }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class RecruitersController < ApplicationController
   def update
     respond_to do |format|
       if @recruiter.update(recruiter_params)
-        format.html { redirect_to @recruiter, notice: 'Recruiter was successfully updated.' }
+        format.html { redirect_to recruiters_path, notice: 'Recruiter was successfully updated.' }
         format.json { render :show, status: :ok, location: @recruiter }
       else
         format.html { render :edit }
