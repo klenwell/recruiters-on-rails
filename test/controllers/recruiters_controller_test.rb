@@ -23,7 +23,7 @@ class RecruitersControllerTest < ActionController::TestCase
       post :create, recruiter: recruiter_params
     end
 
-    assert_redirected_to recruiter_path(assigns(:recruiter))
+    assert_redirected_to recruiters_path
   end
 
   test "should show recruiter" do
@@ -38,7 +38,7 @@ class RecruitersControllerTest < ActionController::TestCase
 
   test "should update recruiter" do
     patch :update, id: @recruiter, recruiter: { company: @recruiter.company, email: @recruiter.email, first_name: @recruiter.first_name, last_name: @recruiter.last_name, phone: @recruiter.phone }
-    assert_redirected_to recruiter_path(assigns(:recruiter))
+    assert_redirected_to recruiters_path
   end
 
   test "should destroy recruiter" do
