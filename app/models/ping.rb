@@ -1,16 +1,18 @@
 class Ping < ActiveRecord::Base
 
+  belongs_to :recruiter
+
   # Constants
   KINDS = {
     # type: value
     # recruiter pinging you
-    spam: 0,
-    email: 1,
-    phone_call: 1,
+    'spam' => 0,
+    'email' => 1,
+    'phone call' => 1,
 
     # you pinging recruiter
-    email_out: 0,
-    phone_out: -1
+    'email from you' => 0,
+    'phone call from you' => -1
   }
 
   # Validators

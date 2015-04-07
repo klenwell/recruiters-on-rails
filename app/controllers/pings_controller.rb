@@ -14,7 +14,9 @@ class PingsController < ApplicationController
 
   # GET /pings/new
   def new
-    @ping = Ping.new
+    @ping = Ping.new()
+    @recruiter_id = params['recruiter_id']
+    @recruiters = Recruiter.all
   end
 
   # GET /pings/1/edit
