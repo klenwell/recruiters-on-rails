@@ -2,7 +2,7 @@
 // All this logic will automatically be available in application.js.
 var onReady = function() {
 
-  $('.input-group.date').datepicker({
+  $('body.pings .input-group.date').datepicker({
     format: "yyyy-mm-dd",
     autoclose: true
   });
