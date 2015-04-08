@@ -28,12 +28,12 @@ class PingsController < ApplicationController
   # POST /pings
   # POST /pings.json
   def create
-    @recruiter = Recruiter.find(params[:recruiter_id])
+    @recruiter = Recruiter.find(ping_params[:recruiter_id])
     @ping = @recruiter.pings.build(ping_params)
 
     respond_to do |format|
       if @ping.save
-        format.html { redirect_to @recruiter, notice: 'Ping was successfully created.' }
+        format.html { redirect_to recruiters_path, notice: 'Ping was successfully created.' }
         format.json { render :show, status: :created, location: @ping }
       else
         format.html { render :new }
@@ -74,6 +74,6 @@ class PingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ping_params
-      params.require(:ping).permit(:recruiter, :kind, :note, :transcript, :value, :date)
+      params.require(:ping).permit(:recruiter, :recruiter_id, :kind, :note, :transcript, :value, :date)
     end
 end
