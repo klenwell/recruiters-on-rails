@@ -28,3 +28,8 @@ label.horizontal {
   text-align: right;
   padding: 8px 4px;
 }
+
+/*
+ * Datepicker
+ */
+div.datepicker { z-index: 1050 !important; }

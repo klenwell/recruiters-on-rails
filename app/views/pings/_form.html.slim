@@ -1,4 +1,4 @@
-= form_for @ping, {class: 'form-horizontal'} do |f|
+= form_for [@recruiter, @ping], {class: 'form-horizontal'} do |f|
   - if @ping.errors.any?
     #error_explanation
       h2 = "#{pluralize(@ping.errors.count, "error")} prohibited this ping from being saved:"
@@ -10,7 +10,7 @@
     = f.label :recruiter, {class: 'col-sm-2 control-label horizontal'}
     div.col-sm-3
       = f.select(:recruiter_id,
-          options_for_select(@recruiters.map{ |r| [r.email, r.id] }, @recruiter_id),
+          options_for_select(@recruiters.map{ |r| [r.email, r.id] }, @recruiter.id),
           {},
           {class: "form-control"})
     div.col-sm-7

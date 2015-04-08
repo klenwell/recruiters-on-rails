@@ -15,22 +15,25 @@ class PingsController < ApplicationController
   # GET /pings/new
   def new
     @ping = Ping.new()
-    @recruiter_id = params['recruiter_id']
+    @recruiter = Recruiter.find(params[:recruiter_id])
     @recruiters = Recruiter.all
   end
 
   # GET /pings/1/edit
   def edit
+    @recruiter = Recruiter.find(params[:recruiter_id])
+    @ping = @recruiter.pings.find(params[:id])
   end
 
   # POST /pings
   # POST /pings.json
   def create
-    @ping = Ping.new(ping_params)
+    @recruiter = Recruiter.find(params[:recruiter_id])
+    @ping = @recruiter.pings.build(ping_params)
 
     respond_to do |format|
       if @ping.save
-        format.html { redirect_to @ping, notice: 'Ping was successfully created.' }
+        format.html { redirect_to @recruiter, notice: 'Ping was successfully created.' }
         format.json { render :show, status: :created, location: @ping }
       else
         format.html { render :new }
