@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :pings
-  resources :recruiters
+
+  resources :recruiters do
+    resources :pings
+  end
 
   # You can have the root of your site routed with "root"
   root 'recruiters#index'

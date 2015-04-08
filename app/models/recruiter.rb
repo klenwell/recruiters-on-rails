@@ -1,5 +1,7 @@
 class Recruiter < ActiveRecord::Base
 
+  has_many :pings
+
   validates :first_name, :email, presence: true
   validates :email, uniqueness: true
 

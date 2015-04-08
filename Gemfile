@@ -13,6 +13,7 @@ gem 'bootstrap-sass', '~> 3.3.4'
 gem 'sass-rails', '>= 3.2'
 gem 'font-awesome-sass'
 gem 'bootstrap-sass-extras'
+gem 'bootstrap-datepicker-rails'
 
 # Slim
 # https://github.com/slim-template/slim-rails
