@@ -14,8 +14,8 @@ class PingsController < ApplicationController
 
   # GET /pings/new
   def new
-    @ping = Ping.new()
     @recruiter = Recruiter.find(params[:recruiter_id])
+    @ping = Ping.new(recruiter_id: @recruiter.id)
     @recruiters = Recruiter.all
   end
 
@@ -23,12 +23,13 @@ class PingsController < ApplicationController
   def edit
     @recruiter = Recruiter.find(params[:recruiter_id])
     @ping = @recruiter.pings.find(params[:id])
+    @recruiters = Recruiter.all
   end
 
   # POST /pings
   # POST /pings.json
   def create
-    @recruiter = Recruiter.find(ping_params[:recruiter_id])
+    @recruiter = Recruiter.find(params[:recruiter_id])
     @ping = @recruiter.pings.build(ping_params)
 
     respond_to do |format|
@@ -47,7 +48,9 @@ class PingsController < ApplicationController
   def update
     respond_to do |format|
       if @ping.update(ping_params)
-        format.html { redirect_to @ping, notice: 'Ping was successfully updated.' }
+        format.html { redirect_to(
+          recruiter_ping_path(recruiter_id: @ping.recruiter_id, id: @ping),
+          notice: 'Ping was successfully updated.') }
         format.json { render :show, status: :ok, location: @ping }
       else
         format.html { render :edit }
@@ -61,7 +64,7 @@ class PingsController < ApplicationController
   def destroy
     @ping.destroy
     respond_to do |format|
-      format.html { redirect_to pings_url, notice: 'Ping was successfully destroyed.' }
+      format.html { redirect_to recruiters_path, notice: 'Ping was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -1,9 +1,8 @@
-h1 Listing pings
+h1 Pings for ping.recruiter.name
 
 table
   thead
     tr
-      th Recruiter
       th Kind
       th Note
       th Transcript
@@ -16,16 +15,14 @@ table
   tbody
     - @pings.each do |ping|
       tr
-        td = ping.recruiter
         td = ping.kind
         td = ping.note
         td = ping.transcript
         td = ping.value
         td = ping.date
-        td = link_to 'Show', ping
-        td = link_to 'Edit', edit_ping_path(ping)
-        td = link_to 'Destroy', ping, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Show', recruiter_ping_path(recruiter_id: ping.recruiter_id, id: ping.id)
+        td = link_to 'Edit', edit_recruiter_ping_path(recruiter_id: ping.recruiter_id, id: ping.id)
+        td = link_to 'Destroy', recruiter_ping_path(recruiter_id: ping.recruiter_id, id: ping.id),
+          data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
-
-= link_to 'New Ping', new_ping_path

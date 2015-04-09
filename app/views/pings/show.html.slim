@@ -1,4 +1,3 @@
-p#notice = notice
 
 p
   strong Recruiter:
@@ -19,6 +18,4 @@ p
   strong Date:
   = @ping.date
 
-= link_to 'Edit', edit_ping_path(@ping)
-'|
-= link_to 'Back', pings_path
+= link_to 'Index', recruiters_path, {class: 'btn btn-default'}
