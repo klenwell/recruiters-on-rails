@@ -12,6 +12,7 @@ table.table.table-striped
       th Phone
       th First Contact
       th Last Contact
+      th Score
       th
       th
 
@@ -24,6 +25,7 @@ table.table.table-striped
         td = number_to_phone(recruiter.phone)
         td = (recruiter.pings.any? ? recruiter.pings.first.date : 'N/A')
         td = (recruiter.pings.any? ? recruiter.pings.last.date : 'N/A')
+        td = recruiter.score
         td
           a.btn.btn-default href=edit_recruiter_path(recruiter)
             span.glyphicon.glyphicon-edit aria-hidden="true"

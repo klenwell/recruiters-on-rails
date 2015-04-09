@@ -24,4 +24,8 @@ class Ping < ActiveRecord::Base
   def self.kinds
     KINDS.stringify_keys.keys
   end
+
+  def value
+    KINDS[kind]
+  end
 end

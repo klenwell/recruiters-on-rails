@@ -22,4 +22,16 @@ class RecruiterTest < ActiveSupport::TestCase
       'phone'=>'1-800-555-1212 x200', 'email'=>'john@recruiters.inc'}))
     assert_equal '18005551212x200', john.phone
   end
+
+  test "that recruiters are scored" do
+    alice = recruiters(:alice)
+
+    2.times do |n|
+      alice.pings << Ping.new(recruiter_id: alice.id, kind: 'email', note: 'test',
+                              date: Date.today)
+      alice.save!
+    end
+
+    assert_equal 2, alice.score
+  end
 end
