@@ -5,6 +5,5 @@ recruiter_spam:
   kind: 'spam'
   note: 'Typical job opening spam sent by recruiter you never met.'
   transcript: 'Paste raw email here'
-  value: Ping::KINDS[:spam]
   date: 2015-04-05
 
