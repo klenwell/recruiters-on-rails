@@ -9,6 +9,7 @@ class Ping < ActiveRecord::Base
     'spam' => 0,
     'email' => 1,
     'phone call' => 1,
+    'meeting' => 3,
 
     # you pinging recruiter
     'email from you' => 0,

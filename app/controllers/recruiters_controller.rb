@@ -4,7 +4,7 @@ class RecruitersController < ApplicationController
   # GET /recruiters
   # GET /recruiters.json
   def index
-    @recruiters = Recruiter.recently_updated
+    @recruiters = Recruiter.recently_pinged
   end
 
   # GET /recruiters/1

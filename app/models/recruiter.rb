@@ -5,7 +5,10 @@ class Recruiter < ActiveRecord::Base
   validates :first_name, :email, presence: true
   validates :email, uniqueness: true
 
-  scope :recently_updated, -> { order('updated_at DESC') }
+  scope :recently_pinged, ->{ joins('LEFT JOIN pings ON pings.recruiter_id = recruiters.id')
+      .select('recruiters.*, MIN(pings.date) as first_contact, MAX(pings.date) as last_contact')
+      .group('recruiters.id')
+      .order('last_contact DESC') }
 
   def phone=(value)
     write_attribute(:phone, value.gsub(/[^\d+x]/, ""))
