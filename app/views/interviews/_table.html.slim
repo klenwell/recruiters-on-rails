@@ -1,0 +1,34 @@
+
+table
+  thead
+    tr
+      th Recruiter
+      th Date
+      th Company
+      th Culture
+      th People
+      th Work
+      th Career
+      th Commute
+      th Salary
+      th Gut
+      th
+      th
+      th
+
+  tbody
+    - interviews.each do |interview|
+      tr
+        td = interview.recruiter
+        td = interview.date
+        td = interview.company
+        td = interview.culture
+        td = interview.people
+        td = interview.work
+        td = interview.career
+        td = interview.commute
+        td = interview.salary
+        td = interview.gut
+        td = link_to 'Show', interview
+        td = link_to 'Edit', edit_interview_path(interview)
+        td = link_to 'Destroy', interview, data: {:confirm => 'Are you sure?'}, :method => :delete
