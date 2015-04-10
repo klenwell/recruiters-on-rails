@@ -1,3 +1,7 @@
-h1 = @recruiter.name
+h2 = @recruiter.name
 
 == render partial: 'form'
+
+h3 Pings
+
+== render partial: 'pings/pings_table', locals: {pings: @recruiter.pings.by_date}

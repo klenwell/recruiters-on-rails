@@ -4,7 +4,8 @@ class PingsController < ApplicationController
   # GET /pings
   # GET /pings.json
   def index
-    @pings = Ping.all
+    @recruiter = Recruiter.find(params[:recruiter_id])
+    @pings = @recruiter.pings.order('date DESC')
   end
 
   # GET /pings/1

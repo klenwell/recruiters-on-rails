@@ -20,7 +20,7 @@ html lang="en"
     = javascript_include_tag "application"
 
   body class="#{controller_name} #{action_name}"
-    == render :partial => "layouts/navbar"
+    == render partial: "layouts/navbar"
 
     .container
       .row

@@ -20,6 +20,9 @@ class Ping < ActiveRecord::Base
   validates :kind, inclusion: { in: KINDS.stringify_keys.keys,
     message: "%{value} is not a valid ping type" }
 
+  # Scopes
+  scope :by_date, ->{ order 'date DESC' }
+
   # Class Methods
   def self.kinds
     KINDS.stringify_keys.keys
