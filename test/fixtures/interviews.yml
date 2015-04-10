@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  recruiter_id: 
+  date: 2015-04-10
+  company: MyString
+  culture: 1
+  people: 1
+  work: 1
+  career: 1
+  commute: 1
+  salary: 1
+  gut: 1
+
+two:
+  recruiter_id: 
+  date: 2015-04-10
+  company: MyString
+  culture: 1
+  people: 1
+  work: 1
+  career: 1
+  commute: 1
+  salary: 1
+  gut: 1

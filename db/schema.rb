@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409031718) do
+ActiveRecord::Schema.define(version: 20150410130030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "interviews", force: :cascade do |t|
+    t.integer  "recruiter_id"
+    t.date     "date"
+    t.string   "company"
+    t.integer  "culture"
+    t.integer  "people"
+    t.integer  "work"
+    t.integer  "career"
+    t.integer  "commute"
+    t.integer  "salary"
+    t.integer  "gut"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "interviews", ["recruiter_id"], name: "index_interviews_on_recruiter_id", using: :btree
 
   create_table "pings", force: :cascade do |t|
     t.integer  "recruiter_id"
@@ -36,4 +53,5 @@ ActiveRecord::Schema.define(version: 20150409031718) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "interviews", "recruiters"
 end
