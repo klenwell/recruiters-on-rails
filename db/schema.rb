@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410130030) do
+ActiveRecord::Schema.define(version: 20150410134114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,15 +20,15 @@ ActiveRecord::Schema.define(version: 20150410130030) do
     t.integer  "recruiter_id"
     t.date     "date"
     t.string   "company"
-    t.integer  "culture"
-    t.integer  "people"
-    t.integer  "work"
-    t.integer  "career"
-    t.integer  "commute"
-    t.integer  "salary"
-    t.integer  "gut"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "culture",      default: 1
+    t.integer  "people",       default: 1
+    t.integer  "work",         default: 1
+    t.integer  "career",       default: 1
+    t.integer  "commute",      default: 1
+    t.integer  "salary",       default: 1
+    t.integer  "gut",          default: 1
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "interviews", ["recruiter_id"], name: "index_interviews_on_recruiter_id", using: :btree
