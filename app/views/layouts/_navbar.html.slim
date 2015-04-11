@@ -9,5 +9,6 @@
           a.navbar-brand href="/" JobHunt
         .navbar-collapse.collapse.navbar-responsive-collapse
           ul.nav.navbar-nav
-            li.active= link_to "Recruiters", recruiters_path
+            li= navbar_tab_to "Recruiters", recruiters_path
+            li= navbar_tab_to "Interviews", interviews_path
             li= link_to "MailChimp", "https://us10.admin.mailchimp.com/", {target: "_blank"}
