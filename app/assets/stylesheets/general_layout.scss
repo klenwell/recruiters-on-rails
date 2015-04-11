@@ -34,3 +34,11 @@ label.horizontal {
  * Datepicker
  */
 div.datepicker { z-index: 1050 !important; }
+
+/*
+ * Index Tables
+ */
+table.table-striped td.no-records {
+  text-align: center;
+  font-weight: bold;
+}

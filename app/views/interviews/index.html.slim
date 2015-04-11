@@ -1,3 +1,6 @@
 h2 Interviews
 
+div.actions
+  = link_to 'New Interview', new_recruiter_path, {class: "btn btn-primary", type: "button"}
+
 == render partial: 'table', locals: {interviews: @interviews}

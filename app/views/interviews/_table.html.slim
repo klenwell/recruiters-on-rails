@@ -1,5 +1,5 @@
 
-table
+table.table.table-striped
   thead
     tr
       th Recruiter
@@ -14,21 +14,26 @@ table
       th Gut
       th
       th
-      th
 
   tbody
-    - interviews.each do |interview|
+    - if interviews.any?
+      - interviews.each do |interview|
+        tr
+          td = interview.recruiter
+          td = interview.date
+          td = interview.company
+          td = interview.culture
+          td = interview.people
+          td = interview.work
+          td = interview.career
+          td = interview.commute
+          td = interview.salary
+          td = interview.gut
+          td
+            a.btn.btn-default href=edit_interviews_path(interview)
+              span.glyphicon.glyphicon-edit aria-hidden="true"
+              |  Edit
+
+    - else
       tr
-        td = interview.recruiter
-        td = interview.date
-        td = interview.company
-        td = interview.culture
-        td = interview.people
-        td = interview.work
-        td = interview.career
-        td = interview.commute
-        td = interview.salary
-        td = interview.gut
-        td = link_to 'Show', interview
-        td = link_to 'Edit', edit_interview_path(interview)
-        td = link_to 'Destroy', interview, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td.no-records colspan=11 No interviews yet.
