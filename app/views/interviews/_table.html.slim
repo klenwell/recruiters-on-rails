@@ -12,6 +12,7 @@ table.table.table-striped
       th Commute
       th Salary
       th Gut
+      th Total
       th
       th
 
@@ -19,7 +20,7 @@ table.table.table-striped
     - if interviews.any?
       - interviews.each do |interview|
         tr
-          td = interview.recruiter
+          td = interview.recruiter.name
           td = interview.date
           td = interview.company
           td = interview.culture
@@ -29,8 +30,9 @@ table.table.table-striped
           td = interview.commute
           td = interview.salary
           td = interview.gut
+          td = interview.total
           td
-            a.btn.btn-default href=edit_interviews_path(interview)
+            a.btn.btn-default href=edit_interview_path(interview)
               span.glyphicon.glyphicon-edit aria-hidden="true"
               |  Edit
 

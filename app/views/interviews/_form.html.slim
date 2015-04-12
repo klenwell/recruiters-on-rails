@@ -1,0 +1,51 @@
+= form_for @interview, {class: 'form-horizontal'} do |f|
+  - if @interview.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@interview.errors.count, "error")} prohibited this interview from being saved:"
+      ul
+        - @interview.errors.full_messages.each do |message|
+          li = message
+
+  div.two-column.row
+    div.col-sm-6.left.assessement
+      - [:culture, :people, :work, :career, :commute, :salary, :gut].each do |field|
+        div.form-group.row
+          div.col-sm-2
+          = f.label field, {class: 'col-sm-4 control-label horizontal'}
+          div.col-sm-2
+            = f.select(field,
+              options_for_select((1..5).to_a.reverse, @interview.send(field.to_s)),
+              {},
+              {class: "form-control"})
+          div.col-sm-4
+
+    div.col-sm-6.right
+      div.form-group.row
+        = f.fields_for :recruiter, @interview.recruiter do |fr|
+          = fr.label :recruiter, {class: 'col-sm-2 control-label horizontal'}
+          div.col-sm-7
+            = f.select(:recruiter_id,
+                options_for_select(@recruiters.map{ |r| [r.email, r.id] }, @interview.recruiter.id),
+                {},
+                {class: "form-control"})
+          div.col-sm-3
+
+      div.form-group.row
+        = f.label :company, {class: 'col-sm-2 control-label horizontal'}
+        div.col-sm-6
+          = f.text_field :company, {class: 'form-control'}
+        div.col-sm-4
+
+      div.form-group.row
+        = f.label :date, {class: 'col-sm-2 control-label horizontal'}
+        div.col-sm-4
+          div.input-group.date
+            = f.text_field :date, {'class' => 'form-control'}
+            span.input-group-addon
+              i.glyphicon.glyphicon-calendar aria-hidden="true"
+        div.col-sm-6
+
+      div.actions.row
+        div.col-md-offset-2.col-sm-10
+          = f.submit({class: 'btn btn-primary'})
+          a.btn.btn-default href=interviews_path = 'Cancel'

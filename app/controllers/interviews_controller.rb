@@ -15,6 +15,13 @@ class InterviewsController < ApplicationController
   # GET /interviews/new
   def new
     @interview = Interview.new
+    @recruiters = Recruiter.all
+    @interview.build_recruiter
+
+    # Default assessment values to 3
+    Interview::Assessments.each do |assessment|
+      @interview.send(format('%s=', assessment.to_s), 3)
+    end
   end
 
   # GET /interviews/1/edit
@@ -25,6 +32,7 @@ class InterviewsController < ApplicationController
   # POST /interviews.json
   def create
     @interview = Interview.new(interview_params)
+    @recruiters = Recruiter.all
 
     respond_to do |format|
       if @interview.save

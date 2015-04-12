@@ -1,6 +1,10 @@
 class Interview < ActiveRecord::Base
   # Associations
   belongs_to :recruiter
+  accepts_nested_attributes_for :recruiter
+
+  # Constants
+  Assessments = [:culture, :people, :work, :career, :commute, :salary, :gut]
 
   # Validations
   validates :company, :date, presence: true
