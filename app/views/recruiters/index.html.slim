@@ -28,9 +28,11 @@ table.table.table-striped
         td = (recruiter.pings.any? ? recruiter.pings.last.date : 'N/A')
         td = recruiter.score
         td
-          a.btn.btn-default href=edit_recruiter_path(recruiter)
+          a.btn.btn-default [
+              href=edit_recruiter_path(recruiter)
+              title="edit"
+            ]
             span.glyphicon.glyphicon-edit aria-hidden="true"
-            |  Edit
         td
           a.btn.btn-default#ping [
               href=new_recruiter_ping_path(recruiter)
