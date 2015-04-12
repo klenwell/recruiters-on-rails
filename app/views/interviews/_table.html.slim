@@ -2,35 +2,24 @@
 table.table.table-striped
   thead
     tr
-      th Recruiter
       th Date
       th Company
-      th Culture
-      th People
-      th Work
-      th Career
-      th Commute
-      th Salary
-      th Gut
+      th Recruiter
+      th Interviewer
       th Total
-      th
+      th Result
       th
 
   tbody
     - if interviews.any?
       - interviews.each do |interview|
         tr
-          td = interview.recruiter.name
           td = interview.date
           td = interview.company
-          td = interview.culture
-          td = interview.people
-          td = interview.work
-          td = interview.career
-          td = interview.commute
-          td = interview.salary
-          td = interview.gut
+          td = interview.recruiter.name
+          td = interview.interviewer
           td = interview.total
+          td = interview.result
           td
             a.btn.btn-default href=edit_interview_path(interview)
               span.glyphicon.glyphicon-edit aria-hidden="true"
