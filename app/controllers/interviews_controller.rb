@@ -14,9 +14,10 @@ class InterviewsController < ApplicationController
 
   # GET /interviews/new
   def new
+    set_recruiter
     @interview = Interview.new
+    @interview.build_recruiter(id: @recruiter.id)
     @recruiters = Recruiter.all
-    @interview.build_recruiter
 
     # Default assessment values to 3
     Interview::Assessments.each do |assessment|
@@ -72,6 +73,10 @@ class InterviewsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_recruiter
+      @recruiter = Recruiter.find_or_initialize_by(id: params[:recruiter_id])
+    end
+
     def set_interview
       @interview = Interview.find(params[:id])
     end
