@@ -24,7 +24,8 @@ class InterviewsControllerTest < ActionController::TestCase
         salary: @interview.salary, work: @interview.work }
     end
 
-    assert_redirected_to interview_path(assigns(:interview))
+    assert assigns(:interview)
+    assert_redirected_to interviews_path
   end
 
   test "should show interview" do
@@ -42,7 +43,9 @@ class InterviewsControllerTest < ActionController::TestCase
       commute: @interview.commute, company: @interview.company, culture: @interview.culture,
       date: @interview.date, gut: @interview.gut, people: @interview.people,
       recruiter_id: @interview.recruiter_id, salary: @interview.salary, work: @interview.work }
-    assert_redirected_to interview_path(assigns(:interview))
+
+    assert assigns(:interview)
+    assert_redirected_to interviews_path
   end
 
   test "should destroy interview" do
