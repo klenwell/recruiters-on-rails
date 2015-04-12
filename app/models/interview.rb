@@ -5,6 +5,8 @@ class Interview < ActiveRecord::Base
 
   # Constants
   Assessments = [:culture, :people, :work, :career, :commute, :salary, :gut]
+  Kinds = ['phone', 'in-person']
+  Results = ['waiting', 'advance', 'rejected', 'withdraw', 'offer']
 
   # Validations
   validates :company, :date, presence: true

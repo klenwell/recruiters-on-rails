@@ -37,7 +37,7 @@ class InterviewsController < ApplicationController
 
     respond_to do |format|
       if @interview.save
-        format.html { redirect_to @interview, notice: 'Interview was successfully created.' }
+        format.html { redirect_to interviews_path, notice: 'Interview was successfully created.' }
         format.json { render :show, status: :created, location: @interview }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class InterviewsController < ApplicationController
   def update
     respond_to do |format|
       if @interview.update(interview_params)
-        format.html { redirect_to @interview, notice: 'Interview was successfully updated.' }
+        format.html { redirect_to interviews_path, notice: 'Interview was successfully updated.' }
         format.json { render :show, status: :ok, location: @interview }
       else
         format.html { render :edit }
@@ -78,6 +78,7 @@ class InterviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def interview_params
-      params.require(:interview).permit(:recruiter_id, :date, :company, :culture, :people, :work, :career, :commute, :salary, :gut)
+      params.require(:interview).permit(:recruiter_id, :date, :company, :culture,
+        :people, :work, :career, :commute, :salary, :gut, :interviewer, :notes)
     end
 end

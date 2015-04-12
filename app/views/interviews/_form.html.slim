@@ -24,16 +24,31 @@
         = f.fields_for :recruiter, @interview.recruiter do |fr|
           = fr.label :recruiter, {class: 'col-sm-2 control-label horizontal'}
           div.col-sm-7
-            = f.select(:recruiter_id,
+            = fr.select(:id,
                 options_for_select(@recruiters.map{ |r| [r.email, r.id] }, @interview.recruiter.id),
                 {},
                 {class: "form-control"})
           div.col-sm-3
 
       div.form-group.row
+        = f.label :kind, {class: 'col-sm-2 control-label horizontal'}
+        div.col-sm-7
+          = f.select(:kind,
+              options_for_select(Interview::Kinds, @interview.kind),
+              {},
+              {class: "form-control"})
+        div.col-sm-3
+
+      div.form-group.row
         = f.label :company, {class: 'col-sm-2 control-label horizontal'}
         div.col-sm-6
           = f.text_field :company, {class: 'form-control'}
+        div.col-sm-4
+
+      div.form-group.row
+        = f.label :interviewer, {class: 'col-sm-2 control-label horizontal'}
+        div.col-sm-6
+          = f.text_field :interviewer, {class: 'form-control'}
         div.col-sm-4
 
       div.form-group.row
@@ -44,6 +59,21 @@
             span.input-group-addon
               i.glyphicon.glyphicon-calendar aria-hidden="true"
         div.col-sm-6
+
+      div.form-group.row
+        = f.label :notes, {class: 'col-sm-2 control-label horizontal'}
+        div.col-sm-6
+          = f.text_area :notes, {class: 'form-control'}
+        div.col-sm-4
+
+      div.form-group.row
+        = f.label :result, {class: 'col-sm-2 control-label horizontal'}
+        div.col-sm-7
+          = f.select(:result,
+              options_for_select(Interview::Results, @interview.result),
+              {},
+              {class: "form-control"})
+        div.col-sm-3
 
       div.actions.row
         div.col-md-offset-2.col-sm-10
