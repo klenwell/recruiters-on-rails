@@ -32,6 +32,7 @@ class RecruiterTest < ActiveSupport::TestCase
       alice.save!
     end
 
-    assert_equal 2, alice.score
+    ping_interview_points = 9   # 2 (for each ping) + 7 (for interview)
+    assert_equal ping_interview_points, alice.score
   end
 end

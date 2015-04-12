@@ -4,6 +4,7 @@ acme:
   recruiter_id: <%= ActiveRecord::FixtureSet.identify(:alice) %>
   date: 2015-04-10
   company: Acme Industries
+  interviewer: Wile E. Coyote
   culture: 1
   people: 1
   work: 1
