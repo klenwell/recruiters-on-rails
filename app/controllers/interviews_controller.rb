@@ -26,6 +26,7 @@ class InterviewsController < ApplicationController
 
   # GET /interviews/1/edit
   def edit
+    @recruiters = Recruiter.all
   end
 
   # POST /interviews
