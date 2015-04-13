@@ -61,6 +61,14 @@ class RecruitersController < ApplicationController
     end
   end
 
+  # GET /recruiters/import
+  def import
+  end
+
+  # POST /recruiters/process_import
+  def process_import
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recruiter
