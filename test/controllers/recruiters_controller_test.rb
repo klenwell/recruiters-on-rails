@@ -48,4 +48,29 @@ class RecruitersControllerTest < ActionController::TestCase
 
     assert_redirected_to recruiters_path
   end
+
+  test "should import test MailChimp export file" do
+    assert_difference('Recruiter.count', 4) do
+      post :process_import, file: fixture_file_upload('files/mailchimp-export.csv')
+    end
+    assert_redirected_to recruiters_path
+
+    # Verify import data and normalizations
+    recruiter_email = 'charlene.cherry@corp.company-three.com'
+    charlene = Recruiter.find_by_email(recruiter_email)
+    assert_equal recruiter_email, charlene.email
+    assert_equal 'Company Three', charlene.company
+  end
+
+  test "should map MailChimp import to existing company by email" do
+    @recruiter.update_attribute(:email, 'alice@company-two.com')
+
+    assert_difference('Recruiter.count', 4) do
+      post :process_import, file: fixture_file_upload('files/mailchimp-export.csv')
+    end
+    assert_redirected_to recruiters_path
+
+    bob = Recruiter.find_by_email('bob.banana@company-two.com')
+    assert_equal @recruiter.company, bob.company
+  end
 end

@@ -67,6 +67,44 @@ class RecruitersController < ApplicationController
 
   # POST /recruiters/process_import
   def process_import
+    recruiters = {
+      imported: [],
+      duplicated: [],
+      invalid: []
+    }
+
+    file = params[:file]
+    #p file.original_filename
+
+    SmarterCSV.process(file).each do |row|
+      recruiter = Recruiter.create_from_import(row)
+
+      if recruiter.persisted?
+        recruiters[:imported] << recruiter
+      elsif recruiter.errors.added? :email, :taken
+        recruiters[:duplicated] << recruiter
+      else
+        recruiters[:invalid] << recruiter
+      end
+    end
+
+    respond_to do |format|
+      if recruiters[:imported].length == recruiters.values.map{|a| a.length}.sum
+        format.html {
+          redirect_to recruiters_path,
+          notice: format('All %d recruiters were successfully imported.',
+                         recruiters[:imported].length)
+        }
+      else
+        # TODO: Add review view
+        #@recruiters = recruiters
+        #format.html { render :review_import }
+        format.html {
+          redirect_to recruiters_path,
+          notice: 'PROBLEM'
+        }
+      end
+    end
   end
 
   private
