@@ -87,8 +87,14 @@ class Recruiter < ActiveRecord::Base
 
     recruiter = Recruiter.create(params)
 
-    # TODO: Add ping when recruiter imported
-    #Ping.create_for_import(recruiter, file_name) if recruiter.persisted?
+    # Add first ping
+    if recruiter.persisted?
+      recruiter.pings << Ping.create(
+        recruiter_id: recruiter.id,
+        kind: 'mailchimp import',
+        note: 'Imported from CSV file.'
+      )
+    end
 
     recruiter
   end
