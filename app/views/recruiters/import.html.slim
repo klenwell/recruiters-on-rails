@@ -2,12 +2,12 @@ h2 Import Recruiters
 
 br
 
-= form_for import_recruiters_path, {multipart: true} do |f|
+= form_tag process_import_recruiters_path, multipart: true do
 
   div.form-group
-    = f.file_field :file
+    = file_field_tag :file
     p.help-block Supports export files (.csv or .zip) from MailChimp
 
   div.actions.row
-    = f.submit "Import", {class: 'btn btn-primary'}
+    = submit_tag "Import", {class: 'btn btn-primary'}
     a.btn.btn-default href=recruiters_path = 'Cancel'

@@ -63,6 +63,7 @@ class RecruitersControllerTest < ActionController::TestCase
 
     # Assert ping added
     assert_equal 1, charlene.pings.length
+    assert_equal Date.today, charlene.pings.first.date
     assert_equal 'mailchimp import', charlene.pings.first.kind
     assert_equal Ping::Events['mailchimp import'], charlene.pings.first.value
   end

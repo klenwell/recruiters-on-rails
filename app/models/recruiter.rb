@@ -91,6 +91,7 @@ class Recruiter < ActiveRecord::Base
     if recruiter.persisted?
       recruiter.pings << Ping.create(
         recruiter_id: recruiter.id,
+        date: Date.today,
         kind: 'mailchimp import',
         note: 'Imported from CSV file.'
       )

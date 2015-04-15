@@ -76,7 +76,7 @@ class RecruitersController < ApplicationController
     file = params[:file]
     #p file.original_filename
 
-    SmarterCSV.process(file).each do |row|
+    SmarterCSV.process(file.path).each do |row|
       recruiter = Recruiter.create_from_import(row)
 
       if recruiter.persisted?
