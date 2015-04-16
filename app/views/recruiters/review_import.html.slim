@@ -1,0 +1,42 @@
+h2 Recruiter Import
+
+h4 = format("File: %s", @file_name)
+
+- @recruiters.each do |type, recruiters|
+  div class="imported-#{type}"
+    h3 = format('%s Recruiters', type.to_s.titleize)
+
+    table.table.table-striped
+      thead
+        tr
+          th Name
+          th Email
+          th Company
+          th
+          th
+
+      tbody
+        - if recruiters.any?
+          - recruiters.each do |recruiter|
+            tr.recruiter-id id="recruiter-#{recruiter.id}"
+              td = recruiter.name
+              td = recruiter.email
+              td = recruiter.company
+              td
+                a.btn.btn-default [
+                    href='#'
+                    title="edit"
+                  ]
+                  span.glyphicon.glyphicon-edit aria-hidden="true"
+              td
+                a.btn.btn-default [
+                    href='#'
+                    title="delete"
+                  ]
+                  span.glyphicon.glyphicon-remove aria-hidden="true"
+        - else
+          tr
+            td.centered colspan=5
+              strong No recruiters.
+
+br

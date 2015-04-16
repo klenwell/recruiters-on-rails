@@ -96,13 +96,9 @@ class RecruitersController < ApplicationController
                          recruiters[:imported].length)
         }
       else
-        # TODO: Add review view
-        #@recruiters = recruiters
-        #format.html { render :review_import }
-        format.html {
-          redirect_to recruiters_path,
-          notice: 'PROBLEM'
-        }
+        @file_name = file.original_filename
+        @recruiters = recruiters
+        format.html { render :review_import }
       end
     end
   end
