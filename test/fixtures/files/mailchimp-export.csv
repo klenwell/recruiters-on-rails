@@ -1,5 +1,5 @@
 "Email Address","First Name","Last Name",MEMBER_RATING,OPTIN_TIME,OPTIN_IP,CONFIRM_TIME,CONFIRM_IP,LATITUDE,LONGITUDE,GMTOFF,DSTOFF,TIMEZONE,CC,REGION,LAST_CHANGED,LEID,EUID,NOTES
 alice.apple@company-one.com,Alice,Apple,2,,,"2015-03-24 19:29:42",10.0.0.10,,,,,,,,"2015-03-24 19:29:42",38009997,c2274274c7,"[2015-03-25 02:30:42] A test note."
 bob.banana@company-two.com,Bob,Banana,2,,,"2015-03-31 19:02:01",10.0.0.10,,,,,,,,"2015-03-31 19:02:01",42162085,5d53018839,
-cherie.cherry@corp.company-three.com,Charlene,Cherry,2,,,"2015-04-01 17:12:50",10.0.0.10,,,,,,,,"2015-04-01 17:12:50",42648569,23054cb9d8,
+cheri.cherry@corp.company-three.com,Charlene,Cherry,2,,,"2015-04-01 17:12:50",10.0.0.10,,,,,,,,"2015-04-01 17:12:50",42648569,23054cb9d8,
 dave.durian@company-one.com,Dave,Durian,2,,,"2015-04-01 17:14:18",10.0.0.10,,,,,,,,"2015-04-01 17:14:18",42648573,52bf1ea8c3,

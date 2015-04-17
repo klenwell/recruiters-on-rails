@@ -56,16 +56,16 @@ class RecruitersControllerTest < ActionController::TestCase
     assert_redirected_to recruiters_path
 
     # Verify import data and normalizations
-    recruiter_email = 'charlene.cherry@corp.company-three.com'
-    charlene = Recruiter.find_by_email(recruiter_email)
-    assert_equal recruiter_email, charlene.email
-    assert_equal 'Company Three', charlene.company
+    recruiter_email = 'cheri.cherry@corp.company-three.com'
+    cheri = Recruiter.find_by_email(recruiter_email)
+    assert_equal recruiter_email, cheri.email
+    assert_equal 'Company Three', cheri.company
 
     # Assert ping added
-    assert_equal 1, charlene.pings.length
-    assert_equal Date.today, charlene.pings.first.date
-    assert_equal 'mailchimp import', charlene.pings.first.kind
-    assert_equal Ping::Events['mailchimp import'], charlene.pings.first.value
+    assert_equal 1, cheri.pings.length
+    assert_equal Date.today, cheri.pings.first.date
+    assert_equal 'mailchimp import', cheri.pings.first.kind
+    assert_equal Ping::Events['mailchimp import'], cheri.pings.first.value
   end
 
   test "should map MailChimp import to existing company by email" do
