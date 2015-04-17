@@ -49,7 +49,7 @@ class RecruitersControllerTest < ActionController::TestCase
     assert_redirected_to recruiters_path
   end
 
-  test "should import test MailChimp export file" do
+  test "should import unzipped test MailChimp export file" do
     assert_difference('Recruiter.count', 4) do
       post :process_import, file: fixture_file_upload('files/mailchimp-export.csv')
     end
@@ -78,5 +78,17 @@ class RecruitersControllerTest < ActionController::TestCase
 
     bob = Recruiter.find_by_email('bob.banana@company-two.com')
     assert_equal @recruiter.company, bob.company
+  end
+
+  test "should import zipped test MailChimp export file" do
+    assert_difference('Recruiter.count', 2) do
+      post :process_import, file: fixture_file_upload('files/members_export_0d46a7760f.zip')
+    end
+    assert_redirected_to recruiters_path
+
+    # Verify import data
+    recruiter_email = 'alice.apple@noop.org'
+    alice = Recruiter.find_by_email(recruiter_email)
+    assert_equal recruiter_email, alice.email
   end
 end

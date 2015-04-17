@@ -74,9 +74,19 @@ class RecruitersController < ApplicationController
     }
 
     file = params[:file]
-    #p file.original_filename
 
-    SmarterCSV.process(file.path).each do |row|
+    # Simple file type detection for zip file
+    if file.original_filename.ends_with?('.zip')
+      require 'zip'
+      csv_file = Zip::File.open(file.path).glob('*.csv').first
+      file_path = File.join("/tmp", csv_file.name)
+      csv_file.extract(file_path) unless File.exist?(file_path)
+    else
+      file_path = file.path
+    end
+
+    # Parse file
+    SmarterCSV.process(file_path).each do |row|
       recruiter = Recruiter.create_from_import(row)
 
       if recruiter.persisted?
