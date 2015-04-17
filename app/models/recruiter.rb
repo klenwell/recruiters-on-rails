@@ -12,11 +12,11 @@ class Recruiter < ActiveRecord::Base
     .order('last_contact DESC') }
 
   def phone=(value)
-    self[:phone] = value.gsub(/[^\d+x]/, "")
+    self[:phone] = value.gsub(/[^\d+x]/, "") if value
   end
 
   def email=(value)
-    self[:email] = value.downcase
+    self[:email] = value.downcase if value
   end
 
   def name
