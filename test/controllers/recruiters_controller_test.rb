@@ -48,4 +48,53 @@ class RecruitersControllerTest < ActionController::TestCase
 
     assert_redirected_to recruiters_path
   end
+
+  test "should import unzipped test MailChimp export file" do
+    assert_difference('Recruiter.count', 4) do
+      post :process_import, file: fixture_file_upload('files/mailchimp-export.csv')
+    end
+    assert_redirected_to recruiters_path
+
+    # Verify import data and normalizations
+    recruiter_email = 'cheri.cherry@corp.company-three.com'
+    cheri = Recruiter.find_by_email(recruiter_email)
+    assert_equal recruiter_email, cheri.email
+    assert_equal 'Company Three', cheri.company
+
+    # Assert ping added
+    assert_equal 1, cheri.pings.length
+    assert_equal Date.today, cheri.pings.first.date
+    assert_equal 'mailchimp import', cheri.pings.first.kind
+    assert_equal Ping::Events['mailchimp import'], cheri.pings.first.value
+  end
+
+  test "should map MailChimp import to existing company by email" do
+    @recruiter.update_attribute(:email, 'alice@company-two.com')
+
+    assert_difference('Recruiter.count', 4) do
+      post :process_import, file: fixture_file_upload('files/mailchimp-export.csv')
+    end
+    assert_redirected_to recruiters_path
+
+    bob = Recruiter.find_by_email('bob.banana@company-two.com')
+    assert_equal @recruiter.company, bob.company
+  end
+
+  test "should import zipped test MailChimp export file" do
+    assert_difference('Recruiter.count', 2) do
+      post :process_import, file: fixture_file_upload('files/members_export_0d46a7760f.zip')
+    end
+    assert_redirected_to recruiters_path
+
+    # Verify import data
+    recruiter_email = 'alice.apple@noop.org'
+    alice = Recruiter.find_by_email(recruiter_email)
+    assert_equal recruiter_email, alice.email
+  end
+
+  test "should display error when import form is submitted with empty file field" do
+    post :process_import
+    assert_redirected_to import_recruiters_path
+    assert_equal 'Please choose a file.', flash[:error]
+  end
 end

@@ -61,6 +61,63 @@ class RecruitersController < ApplicationController
     end
   end
 
+  # GET /recruiters/import
+  def import
+  end
+
+  # POST /recruiters/process_import
+  def process_import
+    recruiters = {
+      imported: [],
+      duplicated: [],
+      invalid: []
+    }
+
+    if params[:file].blank?
+      flash[:error] = 'Please choose a file.'
+      return redirect_to import_recruiters_path
+    else
+      file = params[:file]
+    end
+
+    # Simple file type detection for zip file
+    if file.original_filename.ends_with?('.zip')
+      require 'zip'
+      csv_file = Zip::File.open(file.path).glob('*.csv').first
+      file_path = File.join("/tmp", csv_file.name)
+      csv_file.extract(file_path) unless File.exist?(file_path)
+    else
+      file_path = file.path
+    end
+
+    # Parse file
+    SmarterCSV.process(file_path).each do |row|
+      recruiter = Recruiter.create_from_import(row)
+
+      if recruiter.persisted?
+        recruiters[:imported] << recruiter
+      elsif recruiter.errors.added? :email, :taken
+        recruiters[:duplicated] << recruiter
+      else
+        recruiters[:invalid] << recruiter
+      end
+    end
+
+    respond_to do |format|
+      if recruiters[:imported].length == recruiters.values.map{|a| a.length}.sum
+        format.html {
+          redirect_to recruiters_path,
+          notice: format('All %d recruiters were successfully imported.',
+                         recruiters[:imported].length)
+        }
+      else
+        @file_name = file.original_filename
+        @recruiters = recruiters
+        format.html { render :review_import }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recruiter

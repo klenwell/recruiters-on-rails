@@ -35,4 +35,13 @@ class RecruiterTest < ActiveSupport::TestCase
     ping_interview_points = 9   # 2 (for each ping) + 7 (for interview)
     assert_equal ping_interview_points, alice.score
   end
+
+  test "should return all recruiter companies" do
+    assert_equal recruiters(:alice).company, Recruiter.companies.first
+  end
+
+  test "should find company by email address" do
+    assert_equal recruiters(:alice).company,
+      Recruiter.find_existing_company_by_email(recruiters(:alice).email)
+  end
 end

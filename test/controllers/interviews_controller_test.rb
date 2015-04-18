@@ -12,20 +12,33 @@ class InterviewsControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    get :new
+    get :new, recruiter_id: @interview.recruiter_id
     assert_response :success
+    assert_select 'select#interview_recruiter_id', {count: 1}
   end
 
-  test "should create interview" do
+  test "should create interview with recruiter assigned" do
     assert_difference('Interview.count') do
-      post :create, interview: { career: @interview.career, commute: @interview.commute,
-        company: @interview.company, culture: @interview.culture, date: @interview.date,
-        gut: @interview.gut, people: @interview.people, recruiter_id: @interview.recruiter_id,
-        salary: @interview.salary, work: @interview.work }
+      post :create,
+        interview: {
+          career: @interview.career,
+          commute: @interview.commute,
+          company: @interview.company,
+          culture: @interview.culture,
+          date: @interview.date,
+          gut: @interview.gut,
+          people: @interview.people,
+          salary: @interview.salary,
+          work: @interview.work,
+          recruiter_id: @interview.recruiter_id
+        }
     end
 
     assert assigns(:interview)
     assert_redirected_to interviews_path
+
+    created_interview = Interview.find(assigns(:interview).id)
+    assert_equal Recruiter.find(@interview.recruiter_id), created_interview.recruiter
   end
 
   test "should show interview" do
@@ -34,7 +47,7 @@ class InterviewsControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
-    get :edit, id: @interview
+    get :edit, id: @interview, recruiter_id: @interview.recruiter_id
     assert_response :success
   end
 

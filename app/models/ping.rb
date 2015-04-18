@@ -3,7 +3,7 @@ class Ping < ActiveRecord::Base
   belongs_to :recruiter
 
   # Constants
-  KINDS = {
+  Kinds = {
     # type: value
     # recruiter pinging you
     'spam' => 0,
@@ -13,11 +13,15 @@ class Ping < ActiveRecord::Base
 
     # you pinging recruiter
     'email from you' => 0,
-    'phone call from you' => -1
+    'phone call from you' => -1,
+  }
+
+  Events = {
+    'mailchimp import' => 0
   }
 
   # Validators
-  validates :kind, inclusion: { in: KINDS.stringify_keys.keys,
+  validates :kind, inclusion: { in: Kinds.keys + Events.keys,
     message: "%{value} is not a valid ping type" }
 
   # Scopes
@@ -25,10 +29,11 @@ class Ping < ActiveRecord::Base
 
   # Class Methods
   def self.kinds
-    KINDS.stringify_keys.keys
+    Kinds.stringify_keys.keys
   end
 
+  # Instance Methods
   def value
-    KINDS[kind]
+    Kinds.merge(Events).fetch(kind, 0)
   end
 end

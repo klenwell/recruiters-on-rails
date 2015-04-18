@@ -2,6 +2,11 @@ Rails.application.routes.draw do
 
   resources :recruiters do
     resources :pings
+
+    collection do
+      get :import
+      post :process_import
+    end
   end
 
   resources :interviews
