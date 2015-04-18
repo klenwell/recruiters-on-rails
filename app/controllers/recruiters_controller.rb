@@ -73,7 +73,12 @@ class RecruitersController < ApplicationController
       invalid: []
     }
 
-    file = params[:file]
+    if params[:file].blank?
+      flash[:error] = 'Please choose a file.'
+      return redirect_to import_recruiters_path
+    else
+      file = params[:file]
+    end
 
     # Simple file type detection for zip file
     if file.original_filename.ends_with?('.zip')

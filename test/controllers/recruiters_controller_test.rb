@@ -91,4 +91,10 @@ class RecruitersControllerTest < ActionController::TestCase
     alice = Recruiter.find_by_email(recruiter_email)
     assert_equal recruiter_email, alice.email
   end
+
+  test "should display error when import form is submitted with empty file field" do
+    post :process_import
+    assert_redirected_to import_recruiters_path
+    assert_equal 'Please choose a file.', flash[:error]
+  end
 end
