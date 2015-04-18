@@ -14,9 +14,8 @@ class InterviewsController < ApplicationController
 
   # GET /interviews/new
   def new
-    set_recruiter
+    @recruiter = Recruiter.find_or_initialize_by(id: params[:recruiter_id])
     @interview = Interview.new
-    @interview.build_recruiter(id: @recruiter.id)
     @recruiters = Recruiter.all
 
     # Default assessment values to 3
@@ -27,12 +26,14 @@ class InterviewsController < ApplicationController
 
   # GET /interviews/1/edit
   def edit
+    @recruiter = Recruiter.find_or_initialize_by(id: params[:recruiter_id])
     @recruiters = Recruiter.all
   end
 
   # POST /interviews
   # POST /interviews.json
   def create
+    @recruiter = Recruiter.find_or_initialize_by(id: params[:recruiter_id])
     @interview = Interview.new(interview_params)
     @recruiters = Recruiter.all
 
@@ -73,18 +74,16 @@ class InterviewsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_recruiter
-      @recruiter = Recruiter.find_or_initialize_by(id: params[:recruiter_id])
-    end
-
     def set_interview
       @interview = Interview.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def interview_params
-      params.require(:interview).permit(:recruiter_id, :date, :company, :culture,
+      params.require(:interview).permit(:date, :company, :culture, :kind,
         :people, :work, :career, :commute, :salary, :gut, :interviewer, :notes,
-        :result)
+        :result,
+        :recruiter_id,
+        recruiter_attributes: [:id])
     end
 end

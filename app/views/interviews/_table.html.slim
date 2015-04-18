@@ -16,7 +16,7 @@ table.table.table-striped
         tr
           td = interview.date
           td = interview.company
-          td = interview.recruiter.name
+          td = (interview.recruiter ? interview.recruiter.name : 'N/A')
           td = interview.interviewer
           td = interview.total
           td = interview.result

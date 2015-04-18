@@ -21,14 +21,13 @@
 
     div.col-sm-6.right
       div.form-group.row
-        = f.fields_for :recruiter, @interview.recruiter do |fr|
-          = fr.label :recruiter, {class: 'col-sm-2 control-label horizontal'}
-          div.col-sm-7
-            = fr.select(:id,
-                options_for_select(@recruiters.map{ |r| [r.email, r.id] }, @interview.recruiter.id),
-                {},
-                {class: "form-control"})
-          div.col-sm-3
+        = f.label :recruiter, {class: 'col-sm-2 control-label horizontal'}
+        div.col-sm-7
+          = f.select(:recruiter_id,
+              options_for_select(@recruiters.map{ |r| [r.email, r.id] }, @recruiter.id),
+              {},
+              {class: "form-control"})
+        div.col-sm-3
 
       div.form-group.row
         = f.label :kind, {class: 'col-sm-2 control-label horizontal'}
