@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+merit:
+  recruiter_id: <%= ActiveRecord::FixtureSet.identify(:alice) %>
+  reason: A test merit
+  value: 1
+  date: 2015-04-27
+
+demerit:
+  recruiter_id: <%= ActiveRecord::FixtureSet.identify(:alice) %>
+  reason: A test demerit
+  value: -1
+  date: 2015-04-27
