@@ -1,0 +1,35 @@
+table.table.table-striped
+  thead
+    tr
+      th Date
+      th Reason
+      th Value
+      th
+      th
+
+  tbody
+    - if merits.any?
+      - merits.each do |merit|
+        tr
+          td = merit.date
+          td = merit.reason
+          td = merit.value
+          td
+            a[class="btn btn-default"
+              href=edit_recruiter_merit_path(recruiter_id: merit.recruiter_id, id: merit.id)
+            ]
+              span.glyphicon.glyphicon-edit aria-hidden="true"
+              |  Edit
+          td
+            a[class="btn btn-danger"
+              href=recruiter_merit_path(recruiter_id: merit.recruiter_id, id: merit.id)
+              data-method="delete"
+              data-confirm="Are you sure?"
+              rel="nofollow"
+            ]
+              span.glyphicon.glyphicon-remove aria-hidden="true"
+              |  Delete
+
+    - else
+      tr
+        td.no-records colspan=5 No merits or demerits yet.

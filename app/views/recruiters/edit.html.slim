@@ -5,3 +5,7 @@ h2 = @recruiter.name
 h3 Pings
 
 == render partial: 'pings/table', locals: {pings: @recruiter.pings.by_date}
+
+h3 Merits / Demerits
+
+== render partial: 'merits/table', locals: {merits: @recruiter.merits.by_date}
