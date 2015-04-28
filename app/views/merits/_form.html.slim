@@ -1,0 +1,42 @@
+= form_for [@recruiter, @merit], {class: 'form-horizontal'} do |f|
+  - if @merit.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@merit.errors.count, "error")} prohibited this merit from being saved:"
+      ul
+        - @merit.errors.full_messages.each do |message|
+          li = message
+
+  div.form-group.row
+    = f.label :recruiter, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      = f.select(:recruiter_id,
+          options_for_select(@recruiters.map{ |r| [r.email, r.id] }, @recruiter.id),
+          {},
+          {class: "form-control"})
+    div.col-sm-7
+
+  div.form-group.row
+    = f.label :date, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      div.input-group.date
+        = f.text_field :date, {'class' => 'form-control'}
+        span.input-group-addon
+          i.glyphicon.glyphicon-calendar aria-hidden="true"
+    div.col-sm-7
+
+  div.form-group.row
+    = f.label :reason, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      = f.text_field :reason, {class: 'form-control'}
+    div.col-sm-7
+
+  div.form-group.row
+    = f.label :value, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      = f.text_field :value, {class: 'form-control'}
+    div.col-sm-7
+
+  div.actions.row
+    div.col-md-offset-2.col-sm-10
+      = f.submit({class: 'btn btn-primary'})
+      a.btn.btn-default href=recruiters_path = 'Cancel'

@@ -26,6 +26,7 @@ class Recruiter < ActiveRecord::Base
 
   def score
     (pings.any? ? (pings.collect{|ping| ping.value}).sum : 0) +
+    (merits.any? ? (merits.collect{|merit| merit.value}).sum : 0) +
     (interviews.any? ? (interviews.collect{|interview| interview.total}).sum : 0)
   end
 

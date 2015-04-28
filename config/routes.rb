@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :recruiters do
     resources :pings
+    resources :merits
 
     collection do
       get :import
