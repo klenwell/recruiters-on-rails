@@ -39,6 +39,22 @@ class MeritsController < ApplicationController
     @recruiters = Recruiter.all
   end
 
+  # PATCH/PUT /merits/1
+  # PATCH/PUT /merits/1.json
+  def update
+    respond_to do |format|
+      if @merit.update(merit_params)
+        format.html { redirect_to(
+          edit_recruiter_path(id: @merit.recruiter_id),
+          notice: 'Merit was successfully updated.') }
+        format.json { render :show, status: :ok, location: @merit }
+      else
+        format.html { render :edit }
+        format.json { render json: @merit.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_merit
