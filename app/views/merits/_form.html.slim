@@ -33,10 +33,16 @@
   div.form-group.row
     = f.label :value, {class: 'col-sm-2 control-label horizontal'}
     div.col-sm-3
-      = f.text_field :value, {class: 'form-control'}
+      div.btn-group data-toggle="buttons"
+        - [8, 5, 3, 2, 1].each do |v|
+          label[
+            class = format("btn btn-%s%s", @label == 'merit' ? 'success' : 'danger', @merit.value.abs == v ? ' active' : '')
+          ]
+            = f.radio_button :value, @label == 'merit' ? v : v*-1
+            | #{@label == 'merit' ? v : v*-1}
     div.col-sm-7
 
   div.actions.row
     div.col-md-offset-2.col-sm-10
-      = f.submit(format('Add %s', @label.titleize), {class: 'btn btn-primary'})
+      = f.submit(format('Save %s', @label.titleize), {class: 'btn btn-primary'})
       a.btn.btn-default href=recruiters_path = 'Cancel'

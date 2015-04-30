@@ -24,7 +24,9 @@ class MeritsController < ApplicationController
 
     respond_to do |format|
       if @merit.save
-        format.html { redirect_to recruiters_path, notice: 'Merit was successfully created.' }
+        format.html { redirect_to(
+          edit_recruiter_path(id: @merit.recruiter_id),
+          notice: 'Merit was successfully created.') }
         format.json { render :show, status: :created, location: @merit }
       else
         format.html { render :new }

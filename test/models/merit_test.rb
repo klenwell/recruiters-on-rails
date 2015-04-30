@@ -12,4 +12,14 @@ class MeritTest < ActiveSupport::TestCase
     assert demerit.save, format("Failed to save demerit: %s", demerit.errors.full_messages)
     assert_equal -1, demerit.value
   end
+
+  test "should default value to 0" do
+    merit = Merit.new
+    assert_equal 0, merit.value
+  end
+
+  test "that is_demerit? method works" do
+    assert merits(:demerit).is_demerit?
+    assert_not merits(:merit).is_demerit?
+  end
 end

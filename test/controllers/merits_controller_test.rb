@@ -17,7 +17,7 @@ class MeritsControllerTest < ActionController::TestCase
     end
 
     assert assigns(:merit)
-    assert_redirected_to recruiters_path
+    assert_redirected_to edit_recruiter_path(id: @merit.recruiter_id)
   end
 
   test "should get edit view" do
