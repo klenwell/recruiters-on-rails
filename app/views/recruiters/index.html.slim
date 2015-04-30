@@ -21,9 +21,10 @@ table.table.table-striped
       th Email
       th Company
       th Phone
-      th First Contact
       th Last Contact
       th Score
+      th
+      th
       th
       th
       th
@@ -35,7 +36,6 @@ table.table.table-striped
         td = recruiter.email
         td = recruiter.company
         td = number_to_phone(recruiter.phone)
-        td = (recruiter.pings.any? ? recruiter.pings.first.date : 'N/A')
         td = (recruiter.pings.any? ? recruiter.pings.last.date : 'N/A')
         td = recruiter.score
         td
@@ -55,6 +55,18 @@ table.table.table-striped
               href=new_interview_path(recruiter_id: recruiter.id)
               title="interview"
             ]
-            span.glyphicon.glyphicon-star aria-hidden="true"
+            span.glyphicon.glyphicon-briefcase aria-hidden="true"
+        td
+          a.btn.btn-default#merit [
+              href=new_recruiter_merit_path(recruiter)
+              title="Add Merit"
+            ]
+            span.glyphicon.glyphicon-thumbs-up aria-hidden="true"
+        td
+          a.btn.btn-default#demerit [
+              href=new_recruiter_merit_path(recruiter, demerit: true)
+              title="Add Demerit"
+            ]
+            span.glyphicon.glyphicon-thumbs-down aria-hidden="true"
 
 br

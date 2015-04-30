@@ -28,7 +28,8 @@ class RecruitersController < ApplicationController
 
     respond_to do |format|
       if @recruiter.save
-        format.html { redirect_to recruiters_path, notice: 'Recruiter was successfully created.' }
+        format.html { redirect_to new_recruiter_ping_path(@recruiter),
+          notice: 'Recruiter was successfully created. Please add a ping.' }
         format.json { render :show, status: :created, location: @recruiter }
       else
         format.html { render :new }

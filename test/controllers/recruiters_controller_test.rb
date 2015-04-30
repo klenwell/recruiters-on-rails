@@ -23,7 +23,8 @@ class RecruitersControllerTest < ActionController::TestCase
       post :create, recruiter: recruiter_params
     end
 
-    assert_redirected_to recruiters_path
+    alice = Recruiter.find_by_email("alice@gmail.com")
+    assert_redirected_to new_recruiter_ping_path(alice)
   end
 
   test "should show recruiter" do
