@@ -37,6 +37,7 @@ class MeritsController < ApplicationController
   def edit
     @recruiter = Recruiter.find(params[:recruiter_id])
     @merit = @recruiter.merits.find(params[:id])
+    @label = @merit.is_demerit? ? 'demerit' : 'merit'
     @recruiters = Recruiter.all
   end
 
@@ -53,6 +54,16 @@ class MeritsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @merit.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # DELETE /merits/1
+  # DELETE /merits/1.json
+  def destroy
+    @merit.destroy
+    respond_to do |format|
+      format.html { redirect_to recruiters_path, notice: 'Merit was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 

@@ -30,4 +30,12 @@ class MeritsControllerTest < ActionController::TestCase
       merit: { date: @merit.date, reason: @merit.reason, value: @merit.value }
     assert_redirected_to edit_recruiter_path(id: @merit.recruiter_id)
   end
+
+  test "should destroy ping" do
+    assert_difference('Merit.count', -1) do
+      delete :destroy, id: @merit, recruiter_id: @merit.recruiter_id
+    end
+
+    assert_redirected_to recruiters_path
+  end
 end
