@@ -10,6 +10,7 @@ class MeritsController < ApplicationController
 
   # GET /merits/new
   def new
+    @label = params[:demerit] ? 'demerit' : 'merit'
     @recruiter = Recruiter.find(params[:recruiter_id])
     @merit = Merit.new(recruiter_id: @recruiter.id)
     @recruiters = Recruiter.all

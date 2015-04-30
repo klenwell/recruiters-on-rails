@@ -38,5 +38,5 @@
 
   div.actions.row
     div.col-md-offset-2.col-sm-10
-      = f.submit({class: 'btn btn-primary'})
+      = f.submit(format('Add %s', @label.titleize), {class: 'btn btn-primary'})
       a.btn.btn-default href=recruiters_path = 'Cancel'
