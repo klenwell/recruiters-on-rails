@@ -16,7 +16,7 @@ class PingsController < ApplicationController
   # GET /pings/new
   def new
     @recruiter = Recruiter.find(params[:recruiter_id])
-    @ping = Ping.new(recruiter_id: @recruiter.id)
+    @ping = Ping.new(recruiter_id: @recruiter.id, date: Date.today.to_s)
     @recruiters = Recruiter.all
   end
 
@@ -35,7 +35,9 @@ class PingsController < ApplicationController
 
     respond_to do |format|
       if @ping.save
-        format.html { redirect_to recruiters_path, notice: 'Ping was successfully created.' }
+        format.html { redirect_to(
+          edit_recruiter_path(id: @ping.recruiter_id),
+          notice: 'Ping was successfully created.') }
         format.json { render :show, status: :created, location: @ping }
       else
         format.html { render :new }
@@ -50,7 +52,7 @@ class PingsController < ApplicationController
     respond_to do |format|
       if @ping.update(ping_params)
         format.html { redirect_to(
-          recruiter_ping_path(recruiter_id: @ping.recruiter_id, id: @ping),
+          edit_recruiter_path(id: @ping.recruiter_id),
           notice: 'Ping was successfully updated.') }
         format.json { render :show, status: :ok, location: @ping }
       else

@@ -22,13 +22,11 @@
  */
 var datepickerReady = function() {
 
-  $('.input-group.date')
-    .datepicker({
-      dateFormat: "yyyy-mm-dd",
-      todayHighlight: true,
-      autoclose: true
-    })
-    .datepicker('setDate', new Date());
+  $('.input-group.date').datepicker({
+    format: "yyyy-mm-dd",
+    todayHighlight: true,
+    autoclose: true
+  });
 };
 
 $(document).ready(datepickerReady);

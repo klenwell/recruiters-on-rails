@@ -18,7 +18,7 @@
   div.form-group.row
     = f.label :kind, {class: 'col-sm-2 control-label horizontal'}
     div.col-sm-3
-      = f.select(:kind, options_for_select(Ping.kinds, :recruiter_id), {}, {class: "form-control"})
+      = f.select(:kind, options_for_select(Ping.kinds, @ping.kind), {}, {class: "form-control"})
     div.col-sm-7
 
   div.form-group.row
