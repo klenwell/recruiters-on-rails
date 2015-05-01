@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def sorted?
+    params[:sort_by].present?
+  end
+
   def sort_by
     params[:sort_by]
   end

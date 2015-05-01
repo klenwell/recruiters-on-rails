@@ -36,7 +36,7 @@ table.table.table-striped
         td = recruiter.email
         td = recruiter.company
         td = number_to_phone(recruiter.phone)
-        td = (recruiter.pings.any? ? recruiter.pings.last.date : 'N/A')
+        td = (recruiter.last_contact.present? ? recruiter.last_contact : 'N/A')
         td = recruiter.score
         td
           a.btn.btn-default [

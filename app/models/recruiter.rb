@@ -1,4 +1,5 @@
 class Recruiter < ActiveRecord::Base
+  include Sortable
 
   has_many :pings, dependent: :destroy
   has_many :merits, dependent: :destroy
@@ -28,6 +29,10 @@ class Recruiter < ActiveRecord::Base
     (pings.any? ? (pings.collect{|ping| ping.value}).sum : 0) +
     (merits.any? ? (merits.collect{|merit| merit.value}).sum : 0) +
     (interviews.any? ? (interviews.collect{|interview| interview.total}).sum : 0)
+  end
+
+  def last_contact
+    pings.any? ? pings.last.date : nil
   end
 
   def self.companies
