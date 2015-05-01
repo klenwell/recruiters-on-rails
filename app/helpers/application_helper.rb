@@ -7,4 +7,11 @@ module ApplicationHelper
     end
   end
 
+  def sortable(column, label = nil)
+    label ||= column.titleize
+    css_class = (column == sort_by) ? "current #{sort_in}" : nil
+    direction = (column == sort_by && sort_in == "asc") ? "desc" : "asc"
+    link_to label, {:sort_by => column, :sort_in => sort_in}, {:class => css_class}
+  end
+
 end
