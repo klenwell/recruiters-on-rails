@@ -20,7 +20,6 @@ table.table.table-striped
       th = sortable 'name'
       th = sortable 'email'
       th = sortable 'company'
-      th = sortable 'phone'
       th = sortable 'last_contact'
       th = sortable 'score'
       th
@@ -35,7 +34,6 @@ table.table.table-striped
         td = recruiter.name
         td = recruiter.email
         td = recruiter.company
-        td = number_to_phone(recruiter.phone)
         td = (recruiter.last_contact.present? ? recruiter.last_contact : 'N/A')
         td = recruiter.score
         td
