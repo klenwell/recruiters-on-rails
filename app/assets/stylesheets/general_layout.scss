@@ -47,9 +47,17 @@ table.table-striped td.no-records {
   font-weight: bold;
 }
 
-/*
- * Column Sorting
- */
-th .current {
+table th.actions {
+  text-align: center;
+}
+
+table th .current {
   color: blue;
+}
+
+/*
+ * Search Form
+ */
+div.search {
+  margin: 2em 0;
 }

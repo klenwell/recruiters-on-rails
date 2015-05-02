@@ -14,6 +14,16 @@ div.actions
     span.glyphicon.glyphicon-upload aria-hidden="true"
     |  Import Recruiters
 
+div.search.recruiters
+  div.form-group.row
+    div.col-sm-3
+    div.col-sm-6
+      input[class="typeahead form-control"
+        type="text"
+        placeholder="Search Recruiters"
+      ]
+    div.col-sm-3
+
 table.table.table-striped
   thead
     tr
@@ -22,11 +32,7 @@ table.table.table-striped
       th = sortable 'company'
       th = sortable 'last_contact'
       th = sortable 'score'
-      th
-      th
-      th
-      th
-      th
+      th.actions colspan="5" Actions
 
   tbody
     - @recruiters.each do |recruiter|
