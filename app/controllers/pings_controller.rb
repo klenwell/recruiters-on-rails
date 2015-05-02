@@ -67,7 +67,9 @@ class PingsController < ApplicationController
   def destroy
     @ping.destroy
     respond_to do |format|
-      format.html { redirect_to recruiters_path, notice: 'Ping was successfully destroyed.' }
+      format.html { redirect_to(
+        edit_recruiter_path(id: @ping.recruiter_id),
+        notice: 'Ping was successfully destroyed.') }
       format.json { head :no_content }
     end
   end

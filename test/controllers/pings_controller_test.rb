@@ -49,6 +49,6 @@ class PingsControllerTest < ActionController::TestCase
       delete :destroy, id: @ping, recruiter_id: @ping.recruiter_id
     end
 
-    assert_redirected_to recruiters_path
+    assert_redirected_to edit_recruiter_path(id: @ping.recruiter_id)
   end
 end
