@@ -17,11 +17,18 @@ table.table.table-striped
           td = ping.value
           td = ping.note
           td
-            a.btn.btn-default href=edit_recruiter_ping_path(recruiter_id: ping.recruiter_id, id: ping.id)
+            a[class="btn btn-default"
+              href=edit_recruiter_ping_path(recruiter_id: ping.recruiter_id, id: ping.id)
+            ]
               span.glyphicon.glyphicon-edit aria-hidden="true"
               |  Edit
           td
-            a.btn.btn-danger href=edit_recruiter_ping_path(recruiter_id: ping.recruiter_id, id: ping.id) data-confirm="Are you sure?" data-method="delete" rel="nofollow"
+            a[class="btn btn-danger"
+              href=recruiter_ping_path(recruiter_id: ping.recruiter_id, id: ping.id)
+              data-method="delete"
+              data-confirm="Are you sure?"
+              rel="nofollow"
+            ]
               span.glyphicon.glyphicon-remove aria-hidden="true"
               |  Delete
 

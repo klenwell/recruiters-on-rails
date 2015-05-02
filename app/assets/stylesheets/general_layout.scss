@@ -46,3 +46,10 @@ table.table-striped td.no-records {
   text-align: center;
   font-weight: bold;
 }
+
+/*
+ * Column Sorting
+ */
+th .current {
+  color: blue;
+}

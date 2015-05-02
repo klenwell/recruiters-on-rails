@@ -24,7 +24,7 @@ class PingsControllerTest < ActionController::TestCase
     end
 
     assert assigns(:ping)
-    assert_redirected_to recruiters_path
+    assert_redirected_to edit_recruiter_path(id: @ping.recruiter_id)
   end
 
   test "should show ping" do
@@ -41,8 +41,7 @@ class PingsControllerTest < ActionController::TestCase
     patch :update, id: @ping, recruiter_id: @ping.recruiter_id,
       ping: { date: @ping.date, kind: @ping.kind, note: @ping.note,
         transcript: @ping.transcript }
-    assert_redirected_to recruiter_ping_path(recruiter_id: @ping.recruiter_id,
-      id: assigns(:ping).id)
+    assert_redirected_to edit_recruiter_path(id: @ping.recruiter_id)
   end
 
   test "should destroy ping" do
@@ -50,6 +49,6 @@ class PingsControllerTest < ActionController::TestCase
       delete :destroy, id: @ping, recruiter_id: @ping.recruiter_id
     end
 
-    assert_redirected_to recruiters_path
+    assert_redirected_to edit_recruiter_path(id: @ping.recruiter_id)
   end
 end

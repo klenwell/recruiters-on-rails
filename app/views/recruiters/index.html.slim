@@ -17,12 +17,11 @@ div.actions
 table.table.table-striped
   thead
     tr
-      th Name
-      th Email
-      th Company
-      th Phone
-      th Last Contact
-      th Score
+      th = sortable 'name'
+      th = sortable 'email'
+      th = sortable 'company'
+      th = sortable 'last_contact'
+      th = sortable 'score'
       th
       th
       th
@@ -35,8 +34,7 @@ table.table.table-striped
         td = recruiter.name
         td = recruiter.email
         td = recruiter.company
-        td = number_to_phone(recruiter.phone)
-        td = (recruiter.pings.any? ? recruiter.pings.last.date : 'N/A')
+        td = (recruiter.last_contact.present? ? recruiter.last_contact : 'N/A')
         td = recruiter.score
         td
           a.btn.btn-default [
