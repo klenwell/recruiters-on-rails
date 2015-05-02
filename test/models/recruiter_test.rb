@@ -44,4 +44,12 @@ class RecruiterTest < ActiveSupport::TestCase
     assert_equal recruiters(:alice).company,
       Recruiter.find_existing_company_by_email(recruiters(:alice).email)
   end
+
+  test "should sort by param" do
+    sorted_recruiters = Recruiter.sorted('name', 'asc')
+    assert_equal 'Alice', sorted_recruiters.first.first_name
+
+    sorted_recruiters = Recruiter.sorted('name', 'desc')
+    assert_equal 'Bob', sorted_recruiters.first.first_name
+  end
 end
