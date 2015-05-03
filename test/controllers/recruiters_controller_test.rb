@@ -11,6 +11,13 @@ class RecruitersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:recruiters)
   end
 
+  test "should search and sort recruiters" do
+    get :index, {recruiter_search: {name_like: 'inc'}, sort_by: 'email', sort_in: 'desc'}
+    assert_response :success
+    assert_select 'tr.recruiter-id', {count: 2}
+    assert_select 'tr.recruiter-id:nth-of-type(1) td:nth-of-type(1)', {text: 'Bob Banana'}
+  end
+
   test "should get new" do
     get :new
     assert_response :success
