@@ -34,6 +34,10 @@ label.horizontal {
   text-align: center;
 }
 
+.right-align {
+  text-align: right;
+}
+
 /*
  * Datepicker
  */
@@ -67,6 +71,15 @@ div.search input.btn {
   margin-left: 1em;
 }
 
+div.search span.twitter-typeahead {
+  width: 250px;
+}
+
 div.search .tt-dropdown-menu {
   text-align: left;
+}
+
+div.search div.count {
+  padding-top: 0.5em;
+  text-align: right;
 }

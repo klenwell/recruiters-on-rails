@@ -22,7 +22,8 @@ div.search.recruiters
         = f.text_field :name_like, {class: 'typeahead form-control',
             placeholder: "Search Name or Email"}
         = f.submit 'Search', {class: 'btn btn-primary'}
-      div.col-sm-3
+      div.col-sm-3.count
+        | Showing <strong>#{@recruiters.length}</strong> Recruiter#{@recruiters.length != 1 ? 's' : ''}
 
 table.table.table-striped
   thead

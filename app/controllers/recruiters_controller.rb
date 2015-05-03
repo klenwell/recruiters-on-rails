@@ -5,13 +5,7 @@ class RecruitersController < ApplicationController
   # GET /recruiters.json
   def index
     @search = RecruiterSearch.new(search_params)
-
-    if search_params.present?
-      @recruiters  = @search.results
-    else
-      @recruiters = Recruiter.recently_pinged
-    end
-
+    @recruiters = search_params.present? ? @search.results : Recruiter.recently_pinged
     @recruiters = @recruiters.sorted(sort_by, sort_in) if sorted?
   end
 
