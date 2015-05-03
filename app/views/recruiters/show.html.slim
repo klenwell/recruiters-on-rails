@@ -1,18 +1,24 @@
+div.row
+  div.col-sm-5.recruiter-data
+    h2 = @recruiter.name
+    h4 = @recruiter.company
+    h4 = @recruiter.email
+    h4 = number_to_phone(@recruiter.phone, extension: @recruiter.phone_extension, area_code: true)
+  div class="col-sm-7 score"
+    h4 class="score #{score_class(@recruiter)}" = @recruiter.score
 
-p
-  strong First name:
-  = @recruiter.first_name
-p
-  strong Last name:
-  = @recruiter.last_name
-p
-  strong Email:
-  = @recruiter.email
-p
-  strong Company:
-  = @recruiter.company
-p
-  strong Phone:
-  = @recruiter.phone
 
-= link_to 'Index', recruiters_path, {class: 'btn btn-default'}
+div.actions
+  a.btn.btn-primary.edit [
+      href=edit_recruiter_path(@recruiter)
+      type="button"
+    ]
+    span.glyphicon.glyphicon-edit aria-hidden="true"
+    |  Edit Recruiter
+
+  a.btn.btn-primary.index [
+      href=recruiters_path
+      type="button"
+    ]
+    span.glyphicon.glyphicon-home aria-hidden="true"
+    |  Recruiters Index

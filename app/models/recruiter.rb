@@ -17,6 +17,18 @@ class Recruiter < ActiveRecord::Base
     self[:phone] = value.gsub(/[^\d+x]/, "") if value
   end
 
+  def phone
+    return nil if self[:phone].nil?
+    self[:phone].split('x').first
+  end
+
+  def phone_extension
+    return nil if self[:phone].nil?
+    if self[:phone].split('x').length > 0
+      self[:phone].split('x')[1]
+    end
+  end
+
   def email=(value)
     self[:email] = value.downcase if value
   end

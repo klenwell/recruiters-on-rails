@@ -14,8 +14,8 @@ class RecruitersControllerTest < ActionController::TestCase
   test "should search and sort recruiters" do
     get :index, {recruiter_search: {name_like: 'inc'}, sort_by: 'email', sort_in: 'desc'}
     assert_response :success
-    assert_select 'tr.recruiter-id', {count: 2}
-    assert_select 'tr.recruiter-id:nth-of-type(1) td:nth-of-type(1)', {text: 'Bob Banana'}
+    assert_select 'tr.recruiter', {count: 2}
+    assert_select 'tr.recruiter:nth-of-type(1) td:nth-of-type(1)', {text: 'Bob Banana'}
   end
 
   test "should get new" do

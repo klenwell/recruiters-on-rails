@@ -37,8 +37,8 @@ table.table.table-striped
 
   tbody
     - @recruiters.each do |recruiter|
-      tr.recruiter-id id="recruiter-#{recruiter.id}"
-        td = recruiter.name
+      tr.recruiter id="recruiter-#{recruiter.id}"
+        td = link_to recruiter.name, recruiter_path(recruiter)
         td = recruiter.email
         td = recruiter.company
         td = (recruiter.last_contact.present? ? recruiter.last_contact : 'N/A')
