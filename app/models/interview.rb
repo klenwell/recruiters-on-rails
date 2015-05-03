@@ -13,7 +13,7 @@ class Interview < ActiveRecord::Base
   validates :culture, :people, :work, :career, :commute, :salary, :gut, inclusion: 1..5
 
   # Scopes
-  scope :recent, ->{ order('DATE desc') }
+  scope :by_date, ->{ order 'date DESC' }
 
   # Public Methods
   def total
