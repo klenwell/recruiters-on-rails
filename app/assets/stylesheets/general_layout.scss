@@ -60,4 +60,13 @@ table th .current {
  */
 div.search {
   margin: 2em 0;
+  text-align: center;
+}
+
+div.search input.btn {
+  margin-left: 1em;
+}
+
+div.search .tt-dropdown-menu {
+  text-align: left;
 }

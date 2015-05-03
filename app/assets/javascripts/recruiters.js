@@ -33,7 +33,8 @@ var onReady = function() {
 
   // this is the event that is fired when a user clicks on a suggestion
   $(searchSelector).bind('typeahead:selected', function(event, datum, name) {
-    console.debug('Suggestion clicked:', event, datum, name);
+    //console.debug('Suggestion clicked:', event, datum, name);
+    window.location.href = '/recruiters/' + datum.id;
   });
 };
 

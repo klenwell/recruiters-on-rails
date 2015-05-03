@@ -15,14 +15,14 @@ div.actions
     |  Import Recruiters
 
 div.search.recruiters
-  div.form-group.row
-    div.col-sm-3
-    div.col-sm-6
-      input[class="typeahead form-control"
-        type="text"
-        placeholder="Search Recruiters"
-      ]
-    div.col-sm-3
+  = form_for @search, url: recruiters_path, method: :get do |f|
+    div.form-group.row
+      div.col-sm-3
+      div.col-sm-6
+        = f.text_field :name_like, {class: 'typeahead form-control',
+            placeholder: "Search Name or Email"}
+        = f.submit 'Search', {class: 'btn btn-primary'}
+      div.col-sm-3
 
 table.table.table-striped
   thead

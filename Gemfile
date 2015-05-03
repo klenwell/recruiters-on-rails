@@ -45,6 +45,9 @@ gem 'smarter_csv'
 # Use Rubyzip for zipped MailChimp export files
 gem 'rubyzip'
 
+# Search classes
+gem 'searchlight'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
