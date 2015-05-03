@@ -19,4 +19,12 @@ class Interview < ActiveRecord::Base
   def total
     [culture, people, work, career, commute, salary, gut].sum
   end
+
+  def value
+    total
+  end
+
+  def description
+    format('Interview with %s at %s', interviewer.titleize, company.titleize)
+  end
 end

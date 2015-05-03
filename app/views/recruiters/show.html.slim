@@ -7,7 +7,6 @@ div.row
   div class="col-sm-7 score"
     h4 class="score #{score_class(@recruiter)}" = @recruiter.score
 
-
 div.actions
   a.btn.btn-primary.edit [
       href=edit_recruiter_path(@recruiter)
@@ -22,3 +21,7 @@ div.actions
     ]
     span.glyphicon.glyphicon-home aria-hidden="true"
     |  Recruiters Index
+
+div.timeline
+  h3 Timeline
+  == render partial: 'timeline', locals: {recruiter: @recruiter}

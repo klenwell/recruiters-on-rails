@@ -13,40 +13,7 @@ class Recruiter < ActiveRecord::Base
     .group('recruiters.id')
     .order('last_contact DESC') }
 
-  def phone=(value)
-    self[:phone] = value.gsub(/[^\d+x]/, "") if value
-  end
-
-  def phone
-    return nil if self[:phone].nil?
-    self[:phone].split('x').first
-  end
-
-  def phone_extension
-    return nil if self[:phone].nil?
-    if self[:phone].split('x').length > 0
-      self[:phone].split('x')[1]
-    end
-  end
-
-  def email=(value)
-    self[:email] = value.downcase if value
-  end
-
-  def name
-    format('%s %s', self.first_name, self.last_name)
-  end
-
-  def score
-    (pings.any? ? (pings.collect{|ping| ping.value}).sum : 0) +
-    (merits.any? ? (merits.collect{|merit| merit.value}).sum : 0) +
-    (interviews.any? ? (interviews.collect{|interview| interview.total}).sum : 0)
-  end
-
-  def last_contact
-    pings.any? ? pings.last.date : nil
-  end
-
+  # Class Methods
   def self.companies
     # TODO: cache records?
     companies = Recruiter.all.collect do |recruiter|
@@ -117,5 +84,45 @@ class Recruiter < ActiveRecord::Base
     end
 
     recruiter
+  end
+
+  # Fields / Virtual Fields
+  def phone=(value)
+    self[:phone] = value.gsub(/[^\d+x]/, "") if value
+  end
+
+  def phone
+    return nil if self[:phone].nil?
+    self[:phone].split('x').first
+  end
+
+  def phone_extension
+    return nil if self[:phone].nil?
+    if self[:phone].split('x').length > 0
+      self[:phone].split('x')[1]
+    end
+  end
+
+  def email=(value)
+    self[:email] = value.downcase if value
+  end
+
+  def name
+    format('%s %s', self.first_name, self.last_name)
+  end
+
+  def score
+    (pings.any? ? (pings.collect{|ping| ping.value}).sum : 0) +
+    (merits.any? ? (merits.collect{|merit| merit.value}).sum : 0) +
+    (interviews.any? ? (interviews.collect{|interview| interview.total}).sum : 0)
+  end
+
+  def last_contact
+    pings.any? ? pings.last.date : nil
+  end
+
+  def timeline
+    events = pings + merits + interviews
+    events.sort_by{|event| event.date}
   end
 end

@@ -36,4 +36,8 @@ class Ping < ActiveRecord::Base
   def value
     Kinds.merge(Events).fetch(kind, 0)
   end
+
+  def description
+    kind.capitalize
+  end
 end
