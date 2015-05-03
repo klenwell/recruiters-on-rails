@@ -12,9 +12,7 @@ class RecruitersController < ApplicationController
       @recruiters = Recruiter.recently_pinged
     end
 
-    p search_params.present?, sorted?
-
-    @recruiters = Recruiter.sorted(sort_by, sort_in) if sorted?
+    @recruiters = @recruiters.sorted(sort_by, sort_in) if sorted?
   end
 
   # GET /recruiters/1
