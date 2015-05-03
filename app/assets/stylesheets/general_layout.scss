@@ -34,6 +34,10 @@ label.horizontal {
   text-align: center;
 }
 
+.right-align {
+  text-align: right;
+}
+
 /*
  * Datepicker
  */
@@ -47,9 +51,35 @@ table.table-striped td.no-records {
   font-weight: bold;
 }
 
-/*
- * Column Sorting
- */
-th .current {
+table th.actions {
+  text-align: center;
+}
+
+table th .current {
   color: blue;
+}
+
+/*
+ * Search Form
+ */
+div.search {
+  margin: 2em 0;
+  text-align: center;
+}
+
+div.search input.btn {
+  margin-left: 1em;
+}
+
+div.search span.twitter-typeahead {
+  width: 250px;
+}
+
+div.search .tt-dropdown-menu {
+  text-align: left;
+}
+
+div.search div.count {
+  padding-top: 0.5em;
+  text-align: right;
 }

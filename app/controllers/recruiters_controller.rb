@@ -4,7 +4,9 @@ class RecruitersController < ApplicationController
   # GET /recruiters
   # GET /recruiters.json
   def index
-    @recruiters = sorted? ? Recruiter.sorted(sort_by, sort_in) : Recruiter.recently_pinged
+    @search = RecruiterSearch.new(search_params)
+    @recruiters = search_params.present? ? @search.results : Recruiter.recently_pinged
+    @recruiters = @recruiters.sorted(sort_by, sort_in) if sorted?
   end
 
   # GET /recruiters/1
@@ -119,14 +121,25 @@ class RecruitersController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_recruiter
-      @recruiter = Recruiter.find(params[:id])
-    end
+  # GET /recruiters/typeahead/:query
+  def typeahead
+    @search  = RecruiterSearch.new(typeahead: params[:query])
+    render json: @search.results
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def recruiter_params
-      params.require(:recruiter).permit(:first_name, :last_name, :email, :company, :phone)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_recruiter
+    @recruiter = Recruiter.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def recruiter_params
+    params.require(:recruiter).permit(:first_name, :last_name, :email, :company, :phone)
+  end
+
+  def search_params
+    params[:recruiter_search] || {}
+  end
 end

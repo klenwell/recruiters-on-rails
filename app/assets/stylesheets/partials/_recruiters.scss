@@ -1,0 +1,43 @@
+// Place all the styles related to the Recruiters controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.recruiters {}
+
+body.recruiters.show {
+  div.recruiter-data {
+  }
+
+  div.score {
+    h4.score {
+      font-size: 40px;
+      background-color: #CCCCCC;
+      color: white;
+      font-weight: bold;
+      text-align:center;
+      height: 80px; width: 80px;
+      line-height: 80px;
+      border-radius: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      display:inline-block;
+    }
+
+    h4.score.positive {
+      background-color: #5CB85C;
+    }
+
+    h4.score.negative {
+      background-color: #C9302C;
+    }
+  }
+
+  div.actions {
+    padding: 0;
+    margin: 2em 0;
+
+    a.btn {
+      margin: 0 1em 0 0;
+    }
+  }
+}

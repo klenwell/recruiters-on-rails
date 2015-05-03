@@ -20,7 +20,8 @@ class RecruiterTest < ActiveSupport::TestCase
   test "that phone number is normalized" do
     john = Recruiter.new(recruiters(:alice).attributes.except('id').merge({
       'phone'=>'1-800-555-1212 x200', 'email'=>'john@recruiters.inc'}))
-    assert_equal '18005551212x200', john.phone
+    assert_equal '18005551212', john.phone
+    assert_equal '200', john.phone_extension
   end
 
   test "that recruiters are scored" do
@@ -28,7 +29,7 @@ class RecruiterTest < ActiveSupport::TestCase
 
     2.times do |n|
       alice.pings << Ping.new(recruiter_id: alice.id, kind: 'email', note: 'test',
-                              date: Date.today)
+        date: Date.today)
       alice.save!
     end
 

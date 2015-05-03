@@ -13,10 +13,18 @@ class Interview < ActiveRecord::Base
   validates :culture, :people, :work, :career, :commute, :salary, :gut, inclusion: 1..5
 
   # Scopes
-  scope :recent, ->{ order('DATE desc') }
+  scope :by_date, ->{ order 'date DESC' }
 
   # Public Methods
   def total
     [culture, people, work, career, commute, salary, gut].sum
+  end
+
+  def value
+    total
+  end
+
+  def description
+    format('Interview with %s at %s', interviewer.titleize, company.titleize)
   end
 end

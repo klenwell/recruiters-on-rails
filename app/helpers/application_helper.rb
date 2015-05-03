@@ -7,7 +7,7 @@ module ApplicationHelper
     end
   end
 
-  def sortable(column, label = nil)
+  def sortable(column, label=nil)
     is_active_column = column == sort_by
 
     label ||= column.titleize
@@ -25,7 +25,8 @@ module ApplicationHelper
 
     icon = format(icon_span, glyphicon)
     label = format('%s %s', icon, label)
-    link_to label.html_safe, {:sort_by => column, :sort_in => direction}, {:class => css_class}
+    query_params = params.merge({sort_by: column, sort_in: direction})
+    link_to label.html_safe, query_params, {class: css_class}
   end
 
 end

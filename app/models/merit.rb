@@ -17,4 +17,7 @@ class Merit < ActiveRecord::Base
     is_demerit? ? 'demerit' : 'merit'
   end
 
+  def description
+    format('%s: %s', kind.capitalize, reason.capitalize)
+  end
 end

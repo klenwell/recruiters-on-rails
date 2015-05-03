@@ -7,6 +7,7 @@ div.actions
     ]
     span.glyphicon.glyphicon-user aria-hidden="true"
     |  Add Recruiter
+
   a.btn.btn-primary.import [
       href=import_recruiters_path
       type="button"
@@ -14,57 +15,8 @@ div.actions
     span.glyphicon.glyphicon-upload aria-hidden="true"
     |  Import Recruiters
 
-table.table.table-striped
-  thead
-    tr
-      th = sortable 'name'
-      th = sortable 'email'
-      th = sortable 'company'
-      th = sortable 'last_contact'
-      th = sortable 'score'
-      th
-      th
-      th
-      th
-      th
+== render partial: 'search_form', locals: {search: @search, recruiters: @recruiters}
 
-  tbody
-    - @recruiters.each do |recruiter|
-      tr.recruiter-id id="recruiter-#{recruiter.id}"
-        td = recruiter.name
-        td = recruiter.email
-        td = recruiter.company
-        td = (recruiter.last_contact.present? ? recruiter.last_contact : 'N/A')
-        td = recruiter.score
-        td
-          a.btn.btn-default [
-              href=edit_recruiter_path(recruiter)
-              title="edit"
-            ]
-            span.glyphicon.glyphicon-edit aria-hidden="true"
-        td
-          a.btn.btn-default#ping [
-              href=new_recruiter_ping_path(recruiter)
-              title="ping / interaction"
-            ]
-            span.glyphicon.glyphicon-bell aria-hidden="true"
-        td
-          a.btn.btn-default#interview [
-              href=new_interview_path(recruiter_id: recruiter.id)
-              title="interview"
-            ]
-            span.glyphicon.glyphicon-briefcase aria-hidden="true"
-        td
-          a.btn.btn-default#merit [
-              href=new_recruiter_merit_path(recruiter)
-              title="Add Merit"
-            ]
-            span.glyphicon.glyphicon-thumbs-up aria-hidden="true"
-        td
-          a.btn.btn-default#demerit [
-              href=new_recruiter_merit_path(recruiter, demerit: true)
-              title="Add Demerit"
-            ]
-            span.glyphicon.glyphicon-thumbs-down aria-hidden="true"
+== render partial: 'table', locals: {recruiters: @recruiters}
 
 br

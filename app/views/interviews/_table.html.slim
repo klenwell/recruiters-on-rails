@@ -11,7 +11,7 @@ table.table.table-striped
       th
 
   tbody
-    - if interviews.any?
+    - if interviews.present?
       - interviews.each do |interview|
         tr
           td = interview.date

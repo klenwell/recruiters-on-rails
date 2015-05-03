@@ -14,6 +14,7 @@ gem 'sass-rails', '>= 3.2'
 gem 'font-awesome-sass'
 gem 'bootstrap-sass-extras'
 gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-typeahead-rails'
 
 # Slim
 # https://github.com/slim-template/slim-rails
@@ -34,6 +35,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
@@ -42,6 +44,9 @@ gem 'smarter_csv'
 
 # Use Rubyzip for zipped MailChimp export files
 gem 'rubyzip'
+
+# Search classes
+gem 'searchlight'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
