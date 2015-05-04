@@ -7,6 +7,9 @@ class RecruitersController < ApplicationController
     @search = RecruiterSearch.new(search_params)
     @recruiters = search_params.present? ? @search.results : Recruiter.recently_pinged
     @recruiters = @recruiters.sorted(sort_by, sort_in) if sorted?
+    @recruiters = (@recruiters.class == Array) ?
+      Kaminari.paginate_array(@recruiters).page(params[:page]) :
+      @recruiters.page(params[:page])
   end
 
   # GET /recruiters/1

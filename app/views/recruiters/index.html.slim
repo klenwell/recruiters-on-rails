@@ -17,6 +17,9 @@ div.actions
 
 == render partial: 'search_form', locals: {search: @search, recruiters: @recruiters}
 
+div.pagination
+  = paginate @recruiters
+
 == render partial: 'table', locals: {recruiters: @recruiters}
 
 br

@@ -8,4 +8,5 @@ div.search.recruiters
             placeholder: "Search Name or Email"}
         = f.submit 'Search', {class: 'btn btn-primary'}
       div.col-sm-3.count
-        | Showing <strong>#{recruiters.length}</strong> #{pluralize(recruiters.length, 'Recruiter')}
+        | Showing <strong>#{@recruiters.length}</strong> of
+          <strong>#{@recruiters.total_count}</strong> Results
