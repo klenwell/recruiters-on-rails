@@ -17,9 +17,18 @@ div.actions
 
 == render partial: 'search_form', locals: {search: @search, recruiters: @recruiters}
 
-div.pagination
-  = paginate @recruiters
+div.row
+  div.col-sm-3
+  div.col-sm-6.center-text
+    = paginate @recruiters, window: 2
+  div.col-sm-3
 
 == render partial: 'table', locals: {recruiters: @recruiters}
+
+div.row
+  div.col-sm-3
+  div.col-sm-6.center-text
+    = paginate @recruiters, window: 2
+  div.col-sm-3
 
 br
