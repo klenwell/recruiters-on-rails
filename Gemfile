@@ -16,9 +16,11 @@ gem 'bootstrap-sass-extras'
 gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-typeahead-rails'
 
-# Slim
-# https://github.com/slim-template/slim-rails
+# Slim: https://github.com/slim-template/slim-rails
 gem "slim-rails"
+
+# Pagination
+gem 'kaminari'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
