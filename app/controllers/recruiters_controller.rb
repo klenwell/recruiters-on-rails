@@ -5,8 +5,8 @@ class RecruitersController < ApplicationController
   # GET /recruiters.json
   def index
     @search = RecruiterSearch.new(search_params)
-    @recruiters = search_params.present? ? @search.results : Recruiter.recently_pinged
-    @recruiters = @recruiters.sorted(sort_by, sort_in) if sorted?
+    @recruiters = search_params.present? ? @search.results : Recruiter.all
+    @recruiters = sorted? ? @recruiters.sorted(sort_by, sort_in) : @recruiters.recently_pinged
     @recruiters = (@recruiters.class == Array) ?
       Kaminari.paginate_array(@recruiters).page(params[:page]) :
       @recruiters.page(params[:page])
