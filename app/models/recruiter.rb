@@ -4,6 +4,7 @@ class Recruiter < ActiveRecord::Base
   has_many :pings, dependent: :destroy
   has_many :merits, dependent: :destroy
   has_many :interviews, dependent: :destroy
+  belongs_to :recruiter_list
 
   validates :first_name, :email, presence: true
   validates :email, uniqueness: true
