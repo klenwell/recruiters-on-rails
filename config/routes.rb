@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :interviews
 
+  resources :lists, controller: "recruiter_lists"
+
   get 'recruiters/typeahead/:query' => 'recruiters#typeahead'
 
   # You can have the root of your site routed with "root"
