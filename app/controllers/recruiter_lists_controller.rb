@@ -2,7 +2,7 @@ class RecruiterListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-    render text: "index"
+    @lists = RecruiterList.all
   end
 
   # GET /lists/new
