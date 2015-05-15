@@ -7,6 +7,16 @@
           li = message
 
   div.form-group.row
+    = f.label :recruiter_list, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      = f.select(:recruiter_list_id,
+          options_for_select(@recruiter_lists.map{ |rl| [rl.name, rl.id] },
+                             @recruiter.recruiter_list_id),
+          {include_blank: 'Choose list below'},
+          {class: "form-control"})
+    div.col-sm-7
+
+  div.form-group.row
     = f.label :first_name, {class: 'col-sm-2 control-label horizontal'}
     div.col-sm-3
       = f.text_field :first_name, {class: 'form-control'}

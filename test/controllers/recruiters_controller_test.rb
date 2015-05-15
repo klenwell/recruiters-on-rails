@@ -45,7 +45,9 @@ class RecruitersControllerTest < ActionController::TestCase
   end
 
   test "should update recruiter" do
-    patch :update, id: @recruiter, recruiter: { company: @recruiter.company, email: @recruiter.email, first_name: @recruiter.first_name, last_name: @recruiter.last_name, phone: @recruiter.phone }
+    patch :update, id: @recruiter, recruiter: { company: @recruiter.company,
+      email: @recruiter.email, first_name: @recruiter.first_name,
+      last_name: @recruiter.last_name, phone: @recruiter.phone }
     assert_redirected_to recruiters_path
   end
 
@@ -104,5 +106,14 @@ class RecruitersControllerTest < ActionController::TestCase
     post :process_import
     assert_redirected_to import_recruiters_path
     assert_equal 'Please choose a file.', flash[:error]
+  end
+
+  test "should add recruiter to list" do
+    new_list = recruiter_lists(:vegetable)
+    assert_not_equal new_list.id, @recruiter.recruiter_list_id
+
+    patch :update, id: @recruiter, recruiter: { recruiter_list_id: new_list.id }
+    assert_redirected_to recruiters_path
+    assert_equal new_list.id, assigns(:recruiter).recruiter_list_id
   end
 end

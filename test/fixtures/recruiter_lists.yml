@@ -2,3 +2,6 @@
 
 fruit:
   name: Fruit
+  
+vegetable:
+  name: Vegetable
