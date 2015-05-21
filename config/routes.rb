@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :interviews
 
-  resources :lists, controller: "recruiter_lists"
+  resources :recruiter_lists, path: 'lists'
 
   get 'recruiters/typeahead/:query' => 'recruiters#typeahead'
 

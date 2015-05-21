@@ -1,4 +1,4 @@
-= form_for @list, url: lists_path, html: {class: 'form-horizontal'} do |f|
+= form_for @list, html: {class: 'form-horizontal'} do |f|
   - if @list.errors.any?
     #error_explanation
       h2 = "#{pluralize(@list.errors.count, "error")} prohibited this recruiter from being saved:"
@@ -14,5 +14,5 @@
 
   div.actions.row
     div.col-sm-offset-2.col-sm-10
-      = f.submit 'Create List', {class: 'btn btn-primary'}
-      a.btn.btn-default href=lists_path = 'Cancel'
+      = f.submit 'Save List', {class: 'btn btn-primary'}
+      a.btn.btn-default href=recruiter_lists_path = 'Cancel'

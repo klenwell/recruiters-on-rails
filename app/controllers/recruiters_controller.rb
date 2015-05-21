@@ -11,6 +11,10 @@ class RecruitersController < ApplicationController
     @recruiters = (@recruiters.class == Array) ?
       Kaminari.paginate_array(@recruiters).page(params[:page]) :
       @recruiters.page(params[:page])
+
+    @is_email_search = @recruiters.blank? && search_params['name_like'] &&
+      ValidateEmail.valid?(search_params['name_like'])
+    @email = search_params['name_like'] if @is_email_search
   end
 
   # GET /recruiters/1
@@ -21,6 +25,8 @@ class RecruitersController < ApplicationController
   # GET /recruiters/new
   def new
     @recruiter = Recruiter.new
+    @recruiter.email = params['email'] if
+      params['email'] && ValidateEmail.valid?(params['email'])
   end
 
   # GET /recruiters/1/edit
