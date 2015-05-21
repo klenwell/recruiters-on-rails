@@ -18,6 +18,13 @@ class RecruitersControllerTest < ActionController::TestCase
     assert_select 'tr.recruiter:nth-of-type(1) td:nth-of-type(1)', {text: 'Bob Banana'}
   end
 
+  test "should provide link to new recruiter view when searching email and result is empty" do
+    get :index, {recruiter_search: {name_like: 'does.not.exist@noop.org'}}
+    assert_response :success
+    assert_select 'td.no-records', {count: 1}
+    assert_select 'td.no-records a', {text: 'Click here'}
+  end
+
   test "should get new" do
     get :new
     assert_response :success
