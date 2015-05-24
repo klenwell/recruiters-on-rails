@@ -24,8 +24,8 @@
         = f.label :recruiter, {class: 'col-sm-2 control-label horizontal'}
         div.col-sm-7
           = f.select(:recruiter_id,
-              options_for_select(@recruiters.map{ |r| [r.email, r.id] }, @recruiter.id),
-              {},
+              options_for_select(@recruiters.map{ |r| [r.email, r.id] }, @interview.recruiter_id),
+              {include_blank: 'Choose recruiter below'},
               {class: "form-control"})
         div.col-sm-3
 

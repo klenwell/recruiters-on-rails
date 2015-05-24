@@ -1,5 +1,6 @@
 class RecruitersController < ApplicationController
   before_action :set_recruiter, only: [:show, :edit, :update, :destroy]
+  before_action :set_recruiter_lists, only: [:new, :edit]
 
   # GET /recruiters
   # GET /recruiters.json
@@ -10,6 +11,10 @@ class RecruitersController < ApplicationController
     @recruiters = (@recruiters.class == Array) ?
       Kaminari.paginate_array(@recruiters).page(params[:page]) :
       @recruiters.page(params[:page])
+
+    @is_email_search = @recruiters.blank? && search_params['name_like'] &&
+      ValidateEmail.valid?(search_params['name_like'])
+    @email = search_params['name_like'] if @is_email_search
   end
 
   # GET /recruiters/1
@@ -20,6 +25,8 @@ class RecruitersController < ApplicationController
   # GET /recruiters/new
   def new
     @recruiter = Recruiter.new
+    @recruiter.email = params['email'] if
+      params['email'] && ValidateEmail.valid?(params['email'])
   end
 
   # GET /recruiters/1/edit
@@ -137,9 +144,14 @@ class RecruitersController < ApplicationController
     @recruiter = Recruiter.find(params[:id])
   end
 
+  def set_recruiter_lists
+    @recruiter_lists = RecruiterList.all
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def recruiter_params
-    params.require(:recruiter).permit(:first_name, :last_name, :email, :company, :phone)
+    params.require(:recruiter).permit(:first_name, :last_name, :email, :company, :phone,
+                                      :recruiter_list_id)
   end
 
   def search_params

@@ -50,6 +50,9 @@ gem 'rubyzip'
 # Search classes
 gem 'searchlight'
 
+# Email validation
+gem 'valid_email', :require => 'valid_email/email_validator'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -6,6 +6,7 @@ alice:
   email: alice.apple@recruiters.inc
   company: Recruiters Inc.
   phone: 555-555-1212
+  recruiter_list_id: <%= ActiveRecord::FixtureSet.identify(:fruit) %>
   
 bob:
   first_name: Bob
@@ -13,3 +14,4 @@ bob:
   email: bob.banana@phpcruiters.inc
   company: PhpCruiters Inc.
   phone: 555-555-1212
+  recruiter_list_id: <%= ActiveRecord::FixtureSet.identify(:fruit) %>

@@ -9,40 +9,51 @@ table.table.table-striped
       th.actions colspan="5" Actions
 
   tbody
-    - recruiters.each do |recruiter|
-      tr.recruiter id="recruiter-#{recruiter.id}"
-        td = link_to recruiter.name, recruiter_path(recruiter)
-        td = recruiter.email
-        td = recruiter.company
-        td = (recruiter.last_contact.present? ? recruiter.last_contact : 'N/A')
-        td = recruiter.score
-        td
-          a.btn.btn-default [
-              href=edit_recruiter_path(recruiter)
-              title="edit"
-            ]
-            span.glyphicon.glyphicon-edit aria-hidden="true"
-        td
-          a.btn.btn-default#ping [
-              href=new_recruiter_ping_path(recruiter)
-              title="ping / interaction"
-            ]
-            span.glyphicon.glyphicon-bell aria-hidden="true"
-        td
-          a.btn.btn-default#interview [
-              href=new_interview_path(recruiter_id: recruiter.id)
-              title="interview"
-            ]
-            span.glyphicon.glyphicon-briefcase aria-hidden="true"
-        td
-          a.btn.btn-default#merit [
-              href=new_recruiter_merit_path(recruiter)
-              title="Add Merit"
-            ]
-            span.glyphicon.glyphicon-thumbs-up aria-hidden="true"
-        td
-          a.btn.btn-default#demerit [
-              href=new_recruiter_merit_path(recruiter, demerit: true)
-              title="Add Demerit"
-            ]
-            span.glyphicon.glyphicon-thumbs-down aria-hidden="true"
+    - if recruiters.present?
+      - recruiters.each do |recruiter|
+        tr.recruiter id="recruiter-#{recruiter.id}"
+          td = link_to recruiter.name, recruiter_path(recruiter)
+          td = recruiter.email
+          td = recruiter.company
+          td = (recruiter.last_contact.present? ? recruiter.last_contact : 'N/A')
+          td = recruiter.score
+          td
+            a.btn.btn-default [
+                href=edit_recruiter_path(recruiter)
+                title="edit"
+              ]
+              span.glyphicon.glyphicon-edit aria-hidden="true"
+          td
+            a.btn.btn-default#ping [
+                href=new_recruiter_ping_path(recruiter)
+                title="ping / interaction"
+              ]
+              span.glyphicon.glyphicon-bell aria-hidden="true"
+          td
+            a.btn.btn-default#interview [
+                href=new_interview_path(recruiter_id: recruiter.id)
+                title="interview"
+              ]
+              span.glyphicon.glyphicon-briefcase aria-hidden="true"
+          td
+            a.btn.btn-default#merit [
+                href=new_recruiter_merit_path(recruiter)
+                title="Add Merit"
+              ]
+              span.glyphicon.glyphicon-thumbs-up aria-hidden="true"
+          td
+            a.btn.btn-default#demerit [
+                href=new_recruiter_merit_path(recruiter, demerit: true)
+                title="Add Demerit"
+              ]
+              span.glyphicon.glyphicon-thumbs-down aria-hidden="true"
+
+    - else
+      tr
+        - if @is_email_search
+          td.no-records colspan=10 Recruiter not found.
+            #{link_to 'Click here', new_recruiter_path(email: @email)} to create new one.
+        - else
+          td.no-records colspan=10 No recruiters found.
+
+
