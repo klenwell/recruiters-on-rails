@@ -14,9 +14,10 @@ class Recruiter < ActiveRecord::Base
     .group('recruiters.id')
     .order('last_contact DESC') }
 
+  #
   # Class Methods
+  #
   def self.companies
-    # TODO: cache records?
     companies = Recruiter.all.collect do |recruiter|
       recruiter.company
     end
@@ -24,7 +25,6 @@ class Recruiter < ActiveRecord::Base
   end
 
   def self.email_company_map
-    # TODO: cache records?
     email_company_map = {}
     Recruiter.all.each do |recruiter|
       _, _, address = recruiter.email.rpartition('@')
@@ -87,7 +87,22 @@ class Recruiter < ActiveRecord::Base
     recruiter
   end
 
+  def self.export_to_csv(options = {})
+    direct_export_fields = ['first_name', 'last_name', 'email', 'company', 'phone']
+    assoc_export_fields = ['list']
+
+    CSV.generate(options) do |csv|
+      csv << direct_export_fields + assoc_export_fields
+      all.each do |recruiter|
+        list = recruiter.recruiter_list.present? ? recruiter.recruiter_list.name : nil
+        csv << recruiter.attributes.values_at(*direct_export_fields) + [list]
+      end
+    end
+  end
+
+  #
   # Fields / Virtual Fields
+  #
   def phone=(value)
     self[:phone] = value.gsub(/[^\d+x]/, "") if value
   end

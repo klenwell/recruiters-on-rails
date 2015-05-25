@@ -15,6 +15,14 @@ class RecruitersController < ApplicationController
     @is_email_search = @recruiters.blank? && search_params['name_like'] &&
       ValidateEmail.valid?(search_params['name_like'])
     @email = search_params['name_like'] if @is_email_search
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @recruiters.export_to_csv,
+        type: 'text/csv; charset=iso-8859-1; header=present',
+        disposition: "attachment; filename=recruiters-#{Time.now.strftime('%Y%m%d-%H%M%S')}.csv"
+      }
+    end
   end
 
   # GET /recruiters/1

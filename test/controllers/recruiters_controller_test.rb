@@ -123,4 +123,17 @@ class RecruitersControllerTest < ActionController::TestCase
     assert_redirected_to recruiters_path
     assert_equal new_list.id, assigns(:recruiter).recruiter_list_id
   end
+
+  test "show export recruiters to csv" do
+    get :index, {recruiter_search: {name_like: 'inc'}, sort_by: 'email', sort_in: 'desc',
+      format: 'csv'}
+    assert_response :success
+
+    csv = CSV.parse(@response.body)
+    assert_equal 'first_name', csv.first.first
+    assert_equal 'list', csv.first.last
+
+    assert_equal 'Alice', csv.last.first
+    assert_equal 'Fruit', csv.last.last
+  end
 end
