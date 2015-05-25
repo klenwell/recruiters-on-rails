@@ -60,6 +60,14 @@ table th .current {
 }
 
 /*
+ * Pagination
+ */
+// Matches default .pagination widget styling (e.g. with buttons)
+.with-pagination {
+  margin: 20px 0;
+}
+
+/*
  * Search Form
  */
 div.search {

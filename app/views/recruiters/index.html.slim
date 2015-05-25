@@ -21,7 +21,14 @@ div.row
   div.col-sm-3
   div.col-sm-6.center-text
     = paginate @recruiters, window: 2
-  div.col-sm-3
+  div.col-sm-3.right-align
+    - if @recruiters.present?
+      a.btn.btn-primary.with-pagination [
+          href=recruiters_path(format: 'csv')
+          type="button"
+        ]
+        span.glyphicon.glyphicon-export aria-hidden="true"
+        |  CSV Export
 
 == render partial: 'table', locals: {recruiters: @recruiters}
 
