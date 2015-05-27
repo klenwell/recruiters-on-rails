@@ -149,4 +149,29 @@ class RecruitersControllerTest < ActionController::TestCase
     assert_equal 'Bob', csv.last.first
     assert_equal 'Fruit', csv.last.last
   end
+
+  test "should export all recruiters to csv and then re-import them" do
+    get :export, {format: 'csv'}
+    assert_response :success
+
+    temp_file = Tempfile.new('import')
+    temp_file.write @response.body
+    temp_file.rewind
+    temp_file.close
+
+    import_file = ActionDispatch::Http::UploadedFile.new({
+      :filename => temp_file.path.split('/').last,
+      :content_type => 'text/csv',
+      :tempfile => temp_file
+    })
+
+    Recruiter.destroy_all
+
+    assert_difference('Recruiter.count', 2) do
+      post :process_import, file: import_file
+      assert_redirected_to recruiters_path
+    end
+
+    temp_file.unlink
+  end
 end

@@ -44,13 +44,14 @@ class Recruiter < ActiveRecord::Base
     key_map = {
       :first_name => [:first_name],
       :last_name => [:last_name],
-      :email => [:email_address],
+      :email => [:email_address, :email],
       #:created_on => [:confirm_time]
     }
 
     # Invert and flatten key map
     flat_key_tuples = []
     key_map.each do |field, row_keys|
+      flat_key_tuples << [field, field]
       row_keys.each do |row_key|
         flat_key_tuples << [row_key, field]
       end
@@ -60,7 +61,7 @@ class Recruiter < ActiveRecord::Base
     # Map keys
     params = {}
     flat_key_map.each do |row_key, field|
-      params[field] = row[row_key]
+      params[field] = row[row_key] if row[row_key]
     end
 
     # Infer company from email if not set
