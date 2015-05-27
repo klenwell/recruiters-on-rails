@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     collection do
       get :import
       post :process_import
+      get :export
     end
   end
 

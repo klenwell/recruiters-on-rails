@@ -82,6 +82,16 @@ class RecruitersController < ApplicationController
     end
   end
 
+  # GET /recruiters/export
+  def export
+    respond_to do |format|
+      format.csv { send_data Recruiter.sorted_by_email.export_to_csv,
+        type: 'text/csv; charset=iso-8859-1; header=present',
+        disposition: "attachment; filename=recruiters-#{Time.now.strftime('%Y%m%d-%H%M%S')}.csv"
+      }
+    end
+  end
+
   # GET /recruiters/import
   def import
   end

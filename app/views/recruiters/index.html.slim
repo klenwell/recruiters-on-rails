@@ -1,7 +1,7 @@
 h2 Recruiters
 
 div.actions
-  a.btn.btn-primary.import [
+  a.btn.btn-primary.new-recruiter [
       href=new_recruiter_path
       type="button"
     ]
@@ -13,7 +13,14 @@ div.actions
       type="button"
     ]
     span.glyphicon.glyphicon-upload aria-hidden="true"
-    |  Import Recruiters
+    |  Import CSV File
+
+  a.btn.btn-primary.export-all [
+      href=export_recruiters_path(format: 'csv')
+      type="button"
+    ]
+    span.glyphicon.glyphicon-download aria-hidden="true"
+    |  Export All
 
 == render partial: 'search_form', locals: {search: @search, recruiters: @recruiters}
 

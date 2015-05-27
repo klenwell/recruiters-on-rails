@@ -14,6 +14,8 @@ class Recruiter < ActiveRecord::Base
     .group('recruiters.id')
     .order('last_contact DESC') }
 
+  scope :sorted_by_email, ->{ order('email ASC') }
+
   #
   # Class Methods
   #
