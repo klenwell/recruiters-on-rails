@@ -17,6 +17,11 @@ class Recruiter < ActiveRecord::Base
   scope :sorted_by_email, ->{ order('email ASC') }
 
   #
+  # Constants
+  #
+  CSV_PING_MARKER = '  >>>ping'
+
+  #
   # Class Methods
   #
   def self.companies
@@ -41,6 +46,7 @@ class Recruiter < ActiveRecord::Base
   end
 
   def self.create_from_import(row)
+    # Map fields to different CSV columns (will vary by source)
     key_map = {
       :first_name => [:first_name],
       :last_name => [:last_name],
@@ -75,16 +81,35 @@ class Recruiter < ActiveRecord::Base
       end
     end
 
-    recruiter = Recruiter.create(params)
+    # Look for recruiter
+    recruiter = where(email: params[:email]).first
 
-    # Add first ping
-    if recruiter.persisted?
-      recruiter.pings << Ping.create(
-        recruiter_id: recruiter.id,
-        date: Date.today,
-        kind: 'mailchimp import',
-        note: 'Imported from CSV file.'
-      )
+    # If recruiter exists, look for associated record
+    if recruiter
+
+      # Ping row
+      if row[:first_name].strip == CSV_PING_MARKER.strip
+        ping = Ping.create(
+          recruiter_id: recruiter.id,
+          date: row[:'ping.date'],
+          kind: row[:'ping.kind'],
+          note: row[:'ping.note']
+        )
+      end
+
+    # Create new recruiter
+    else
+      recruiter = Recruiter.create(params)
+
+      # Add first ping
+      if recruiter.persisted?
+        recruiter.pings << Ping.create(
+          recruiter_id: recruiter.id,
+          date: Date.today,
+          kind: 'mailchimp import',
+          note: 'Imported from CSV file.'
+        )
+      end
     end
 
     recruiter
@@ -92,13 +117,28 @@ class Recruiter < ActiveRecord::Base
 
   def self.export_to_csv(options = {})
     direct_export_fields = ['first_name', 'last_name', 'email', 'company', 'phone']
+    ping_export_fields = ['ping.kind', 'ping.note', 'ping.date']
     assoc_export_fields = ['list']
 
     CSV.generate(options) do |csv|
-      csv << direct_export_fields + assoc_export_fields
+      csv << direct_export_fields + ping_export_fields + assoc_export_fields
       all.each do |recruiter|
+        # Add recruiter line
+        recruiter_line = recruiter.attributes.values_at(*direct_export_fields)
         list = recruiter.recruiter_list.present? ? recruiter.recruiter_list.name : nil
-        csv << recruiter.attributes.values_at(*direct_export_fields) + [list]
+        recruiter_line += [list]
+        csv << recruiter_line
+
+        # Add ping line
+        if recruiter.pings
+          recruiter.pings.each do |ping|
+            ping_attributes = ping_export_fields.collect{|f| f.split('.').last}
+            ping_line = [CSV_PING_MARKER, nil, recruiter.email, nil, nil]
+            ping_line += ping.attributes.values_at(*ping_attributes)
+            ping_line += [nil]
+            csv << ping_line
+          end
+        end
       end
     end
   end
