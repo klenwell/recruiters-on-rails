@@ -130,7 +130,7 @@ class Recruiter < ActiveRecord::Base
     direct_export_fields = ['first_name', 'last_name', 'email', 'company', 'phone']
     ping_export_fields = ['ping.kind', 'ping.note', 'ping.date']
     merit_export_fields = ['merit.reason', 'merit.value', 'merit.date']
-    other_export_fields = ['list']
+    other_export_fields = ['score', 'list']
 
     CSV.generate(options) do |csv|
       csv << direct_export_fields + ping_export_fields + merit_export_fields + other_export_fields
@@ -140,7 +140,7 @@ class Recruiter < ActiveRecord::Base
         recruiter_line = recruiter.attributes.values_at(*direct_export_fields)
         recruiter_line += [nil] * ping_export_fields.length
         recruiter_line += [nil] * merit_export_fields.length
-        recruiter_line += [list]
+        recruiter_line += [recruiter.score, list]
         csv << recruiter_line
 
         # Add ping lines

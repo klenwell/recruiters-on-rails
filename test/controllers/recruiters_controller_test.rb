@@ -148,10 +148,15 @@ class RecruitersControllerTest < ActionController::TestCase
 
     csv = CSV.parse(@response.body)
     assert_equal 'first_name', csv.first.first
+    assert_equal 'score', csv.first[-2]
     assert_equal 'list', csv.first.last
 
     assert_equal 'Alice', csv[1].first
+    assert_equal '7', csv[1][-2]
+    assert_equal 'Fruit', csv[1].last
+
     assert_equal 'Bob', csv.last.first
+    assert_equal '0', csv.last[-2]
     assert_equal 'Fruit', csv.last.last
   end
 
