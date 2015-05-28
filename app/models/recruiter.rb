@@ -19,7 +19,8 @@ class Recruiter < ActiveRecord::Base
   #
   # Constants
   #
-  CSV_PING_MARKER = '  >>>ping'
+  CSV_PING_MARKER = '----> [PING]'
+  CSV_MERIT_MARKER = '----> [MERIT]'
 
   #
   # Class Methods
@@ -88,12 +89,22 @@ class Recruiter < ActiveRecord::Base
     if recruiter
 
       # Ping row
-      if row[:first_name].strip == CSV_PING_MARKER.strip
-        ping = Ping.create(
+      if row[:first_name] == CSV_PING_MARKER
+        Ping.create(
           recruiter_id: recruiter.id,
           date: row[:'ping.date'],
           kind: row[:'ping.kind'],
           note: row[:'ping.note']
+        )
+      end
+
+      # Merit row
+      if row[:first_name] == CSV_MERIT_MARKER
+        Merit.create(
+          recruiter_id: recruiter.id,
+          date: row[:'merit.date'],
+          reason: row[:'merit.reason'],
+          value: row[:'merit.value']
         )
       end
 
@@ -118,25 +129,41 @@ class Recruiter < ActiveRecord::Base
   def self.export_to_csv(options = {})
     direct_export_fields = ['first_name', 'last_name', 'email', 'company', 'phone']
     ping_export_fields = ['ping.kind', 'ping.note', 'ping.date']
-    assoc_export_fields = ['list']
+    merit_export_fields = ['merit.reason', 'merit.value', 'merit.date']
+    other_export_fields = ['list']
 
     CSV.generate(options) do |csv|
-      csv << direct_export_fields + ping_export_fields + assoc_export_fields
+      csv << direct_export_fields + ping_export_fields + merit_export_fields + other_export_fields
       all.each do |recruiter|
         # Add recruiter line
-        recruiter_line = recruiter.attributes.values_at(*direct_export_fields)
         list = recruiter.recruiter_list.present? ? recruiter.recruiter_list.name : nil
+        recruiter_line = recruiter.attributes.values_at(*direct_export_fields)
+        recruiter_line += [nil] * ping_export_fields.length
+        recruiter_line += [nil] * merit_export_fields.length
         recruiter_line += [list]
         csv << recruiter_line
 
-        # Add ping line
+        # Add ping lines
         if recruiter.pings
           recruiter.pings.each do |ping|
             ping_attributes = ping_export_fields.collect{|f| f.split('.').last}
             ping_line = [CSV_PING_MARKER, nil, recruiter.email, nil, nil]
             ping_line += ping.attributes.values_at(*ping_attributes)
-            ping_line += [nil]
+            ping_line += [nil] * merit_export_fields.length
+            ping_line += [nil] * other_export_fields.length
             csv << ping_line
+          end
+        end
+
+        # Add merit lines
+        if recruiter.merits
+          recruiter.merits.each do |merit|
+            merit_attributes = merit_export_fields.collect{|f| f.split('.').last}
+            merit_line = [CSV_MERIT_MARKER, nil, recruiter.email, nil, nil]
+            merit_line += [nil] * ping_export_fields.length
+            merit_line += merit.attributes.values_at(*merit_attributes)
+            merit_line += [nil]
+            csv << merit_line
           end
         end
       end

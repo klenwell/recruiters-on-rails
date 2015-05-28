@@ -136,7 +136,10 @@ class RecruitersControllerTest < ActionController::TestCase
     assert_equal 'Bob', csv[1].first
     assert_equal 'Alice', csv[2].first
     assert_equal 'Fruit', csv[2].last
-    assert_equal Recruiter::CSV_PING_MARKER, csv.last.first
+    assert_equal Recruiter::CSV_PING_MARKER, csv[3].first
+    assert_equal 'spam', csv[3][5]
+    assert_equal Recruiter::CSV_MERIT_MARKER, csv[4].first
+    assert_equal 'A test merit', csv[4][8]
   end
 
   test "should export all recruiters to csv" do
@@ -171,9 +174,12 @@ class RecruitersControllerTest < ActionController::TestCase
 
     assert_difference('Recruiter.count', 2) do
       assert_difference('Ping.count', 3) do
-        post :process_import, file: import_file
-        assert_redirected_to recruiters_path
-        assert_equal 2, Recruiter.find_by_first_name('Alice').pings.count
+        assert_difference('Merit.count', 2) do
+          post :process_import, file: import_file
+          assert_redirected_to recruiters_path
+          assert_equal 2, Recruiter.find_by_first_name('Alice').pings.count
+          assert_equal 2, Recruiter.find_by_first_name('Alice').merits.count
+        end
       end
     end
 
