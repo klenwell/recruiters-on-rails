@@ -204,7 +204,7 @@ class Recruiter < ActiveRecord::Base
   end
 
   def last_contact
-    pings.any? ? pings.last.date : nil
+    pings.any? ? pings.order('date DESC').first.date : nil
   end
 
   def timeline
