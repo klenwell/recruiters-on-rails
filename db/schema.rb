@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 20150505050236) do
     t.string   "email"
     t.string   "company"
     t.string   "phone"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "recruiter_list_id"
   end
 
