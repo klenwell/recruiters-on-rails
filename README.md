@@ -27,7 +27,7 @@ For help setting up Rails, see [gorails.com](https://gorails.com/setup/).
 
 Install the application itself using git:
 
-    git clone URL recruiters-on-rails
+    git clone https://github.com/klenwell/recruiters-on-rails.git recruiters-on-rails
 
 Install gems:
 
