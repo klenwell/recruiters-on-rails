@@ -64,9 +64,7 @@ To start the the local server on port 3000:
 
     bundle exec rails server -b 0.0.0.0 -p 3000
 
-You should be able to start adding recruiters at:
-
-http://localhost:3000/
+You should be able to start adding recruiters at http://localhost:3000/.
 
 ## Datatypes
 
