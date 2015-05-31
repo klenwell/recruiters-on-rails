@@ -84,6 +84,7 @@ more efficient, especially as you develop scripts and templates for interacting 
 
 
 # Development
+
 ## Tests
 All tests:
 
@@ -92,3 +93,8 @@ All tests:
 Single test:
 
     bundle exec rake TEST=test/models/recruiters_test.rb
+
+## Contributions
+Pull requests are welcome.
+
+Feel free to message me on Github (klenwell) or email me at my Gmail account.
