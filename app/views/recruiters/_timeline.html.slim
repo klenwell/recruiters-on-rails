@@ -1,0 +1,15 @@
+table.table.table-striped
+  thead
+    tr
+      th = 'Date'
+      th = 'Event'
+      th = 'Description'
+      th = 'Score'
+
+  tbody
+    - recruiter.timeline.reverse.each do |event|
+      tr.event
+        td = event.date
+        td = event.class.to_s
+        td = event.description
+        td = event.value

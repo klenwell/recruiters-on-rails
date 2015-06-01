@@ -1,0 +1,49 @@
+h2 = @recruiter.name
+
+== render partial: 'form'
+
+div.association
+  h3 Pings
+
+  == render partial: 'pings/table', locals: {pings: @recruiter.pings.by_date}
+
+  div.actions
+    a.btn.btn-primary.ping [
+        href=new_recruiter_ping_path(@recruiter)
+        type="button"
+      ]
+      span.glyphicon.glyphicon-bell aria-hidden="true"
+      |  Add Ping
+
+div.association
+  h3 Merits / Demerits
+
+  == render partial: 'merits/table', locals: {merits: @recruiter.merits.by_date}
+
+  div.actions
+    a.btn.btn-success.merit [
+        href=new_recruiter_merit_path(@recruiter)
+        type="button"
+      ]
+      span.glyphicon.glyphicon-thumbs-up aria-hidden="true"
+      |  Add Merit
+
+    a.btn.btn-danger.demerit [
+        href=new_recruiter_merit_path(@recruiter, demerit: true)
+        type="button"
+      ]
+      span.glyphicon.glyphicon-thumbs-down aria-hidden="true"
+      |  Add Demerit
+
+div.association
+  h3 Interviews
+
+  == render partial: 'interviews/table', locals: {interviews: @recruiter.interviews.by_date}
+
+  div.actions
+    a.btn.btn-primary.interview [
+        href=new_interview_path(recruiter_id: @recruiter.id)
+        type="button"
+      ]
+      span.glyphicon.glyphicon-briefcase aria-hidden="true"
+      |  Add Interview

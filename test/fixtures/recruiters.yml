@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+alice:
+  first_name: Alice
+  last_name: Apple
+  email: alice.apple@recruiters.inc
+  company: Recruiters Inc.
+  phone: 555-555-1212
+  recruiter_list_id: <%= ActiveRecord::FixtureSet.identify(:fruit) %>
+  
+bob:
+  first_name: Bob
+  last_name: Banana
+  email: bob.banana@phpcruiters.inc
+  company: PhpCruiters Inc.
+  phone: 555-555-1212
+  recruiter_list_id: <%= ActiveRecord::FixtureSet.identify(:fruit) %>

@@ -1,0 +1,30 @@
+#
+# GLOB
+#
+syntax: glob
+
+# glob defaults
+*.elc
+*.pyc
+*~
+.svn
+.hgtags
+
+
+# project excludes
+.coverage
+.dev
+log
+tmp
+db/development.sqlite3
+db/test.sqlite3
+
+
+
+#
+# REGEX
+#
+syntax: regexp
+
+# regex defaults
+^\.pc/

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+recruiter_spam:
+  recruiter_id: <%= ActiveRecord::FixtureSet.identify(:alice) %>
+  kind: 'spam'
+  note: 'Typical job opening spam sent by recruiter you never met.'
+  transcript: 'Paste raw email here'
+  date: 2015-04-05
+

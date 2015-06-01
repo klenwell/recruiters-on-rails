@@ -1,0 +1,52 @@
+= form_for @recruiter, {class: 'form-horizontal'} do |f|
+  - if @recruiter.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@recruiter.errors.count, "error")} prohibited this recruiter from being saved:"
+      ul
+        - @recruiter.errors.full_messages.each do |message|
+          li = message
+
+  div.form-group.row
+    = f.label :recruiter_list, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      = f.select(:recruiter_list_id,
+          options_for_select(@recruiter_lists.map{ |rl| [rl.name, rl.id] },
+                             @recruiter.recruiter_list_id),
+          {include_blank: 'Choose list below'},
+          {class: "form-control"})
+    div.col-sm-7
+
+  div.form-group.row
+    = f.label :first_name, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      = f.text_field :first_name, {class: 'form-control'}
+    div.col-sm-7
+
+  div.form-group.row
+    = f.label :last_name, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      = f.text_field :last_name, {class: 'form-control'}
+    div.col-sm-7
+
+  div.form-group.row
+    = f.label :email, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      = f.text_field :email, {class: 'form-control'}
+    div.col-sm-7
+
+  div.form-group.row
+    = f.label :company, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      = f.text_field :company, {class: 'form-control'}
+    div.col-sm-7
+
+  div.form-group.row
+    = f.label :phone, {class: 'col-sm-2 control-label horizontal'}
+    div.col-sm-3
+      = f.text_field :phone, {class: 'form-control'}
+    div.col-sm-7
+
+  div.actions.row
+    div.col-sm-offset-2.col-sm-10
+      = f.submit({class: 'btn btn-primary'})
+      a.btn.btn-default href=recruiters_path = 'Cancel'

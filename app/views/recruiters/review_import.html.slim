@@ -1,0 +1,28 @@
+h2 Recruiter Import
+
+h4 = format("File: %s", @file_name)
+
+- [:imported, :invalid, :duplicated].each do |type|
+  div class="imported-#{type.to_s}"
+    h3 = format('%s Recruiters (%d)', type.to_s.titleize, @recruiters[type].count)
+
+    table.table.table-striped
+      thead
+        tr
+          th Name
+          th Email
+          th Company
+
+      tbody
+        - if @recruiters[type].any?
+          - @recruiters[type].each do |recruiter|
+            tr.recruiter-id id="recruiter-#{recruiter.id}"
+              td = recruiter.name
+              td = recruiter.email
+              td = recruiter.company
+        - else
+          tr
+            td.centered colspan=3
+              strong No recruiters.
+
+br

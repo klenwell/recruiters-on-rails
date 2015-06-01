@@ -1,0 +1,93 @@
+body {
+  margin-top: 60px;
+  position: relative;
+}
+
+footer {
+  border-top: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+table.table.table-striped {
+  margin: 12px 0;
+  border-bottom: 2px solid #ddd;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+div.actions {
+  padding: 8px;
+}
+div.actions a.btn {
+  margin-left: 1em;
+}
+
+label.horizontal {
+  text-align: right;
+  padding: 8px 4px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.right-align {
+  text-align: right;
+}
+
+/*
+ * Datepicker
+ */
+div.datepicker { z-index: 1050 !important; }
+
+/*
+ * Index Tables
+ */
+table.table-striped td.no-records {
+  text-align: center;
+  font-weight: bold;
+}
+
+table th.actions {
+  text-align: center;
+}
+
+table th .current {
+  color: blue;
+}
+
+/*
+ * Pagination
+ */
+// Matches default .pagination widget styling (e.g. with buttons)
+.with-pagination {
+  margin: 20px 0;
+}
+
+/*
+ * Search Form
+ */
+div.search {
+  margin: 2em 0;
+  text-align: center;
+}
+
+div.search input.btn {
+  margin-left: 1em;
+}
+
+div.search span.twitter-typeahead {
+  width: 250px;
+}
+
+div.search .tt-dropdown-menu {
+  text-align: left;
+}
+
+div.search div.count {
+  padding-top: 0.5em;
+  text-align: right;
+}

@@ -1,0 +1,30 @@
+
+table.table.table-striped
+  thead
+    tr
+      th Date
+      th Company
+      th Recruiter
+      th Interviewer
+      th Total
+      th Result
+      th
+
+  tbody
+    - if interviews.present?
+      - interviews.each do |interview|
+        tr
+          td = interview.date
+          td = interview.company
+          td = (interview.recruiter ? interview.recruiter.name : 'N/A')
+          td = interview.interviewer
+          td = interview.total
+          td = interview.result
+          td
+            a.btn.btn-default href=edit_interview_path(interview)
+              span.glyphicon.glyphicon-edit aria-hidden="true"
+              |  Edit
+
+    - else
+      tr
+        td.no-records colspan=11 No interviews yet.

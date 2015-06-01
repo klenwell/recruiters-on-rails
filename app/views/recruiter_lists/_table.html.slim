@@ -1,0 +1,24 @@
+
+table.table.table-striped
+  thead
+    tr
+      th Name
+      th Members
+      th Date Added
+      th
+
+  tbody
+    - if lists.present?
+      - lists.each do |list|
+        tr
+          td = list.name
+          td = list.recruiters.count
+          td = l list.created_at
+          td
+            a.btn.btn-default href=edit_recruiter_list_path(list)
+              span.glyphicon.glyphicon-edit aria-hidden="true"
+              |  Edit
+
+    - else
+      tr
+        td.no-records colspan=4 No lists yet.

@@ -1,0 +1,37 @@
+table.table.table-striped
+  thead
+    tr
+      th Date
+      th Kind
+      th Value
+      th Note
+      th
+      th
+
+  tbody
+    - if pings.any?
+      - pings.each do |ping|
+        tr
+          td = ping.date
+          td = ping.kind
+          td = ping.value
+          td = ping.note
+          td
+            a[class="btn btn-default"
+              href=edit_recruiter_ping_path(recruiter_id: ping.recruiter_id, id: ping.id)
+            ]
+              span.glyphicon.glyphicon-edit aria-hidden="true"
+              |  Edit
+          td
+            a[class="btn btn-danger"
+              href=recruiter_ping_path(recruiter_id: ping.recruiter_id, id: ping.id)
+              data-method="delete"
+              data-confirm="Are you sure?"
+              rel="nofollow"
+            ]
+              span.glyphicon.glyphicon-remove aria-hidden="true"
+              |  Delete
+
+    - else
+      tr
+        td.no-records colspan=6 No pings yet.

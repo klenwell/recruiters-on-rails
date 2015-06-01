@@ -1,0 +1,48 @@
+h2 Recruiters
+
+div.actions
+  a.btn.btn-primary.new-recruiter [
+      href=new_recruiter_path
+      type="button"
+    ]
+    span.glyphicon.glyphicon-user aria-hidden="true"
+    |  Add Recruiter
+
+  a.btn.btn-primary.import [
+      href=import_recruiters_path
+      type="button"
+    ]
+    span.glyphicon.glyphicon-upload aria-hidden="true"
+    |  Import CSV File
+
+  a.btn.btn-primary.export-all [
+      href=export_recruiters_path(format: 'csv')
+      type="button"
+    ]
+    span.glyphicon.glyphicon-download aria-hidden="true"
+    |  Export All
+
+== render partial: 'search_form', locals: {search: @search, recruiters: @recruiters}
+
+div.row
+  div.col-sm-3
+  div.col-sm-6.center-text
+    = paginate @recruiters, window: 2
+  div.col-sm-3.right-align
+    - if @recruiters.present?
+      a.btn.btn-primary.with-pagination [
+          href=recruiters_path(format: 'csv')
+          type="button"
+        ]
+        span.glyphicon.glyphicon-export aria-hidden="true"
+        |  CSV Export
+
+== render partial: 'table', locals: {recruiters: @recruiters}
+
+div.row
+  div.col-sm-3
+  div.col-sm-6.center-text
+    = paginate @recruiters, window: 2
+  div.col-sm-3
+
+br

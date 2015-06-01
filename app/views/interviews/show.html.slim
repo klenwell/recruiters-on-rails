@@ -1,0 +1,36 @@
+p#notice = notice
+
+p
+  strong Recruiter:
+  = @interview.recruiter
+p
+  strong Date:
+  = @interview.date
+p
+  strong Company:
+  = @interview.company
+p
+  strong Culture:
+  = @interview.culture
+p
+  strong People:
+  = @interview.people
+p
+  strong Work:
+  = @interview.work
+p
+  strong Career:
+  = @interview.career
+p
+  strong Commute:
+  = @interview.commute
+p
+  strong Salary:
+  = @interview.salary
+p
+  strong Gut:
+  = @interview.gut
+
+= link_to 'Edit', edit_interview_path(@interview)
+'|
+= link_to 'Back', interviews_path

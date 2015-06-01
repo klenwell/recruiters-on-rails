@@ -1,0 +1,14 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+acme:
+  recruiter_id: <%= ActiveRecord::FixtureSet.identify(:alice) %>
+  date: 2015-04-10
+  company: Acme Industries
+  interviewer: Wile E. Coyote
+  culture: 1
+  people: 1
+  work: 1
+  career: 1
+  commute: 1
+  salary: 1
+  gut: 1
