@@ -10,20 +10,20 @@ default: &default
   encoding: unicode
   pool: 5
   host: localhost
-  username: jobhunt
-  password: jobhunt
+  username: recruiters_on_rails
+  password: recruiters_on_rails
   
 
 development:
   <<: *default
-  database: jobhunt
+  database: recruiters_on_rails
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: jobhunt_test
+  database: recruiters_on_rails_test
 
 production:
   <<: *default
