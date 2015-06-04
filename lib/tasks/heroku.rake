@@ -5,13 +5,12 @@ namespace :heroku do
     puts format('heroku test task with args: %s', args)
   end
 
-  desc 'Reset database with seed data'
-  task :reset_db do |t, args|
-    abort("Abort: task only for Heroku environment.") unless ENV['RESET_DATABASE'] == 'ok'
-
-    run_command("pg:reset DATABASE_URL --confirm #{ENV['APP_NAME']}", ENV['APP_NAME'])
-    run_command("run rake db:setup", ENV['APP_NAME'])
-    run_command("run rake db:seed", ENV['APP_NAME'])
+  # bundle exec rake heroku:reset_db['recruiters-on-rails']
+  desc 'Reset database with seed data:'
+  task :reset_db, [:app_name] do |t, args|
+    run_command("pg:reset DATABASE_URL --confirm #{args.app_name}", args.app_name)
+    run_command("run rake db:migrate", args.app_name)
+    run_command("run rake db:seed", args.app_name)
   end
 
   # Helper Functions
