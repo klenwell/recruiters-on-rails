@@ -1,12 +1,14 @@
 namespace :heroku do
 
-  desc 'Test task: heroku run rake heroku:test["hello world"]'
+  # bundle exec rake heroku:test["hello world"]
+  desc 'Test task'
   task :test, [:str] do |t, args|
     puts format('heroku test task with args: %s', args)
   end
 
   # bundle exec rake heroku:reset_db['recruiters-on-rails']
-  desc 'Reset database with seed data:'
+  # Note: run locally with Heroku toolbelt to reset DB on app
+  desc 'Reset database with seed data'
   task :reset_db, [:app_name] do |t, args|
     run_command("pg:reset DATABASE_URL --confirm #{args.app_name}", args.app_name)
     run_command("run rake db:migrate", args.app_name)
