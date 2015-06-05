@@ -1,4 +1,6 @@
-# Overview
+# Recruiters on Rails
+
+[![Build Status](https://travis-ci.org/klenwell/recruiters-on-rails.svg?branch=yc0bxeKN-demo-heroku)](https://travis-ci.org/klenwell/recruiters-on-rails)
 
 Bring up the topic of recruiters with a developer and you're likely to get [a colorful
 response](https://hn.algolia.com/?query=recruiters&sort=byPopularity&prefix&page=0&dateRange=all&type=story).
@@ -8,13 +10,15 @@ and to start accepting them as helpful agents for automating part of my job-find
 Recruiters-on-Rails is a Rails application that helps manage and assess recruiters as part of
 a broader strategy for working with recruiters to find a better job.
 
+To try out a demo version, see [https://recruiters-on-rails.herokuapp.com/](https://recruiters-on-rails.herokuapp.com/).
 
-# Installation
+
+## Installation
 
 Recruiters-on-Rails is designed to be run locally on the Rails development server with
 a PostgreSQL database.
 
-## Prerequisites
+### Prerequisites
 
 - [Ruby 2+](https://www.ruby-lang.org/en/downloads/)
 - [PostgreSQL 9+](http://www.postgresql.org/)
@@ -23,7 +27,7 @@ a PostgreSQL database.
 
 For help setting up Rails, see [gorails.com](https://gorails.com/setup/).
 
-## Recruiters-on-Rails
+### Recruiters-on-Rails
 
 Install the application itself using git:
 
@@ -34,7 +38,7 @@ Install gems:
     cd recruiters-on-rails
     bundle install
 
-## Database
+### Database
 
 Create your application's postgres database:
 
@@ -56,9 +60,9 @@ Setup database:
     bundle exec rake db:setup RAILS_ENV=test
 
 
-# Usage
+## Usage
 
-## Local Server
+### Local Server
 
 To start the the local server on port 3000:
 
@@ -66,7 +70,7 @@ To start the the local server on port 3000:
 
 You should be able to start adding recruiters at http://localhost:3000/.
 
-## Datatypes
+### Datatypes
 
 - Recruiters: people who will help you land interviews and a job
 - Pings: interactions with a recruiter that can raise their rating
@@ -81,9 +85,9 @@ I strongly recommend dealing with recruiters by email at the outset as this will
 more efficient, especially as you develop scripts and templates for interacting with them.
 
 
-# Development
+## Development
 
-## Tests
+### Tests
 All tests:
 
     bundle exec rake test
@@ -92,7 +96,7 @@ Single test:
 
     bundle exec rake TEST=test/models/recruiters_test.rb
 
-## Contributions
+### Contributions
 Pull requests are welcome.
 
 Feel free to message me on Github (klenwell) or email me at my Gmail account.
