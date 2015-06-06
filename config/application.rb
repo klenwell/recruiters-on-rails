@@ -22,5 +22,10 @@ module RecruitersOnRails
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Google Analytics
+    config.google = ActiveSupport::OrderedOptions.new
+    config.google.analytics = ActiveSupport::OrderedOptions.new
+    config.google.analytics.code = 'UA-75217-23'
   end
 end
