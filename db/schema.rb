@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505050236) do
+ActiveRecord::Schema.define(version: 20150731034234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "blacklists", force: :cascade do |t|
+    t.integer  "recruiter_id"
+    t.string   "color"
+    t.boolean  "active"
+    t.string   "reason"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "blacklists", ["recruiter_id"], name: "index_blacklists_on_recruiter_id", using: :btree
 
   create_table "interviews", force: :cascade do |t|
     t.integer  "recruiter_id"
@@ -58,6 +69,12 @@ ActiveRecord::Schema.define(version: 20150505050236) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "recruiter_groups", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recruiter_lists", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -70,13 +87,16 @@ ActiveRecord::Schema.define(version: 20150505050236) do
     t.string   "email"
     t.string   "company"
     t.string   "phone"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "recruiter_group_id"
     t.integer  "recruiter_list_id"
   end
 
+  add_index "recruiters", ["recruiter_group_id"], name: "index_recruiters_on_recruiter_group_id", using: :btree
   add_index "recruiters", ["recruiter_list_id"], name: "index_recruiters_on_recruiter_list_id", using: :btree
 
+  add_foreign_key "blacklists", "recruiters"
   add_foreign_key "interviews", "recruiters"
   add_foreign_key "merits", "recruiters"
 end
