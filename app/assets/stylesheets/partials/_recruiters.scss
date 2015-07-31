@@ -36,8 +36,15 @@ body.recruiters.show {
     padding: 0;
     margin: 2em 0;
 
-    a.btn {
+    a.btn,
+    button.btn {
       margin: 0 1em 0 0;
     }
+  }
+}
+
+body.recruiters.edit {
+  h3.modal-title {
+    margin-bottom: 1em;
   }
 }

@@ -52,16 +52,39 @@ div.association
   h3 Blacklist
 
   div.actions
-    a.btn.btn-black.blacklist [
-        href=recruiter_path(@recruiter)
-        type="button"
-      ]
+    button.btn.btn-black.blacklist [
+      data-toggle="modal"
+      data-target="#blacklist-modal"
+    ]
       span.glyphicon.glyphicon-list aria-hidden="true"
       |  Blacklist
 
-    a.btn.btn-gray.graylist [
-        href=recruiter_path(@recruiter)
-        type="button"
-      ]
+    button.btn.btn-gray.graylist [
+      data-toggle="modal"
+      data-target="#blacklist-modal"
+    ]
       span.glyphicon.glyphicon-list aria-hidden="true"
       |  Graylist
+
+/! Modal
+div.modal [
+  id="blacklist-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="blacklist-modal-reason"
+]
+  div.modal-dialog role="document"
+    div.modal-content
+      div.modal-header
+        button.close [
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close"
+        ]
+          span aria-hidden="true" &times;
+        h3.modal-title#blacklist-modal-reason Blacklist Reason
+        = form_tag recruiter_path(@recruiter) do |f|
+          div.form-group
+            = text_field_tag :reason, nil, {class: 'form-control'}
+          div.form-group
+            = submit_tag 'Submit', {class: 'btn btn-primary'}

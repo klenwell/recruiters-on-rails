@@ -20,9 +20,11 @@ table.table.table-striped {
 
 div.actions {
   padding: 8px;
-}
-div.actions a.btn {
-  margin-left: 1em;
+
+  a.btn,
+  button.btn {
+    margin-left: 1em;
+  }
 }
 
 label.horizontal {
