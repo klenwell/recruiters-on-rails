@@ -91,3 +91,14 @@ div.search div.count {
   padding-top: 0.5em;
   text-align: right;
 }
+
+/*
+ * Custom Buttons
+ */
+.btn-black {
+  @include button-variant(white, #222222, black);
+}
+
+.btn-gray {
+  @include button-variant(white, #666666, #444444);
+}

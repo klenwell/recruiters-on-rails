@@ -47,3 +47,21 @@ div.association
       ]
       span.glyphicon.glyphicon-briefcase aria-hidden="true"
       |  Add Interview
+
+div.association
+  h3 Blacklist
+
+  div.actions
+    a.btn.btn-black.blacklist [
+        href=recruiter_path(@recruiter)
+        type="button"
+      ]
+      span.glyphicon.glyphicon-list aria-hidden="true"
+      |  Blacklist
+
+    a.btn.btn-gray.graylist [
+        href=recruiter_path(@recruiter)
+        type="button"
+      ]
+      span.glyphicon.glyphicon-list aria-hidden="true"
+      |  Graylist
