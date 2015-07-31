@@ -212,4 +212,12 @@ class Recruiter < ActiveRecord::Base
     events = pings + merits + interviews
     events.sort_by{|event| event.date}
   end
+
+  def blacklisted?
+    blacklists.where(color: 'black', active: true).any?
+  end
+
+  def graylisted?
+    blacklists.where(color: 'gray', active: false).any?
+  end
 end
