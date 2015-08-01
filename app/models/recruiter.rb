@@ -200,6 +200,7 @@ class Recruiter < ActiveRecord::Base
       unless merit.valid?
         merit.errors.full_messages.each do |msg|
           errors[:base] << "Merit Error: #{msg}"
+          blacklist.errors[:base] << "Merit Error: #{msg}"
         end
 
         raise ActiveRecord::Rollback

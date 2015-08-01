@@ -53,4 +53,23 @@ class RecruiterTest < ActiveSupport::TestCase
     sorted_recruiters = Recruiter.sorted('name', 'desc')
     assert_equal 'Bob', sorted_recruiters.first.first_name
   end
+
+  test "should blacklist recruiter" do
+    bob = recruiters(:bob)
+    blacklist = bob.blacklist({ color: 'black', reason: 'testing' })
+
+    assert blacklist.persisted?, 'Blacklist record should have been created.'
+    assert Recruiter.find(bob.id).blacklisted?, 'Recruiter should now be blacklisted'
+  end
+
+  test "should not blacklist recruiter when blacklist params are invalid" do
+    # Invalid blacklist: missing required reason
+    bob = recruiters(:bob)
+    blacklist = bob.blacklist({ color: 'black' })
+
+    assert_not blacklist.persisted?, 'Blacklist record should not have been created.'
+    assert_not Recruiter.find(bob.id).blacklisted?, 'Recruiter should not be blacklisted'
+    assert_equal 1, blacklist.errors.full_messages.length
+    assert_equal "Reason can't be blank", blacklist.errors.full_messages.first
+  end
 end
