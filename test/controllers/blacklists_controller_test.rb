@@ -13,13 +13,12 @@ class BlacklistsControllerTest < ActionController::TestCase
     assert_difference('Blacklist.count', +1) do
       assert_difference('Merit.count', +1) do
         assert_difference('Recruiter.find_by_id(recruiter_id).score', -50) do
-          post :create, blacklist: blacklist_params, recruiter_id: recruiter_id,
-            format: :json
+          xhr :post, :create, blacklist: blacklist_params, recruiter_id: recruiter_id
+          assert_response :success
+          assert_equal "text/javascript", @response.content_type
         end
       end
     end
-
-    assert_response :success
 
     created_blacklist = Blacklist.last
     assert_equal Recruiter.find(recruiter_id), created_blacklist.recruiter
@@ -39,14 +38,11 @@ class BlacklistsControllerTest < ActionController::TestCase
     assert_no_difference('Blacklist.count') do
       assert_no_difference('Merit.count') do
         assert_no_difference('Recruiter.find_by_id(recruiter_id).score') do
-          post :create, blacklist: blacklist_params, recruiter_id: recruiter_id,
-            format: :json
+          xhr :post, :create, blacklist: blacklist_params, recruiter_id: recruiter_id
+          assert_response :unprocessable_entity
+          assert_equal "text/javascript", @response.content_type
         end
       end
     end
-
-    assert_response :unprocessable_entity
-    assert JSON.parse(@response.body)['error'].starts_with?('Validation failed'),
-      "Should have returned error message starting: 'Validation failed'."
   end
 end

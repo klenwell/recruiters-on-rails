@@ -8,11 +8,11 @@ class Blacklist < ActiveRecord::Base
   Colors = ['black', 'gray']
   Demerits = { 'black' => -100, 'gray' => -50 }
 
-  validates :recruiter, :color, presence: true
+  validates :recruiter, :color, :reason, presence: true
   validates :color, inclusion: { in: Colors }
 
   def active?
-    return active
+    active
   end
 
   def demerit_value

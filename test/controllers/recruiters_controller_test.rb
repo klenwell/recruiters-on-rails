@@ -190,4 +190,18 @@ class RecruitersControllerTest < ActionController::TestCase
 
     temp_file.unlink
   end
+
+  test "should show unblacklist button with recruiter is blacklisted" do
+    blacklist = Blacklist.create!(recruiter_id: @recruiter.id,
+                                  reason: 'testing',
+                                  color: 'black',
+                                  active: true)
+
+    get :edit, id: @recruiter
+    assert_response :success
+    assert_select 'button.btn.unblacklist', 1, 'Should show unblacklist button'
+    assert_select 'button.btn.ungraylist', false, 'Should not show ungraylist button'
+    assert_select 'button.btn.blacklist', false, 'Should not show blacklist button'
+    assert_select 'button.btn.graylist', 1, 'Should show graylist button'
+  end
 end

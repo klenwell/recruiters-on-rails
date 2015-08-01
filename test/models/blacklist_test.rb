@@ -5,6 +5,7 @@ class BlacklistTest < ActiveSupport::TestCase
   test "should blacklist and unblacklist a user" do
     blacklist = Blacklist.create!(recruiter_id: recruiters(:bob).id,
                                   color: 'black',
+                                  reason: 'testing',
                                   active: true)
     assert recruiters(:bob).blacklisted?, 'should be blacklisted'
 
@@ -14,7 +15,7 @@ class BlacklistTest < ActiveSupport::TestCase
   end
 
   test "should require recruiter" do
-    blacklist = Blacklist.new(color: 'black')
+    blacklist = Blacklist.new(color: 'black', reason: 'testing')
     assert_invalid_record_field(blacklist, 'recruiter_id')
 
     blacklist.recruiter_id = recruiters(:bob).id
@@ -22,7 +23,7 @@ class BlacklistTest < ActiveSupport::TestCase
   end
 
   test "should require color" do
-    blacklist = Blacklist.new(recruiter_id: recruiters(:bob).id)
+    blacklist = Blacklist.new(recruiter_id: recruiters(:bob).id, reason: 'testing')
     assert_invalid_record_field(blacklist, 'color')
 
     blacklist.color = 'black'
@@ -32,6 +33,7 @@ class BlacklistTest < ActiveSupport::TestCase
   test "that blacklist color is valid" do
     blacklist = Blacklist.new(recruiter_id: recruiters(:bob).id,
                               color: 'gray',
+                              reason: 'testing',
                               active: true)
     assert blacklist.valid?, blacklist.errors.messages
 
@@ -44,6 +46,7 @@ class BlacklistTest < ActiveSupport::TestCase
 
   test "should set active field to true by default" do
     blacklist = Blacklist.new(recruiter_id: recruiters(:bob).id,
+                              reason: 'testing',
                               color: 'black')
     assert blacklist.active.nil?
     assert_not blacklist.active

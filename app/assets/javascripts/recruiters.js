@@ -36,6 +36,23 @@ var onReady = function() {
     //console.debug('Suggestion clicked:', event, datum, name);
     window.location.href = '/recruiters/' + datum.id;
   });
+
+  // Modal for blacklist button
+  $('div#blacklist-modal').on('show.bs.modal', function(e) {
+    var color = $(e.relatedTarget).hasClass('graylist') ? 'gray' : 'black';
+    console.debug('show', color, $(this), e);
+    $('input#blacklist_color').val(color);
+  })
+
+  $('div#blacklist-modal').on('hidden.bs.modal', function(e) {
+    console.debug('hidden', $(this), e);
+  });
+
+  $('div#blacklist-modal form').on('submit', function(e) {
+    console.debug('on submit', e);
+    $('div#blacklist-modal').modal('hide');
+    //return false;
+  })
 };
 
 $(document).ready(onReady);
