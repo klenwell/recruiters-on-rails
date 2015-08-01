@@ -2,6 +2,9 @@ class Merit < ActiveRecord::Base
 
   belongs_to :recruiter
 
+  # Validations
+  validates :recruiter, presence: true
+
   # Scopes
   scope :by_date, ->{ order 'date DESC' }
 
