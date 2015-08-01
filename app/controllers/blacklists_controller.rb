@@ -3,29 +3,10 @@ class BlacklistsController < ApplicationController
   # POST /pings.json
   def create
     recruiter = Recruiter.find(params[:recruiter_id])
-    @blacklist = recruiter.blacklists.build(blacklist_params.merge({recruiter_id: recruiter.id}))
-    @blacklist_saved = nil
-    @error = nil
-
-    Blacklist.transaction do
-      begin
-        @blacklist.save!
-        Merit.create!({
-          recruiter_id: recruiter.id,
-          reason: 'Blacklisted!',
-          value: @blacklist.demerit_value,
-          date: Date.today
-        })
-        @blacklist_saved = true
-      rescue Exception => e
-        @blacklist_saved = false
-        @error = e.to_s.html_safe
-        raise ActiveRecord::Rollback
-      end
-    end
+    @blacklist = recruiter.blacklist(blacklist_params)
 
     respond_to do |format|
-      if @blacklist_saved
+      if @blacklist.persisted?
         format.js {
           flash[:notice] = 'Recruiter has been blacklisted!'
           flash.keep(:notice)

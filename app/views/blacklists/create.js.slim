@@ -1,7 +1,8 @@
 
-- if @error
+- if @blacklist.errors
+  - message = @blacklist.errors.full_messages.join("\n")
   |
-    alert("#{@error}");
+    alert("#{message}");
 - else
   |
     alert('this should not happen');

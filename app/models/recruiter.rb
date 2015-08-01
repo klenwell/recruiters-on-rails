@@ -172,6 +172,50 @@ class Recruiter < ActiveRecord::Base
   end
 
   #
+  # Instance Methods
+  #
+  def blacklist(blacklist_params)
+    blacklist = Blacklist.new(blacklist_params.merge({recruiter_id: id}))
+
+    self.transaction do
+      # Save blacklist
+      # See http://stackoverflow.com/a/2718330/1093087
+      unless blacklist.valid?
+        blacklist.errors.full_messages.each do |msg|
+          errors[:base] << "Blacklist Error: #{msg}"
+        end
+
+        raise ActiveRecord::Rollback
+      end
+
+      blacklist.save!
+
+      # Save demerit
+      merit = Merit.new(
+        recruiter_id: id,
+        reason: blacklist.color == 'gray' ? 'Graylisted!' : 'Blacklisted!',
+        value: blacklist.demerit_value,
+        date: Date.today
+      )
+      unless merit.valid?
+        merit.errors.full_messages.each do |msg|
+          errors[:base] << "Merit Error: #{msg}"
+        end
+
+        raise ActiveRecord::Rollback
+      end
+
+      merit.save!
+    end
+
+    blacklist
+  end
+
+  def unblacklist
+
+  end
+
+  #
   # Fields / Virtual Fields
   #
   def phone=(value)
