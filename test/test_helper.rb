@@ -11,6 +11,7 @@ class ActiveSupport::TestCase
     assert_not record.valid?
 
     unless message.nil?
+      assert_not record.errors.to_hash[field].nil?, "Expected error #{field} not found"
       assert_equal record.errors.to_hash[field].first, message, 'Unexpected error message'
     end
   end

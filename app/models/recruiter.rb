@@ -212,8 +212,27 @@ class Recruiter < ActiveRecord::Base
     blacklist
   end
 
-  def unblacklist
+  def unblacklist(color='black')
+    blacklist = blacklists.where(color: color, active: true).first
+    return if blacklist.nil?
 
+    self.transaction do
+      blacklist.update_attribute(:active, false)
+
+      # Save demerit
+      merit = Merit.create!(
+        recruiter_id: id,
+        reason: blacklist.color == 'gray' ? 'Un-graylisted!' : 'Un-blacklisted!',
+        value: (blacklist.demerit_value * -0.8).to_i,
+        date: Date.today
+      )
+    end
+
+    blacklist
+  end
+
+  def ungraylist
+    unblacklist('gray')
   end
 
   #

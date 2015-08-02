@@ -72,4 +72,12 @@ class RecruiterTest < ActiveSupport::TestCase
     assert_equal 1, blacklist.errors.full_messages.length
     assert_equal "Reason can't be blank", blacklist.errors.full_messages.first
   end
+
+  test "that recruiter loses points when blacklisted and unblacklisted" do
+    bob = recruiters(:bob)
+    assert_difference('bob.score', -20) do
+      bob.blacklist({ color: 'black', reason: 'testing' })
+      bob.unblacklist
+    end
+  end
 end

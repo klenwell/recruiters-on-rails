@@ -31,7 +31,7 @@ class BlacklistTest < ActiveSupport::TestCase
   end
 
   test "that blacklist color is valid" do
-    blacklist = Blacklist.new(recruiter_id: recruiters(:bob).id,
+    blacklist = Blacklist.new(recruiter_id: recruiters(:alice).id,
                               color: 'gray',
                               reason: 'testing',
                               active: true)
@@ -57,4 +57,27 @@ class BlacklistTest < ActiveSupport::TestCase
     assert blacklist.active?
   end
 
+  test "that recruiter can only be blacklisted once" do
+    blacklist = Blacklist.create!(recruiter_id: recruiters(:bob).id,
+                                  color: 'black',
+                                  reason: 'testing')
+    assert recruiters(:bob).blacklisted?, 'should be blacklisted'
+
+    blacklist = Blacklist.new(recruiter_id: recruiters(:bob).id,
+                              reason: 'testing',
+                              color: 'black')
+    assert_invalid_record_field(blacklist, :color, 'already blacklisted')
+  end
+
+  test "that recruiter can only be graylisted once" do
+    graylist = Blacklist.create!(recruiter_id: recruiters(:alice).id,
+                                 color: 'gray',
+                                 reason: 'testing')
+    assert recruiters(:alice).graylisted?, 'should be graylisted'
+
+    graylist = Blacklist.new(recruiter_id: recruiters(:alice).id,
+                             color: 'gray',
+                             reason: 'testing')
+    assert_invalid_record_field(graylist, :color, 'already graylisted')
+  end
 end

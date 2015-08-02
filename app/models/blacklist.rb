@@ -10,6 +10,7 @@ class Blacklist < ActiveRecord::Base
 
   validates :recruiter, :color, :reason, presence: true
   validates :color, inclusion: { in: Colors }
+  validates :color, uniqueness: {scope: :recruiter, message: "already %{value}listed"}
 
   def active?
     active
