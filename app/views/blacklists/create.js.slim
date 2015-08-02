@@ -1,11 +1,9 @@
 
 - if @blacklist.errors
-  - message = @blacklist.errors.full_messages.join("\n")
-  |
-    alert("#{message}");
-- else
-  |
-    alert('this should not happen');
-
+  - @blacklist.errors.full_messages.each do |message|
+    - html_f = "<div class='alert alert-danger' role='alert'><strong>%s</strong>: %s</div>"
+    - html_msg = format(html_f, 'Blacklist Error', message).html_safe
+    |
+      $('div.flash.js').html("#{html_msg}").slideDown(500).delay(3000).slideUp(500);
 |
   $('div#blacklist-modal').modal('hide');

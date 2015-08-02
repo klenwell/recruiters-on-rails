@@ -263,6 +263,6 @@ class Recruiter < ActiveRecord::Base
   end
 
   def graylisted?
-    blacklists.where(color: 'gray', active: false).any?
+    blacklists.where(color: 'gray', active: true).any?
   end
 end

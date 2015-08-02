@@ -40,6 +40,19 @@ label.horizontal {
   text-align: right;
 }
 
+div.flash.js {
+  position: fixed;
+  top: 25px;
+  left: 0;
+  width: 100%;
+  z-index: 2000;
+
+  div.alert {
+    width: 400px;
+    margin: 0 auto;
+  }
+}
+
 /*
  * Datepicker
  */
