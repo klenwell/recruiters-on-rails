@@ -3,7 +3,7 @@ class BlacklistsController < ApplicationController
   # POST /pings.json
   def create
     recruiter = Recruiter.find(params[:recruiter_id])
-    @blacklist = recruiter.blacklist(blacklist_params)
+    @blacklist = recruiter.blacklist(blacklist_params[:reason], blacklist_params[:color])
 
     respond_to do |format|
       if @blacklist.persisted?
@@ -13,7 +13,6 @@ class BlacklistsController < ApplicationController
           render js: "window.location = '#{recruiter_path(recruiter)}'"
         }
       else
-        #format.json { render json: {error: @error}, status: :unprocessable_entity }
         format.js { render status: :unprocessable_entity }
       end
     end

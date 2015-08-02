@@ -174,42 +174,52 @@ class Recruiter < ActiveRecord::Base
   #
   # Instance Methods
   #
-  def blacklist(blacklist_params)
-    blacklist = Blacklist.new(blacklist_params.merge({recruiter_id: id}))
+  def blacklist(reason=nil, color='black')
+    blacklist = blacklists.where(color: color).first
 
+    # If blacklisted, nothing to do
+    return if blacklist.present? && blacklist.active?
+
+    # Validate and blacklist
     self.transaction do
-      # Save blacklist
-      # See http://stackoverflow.com/a/2718330/1093087
-      unless blacklist.valid?
-        blacklist.errors.full_messages.each do |msg|
-          errors[:base] << "Blacklist Error: #{msg}"
+
+      # If inactive blacklist, activate
+      if blacklist.present?
+        blacklist.update_attributes({reason: reason, active: true})
+
+      # If no blacklist, create
+      else
+        blacklist = Blacklist.new(recruiter_id: id,
+                                  color: color,
+                                  reason: reason,
+                                  active: true)
+
+        # http://stackoverflow.com/a/2718330/1093087
+        unless blacklist.valid?
+          blacklist.errors.full_messages.each do |msg|
+            errors[:base] << "Blacklist Error: #{msg}"
+          end
+
+          raise ActiveRecord::Rollback
         end
 
-        raise ActiveRecord::Rollback
+        blacklist.save!
       end
 
-      blacklist.save!
-
       # Save demerit
-      merit = Merit.new(
+      Merit.create!(
         recruiter_id: id,
         reason: blacklist.color == 'gray' ? 'Graylisted!' : 'Blacklisted!',
         value: blacklist.demerit_value,
         date: Date.today
       )
-      unless merit.valid?
-        merit.errors.full_messages.each do |msg|
-          errors[:base] << "Merit Error: #{msg}"
-          blacklist.errors[:base] << "Merit Error: #{msg}"
-        end
-
-        raise ActiveRecord::Rollback
-      end
-
-      merit.save!
     end
 
     blacklist
+  end
+
+  def graylist(reason)
+    blacklist(reason, 'gray')
   end
 
   def unblacklist(color='black')
@@ -220,7 +230,7 @@ class Recruiter < ActiveRecord::Base
       blacklist.update_attribute(:active, false)
 
       # Save demerit
-      merit = Merit.create!(
+      Merit.create!(
         recruiter_id: id,
         reason: blacklist.color == 'gray' ? 'Un-graylisted!' : 'Un-blacklisted!',
         value: (blacklist.demerit_value * -0.8).to_i,

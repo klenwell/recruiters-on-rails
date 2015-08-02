@@ -65,7 +65,7 @@ class RecruiterTest < ActiveSupport::TestCase
   test "should not blacklist recruiter when blacklist params are invalid" do
     # Invalid blacklist: missing required reason
     bob = recruiters(:bob)
-    blacklist = bob.blacklist({ color: 'black' })
+    blacklist = bob.blacklist('')
 
     assert_not blacklist.persisted?, 'Blacklist record should not have been created.'
     assert_not Recruiter.find(bob.id).blacklisted?, 'Recruiter should not be blacklisted'
@@ -78,6 +78,34 @@ class RecruiterTest < ActiveSupport::TestCase
     assert_difference('bob.score', -20) do
       bob.blacklist({ color: 'black', reason: 'testing' })
       bob.unblacklist
+    end
+  end
+
+  test "that user will have no more than one associated blacklist" do
+    alice = recruiters(:alice)
+    Blacklist.destroy_all
+
+    # Should lose 120 total
+    assert_difference('Recruiter.find_by_id(alice.id).score', -120) do
+      assert_difference('Merit.count', +3) do
+        # Blacklist user: creates blacklist
+        assert_difference('Blacklist.count', +1) do
+          alice.blacklist('testing')
+          assert alice.blacklisted?
+        end
+
+        # Unblacklist user: blacklist status changed
+        assert_no_difference('Blacklist.count') do
+          alice.unblacklist
+          assert_not alice.blacklisted?
+        end
+
+        # Reblacklist user: blacklist status changed
+        assert_no_difference('Blacklist.count') do
+          alice.blacklist('re-blacklisting')
+          assert alice.blacklisted?
+        end
+      end
     end
   end
 end
