@@ -155,6 +155,24 @@ class RecruitersController < ApplicationController
     render json: @search.results
   end
 
+  # POST /recruiter/1/unblacklist.js
+  def unblacklist
+    recruiter = Recruiter.find(params[:id])
+    unblacklisted = recruiter.unblacklist(params[:color])
+
+    respond_to do |format|
+      if unblacklisted
+        format.js {
+          flash[:notice] = "Recruiter has been un#{params[:color]}listed!"
+          flash.keep(:notice)
+          render js: "window.location = '#{recruiter_path(recruiter)}'"
+        }
+      else
+        format.js { render status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

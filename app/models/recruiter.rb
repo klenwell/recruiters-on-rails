@@ -224,7 +224,7 @@ class Recruiter < ActiveRecord::Base
 
   def unblacklist(color='black')
     blacklist = blacklists.where(color: color, active: true).first
-    return if blacklist.nil?
+    return false if blacklist.nil?
 
     self.transaction do
       blacklist.update_attribute(:active, false)
@@ -238,7 +238,7 @@ class Recruiter < ActiveRecord::Base
       )
     end
 
-    blacklist
+    true
   end
 
   def ungraylist

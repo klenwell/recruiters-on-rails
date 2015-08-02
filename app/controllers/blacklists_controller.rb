@@ -1,6 +1,6 @@
 class BlacklistsController < ApplicationController
 
-  # POST /pings.json
+  # POST /blacklists.json
   def create
     recruiter = Recruiter.find(params[:recruiter_id])
     @blacklist = recruiter.blacklist(blacklist_params[:reason], blacklist_params[:color])

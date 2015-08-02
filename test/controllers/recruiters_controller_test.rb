@@ -204,4 +204,16 @@ class RecruitersControllerTest < ActionController::TestCase
     assert_select 'button.btn.blacklist', false, 'Should not show blacklist button'
     assert_select 'button.btn.graylist', 1, 'Should show graylist button'
   end
+
+  test "should unblacklist recruiter" do
+    Blacklist.destroy_all
+
+    bob = recruiters(:bob)
+    bob.blacklist('testing')
+    assert bob.blacklisted?
+
+    xhr :post, :unblacklist, id: bob, color: 'black'
+    assert_response :success
+    assert_equal "text/javascript", @response.content_type
+  end
 end
