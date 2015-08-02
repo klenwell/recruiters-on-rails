@@ -78,9 +78,15 @@ div.association
         span.glyphicon.glyphicon-list aria-hidden="true"
         |  Graylist
     - else
-      button.btn.btn-default.ungraylist
+      = button_to unblacklist_recruiter_path(@recruiter),
+        remote: true,
+        method: :post,
+        class:  "btn btn-default ungraylist",
+        data: { confirm: "Are you sure?" } \
+        do
+        = hidden_field_tag 'color', 'gray'
         span.glyphicon.glyphicon-list aria-hidden="true"
-        |  Un-Graylist
+        |  De-Graylist
 
 /! Blacklist Modal
 div.modal [

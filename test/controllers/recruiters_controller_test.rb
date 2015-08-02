@@ -215,5 +215,19 @@ class RecruitersControllerTest < ActionController::TestCase
     xhr :post, :unblacklist, id: bob, color: 'black'
     assert_response :success
     assert_equal "text/javascript", @response.content_type
+    assert_not bob.blacklisted?
+  end
+
+  test "should ungraylist recruiter" do
+    Blacklist.destroy_all
+
+    bob = recruiters(:bob)
+    bob.graylist('testing')
+    assert bob.graylisted?
+
+    xhr :post, :unblacklist, id: bob, color: 'gray'
+    assert_response :success
+    assert_equal "text/javascript", @response.content_type
+    assert_not bob.graylisted?
   end
 end
