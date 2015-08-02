@@ -20,8 +20,6 @@ Rails.application.routes.draw do
 
   resources :recruiter_lists, path: 'lists'
 
-  resources :blacklists, only: [:create]
-
   get 'recruiters/typeahead/:query' => 'recruiters#typeahead'
 
   # You can have the root of your site routed with "root"

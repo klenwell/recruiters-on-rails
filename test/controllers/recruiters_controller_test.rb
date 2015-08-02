@@ -191,6 +191,44 @@ class RecruitersControllerTest < ActionController::TestCase
     temp_file.unlink
   end
 
+  test "should blacklist Bob" do
+    Blacklist.destroy_all
+
+    bob = recruiters(:bob)
+    assert_not bob.blacklisted?
+
+    assert_difference('Blacklist.count', +1) do
+      assert_difference('Merit.count', +1) do
+        assert_difference('Recruiter.find_by_id(bob.id).score', -100) do
+          xhr :post, :blacklist, id: bob, color: 'black', reason: "Bob's a schmuck."
+          assert_response :success
+          assert_equal "text/javascript", @response.content_type
+        end
+      end
+    end
+
+    assert bob.blacklisted?
+  end
+
+  test "should return an error and not create blacklist or demerit" do
+    Blacklist.destroy_all
+
+    bob = recruiters(:bob)
+    assert_not bob.blacklisted?
+
+    assert_no_difference('Blacklist.count') do
+      assert_no_difference('Merit.count') do
+        assert_no_difference('Recruiter.find_by_id(bob.id).score') do
+          xhr :post, :blacklist, id: bob, color: 'green', reason: "Bob's a schmuck."
+          assert_response :unprocessable_entity
+          assert_equal "text/javascript", @response.content_type
+        end
+      end
+    end
+
+    assert_not bob.blacklisted?
+  end
+
   test "should show unblacklist button with recruiter is blacklisted" do
     blacklist = Blacklist.create!(recruiter_id: @recruiter.id,
                                   reason: 'testing',
