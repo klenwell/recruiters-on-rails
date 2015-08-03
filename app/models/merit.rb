@@ -21,6 +21,10 @@ class Merit < ActiveRecord::Base
   end
 
   def description
-    format('%s: %s', kind.capitalize, reason.capitalize)
+    reason.capitalize
+  end
+
+  def event
+    kind.capitalize
   end
 end
