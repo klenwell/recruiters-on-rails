@@ -11,6 +11,7 @@ table.table.table-striped
   tbody
     - if recruiters.present?
       - recruiters.each do |recruiter|
+        - next if recruiter.blacklisted? && !(@is_search)
         tr [
           id="recruiter-#{recruiter.id}"
           class=(['recruiter',

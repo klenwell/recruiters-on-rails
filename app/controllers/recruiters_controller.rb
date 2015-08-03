@@ -12,9 +12,13 @@ class RecruitersController < ApplicationController
       Kaminari.paginate_array(@recruiters).page(params[:page]) :
       @recruiters.page(params[:page])
 
+    # Treat email searches differently
     @is_email_search = @recruiters.blank? && search_params['name_like'] &&
       ValidateEmail.valid?(search_params['name_like'])
     @email = search_params['name_like'] if @is_email_search
+
+    # Flag search to filter blacklisted recruiters in non-search views
+    @is_search = search_params.present?
 
     respond_to do |format|
       format.html

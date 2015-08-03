@@ -278,4 +278,24 @@ class RecruitersControllerTest < ActionController::TestCase
     assert_select 'tr.recruiter.graylisted td:nth-of-type(1) a', {text: 'Bob Banana'},
       'Should have graylisted Bob Banana.'
   end
+
+  test "should not list blacklisted recruiters in index" do
+    bob = recruiters(:bob)
+    bob.blacklist('testing')
+    assert bob.blacklisted?
+
+    get :index
+    assert_not_select 'tr.recruiter.blacklisted', 'Should not list blacklisted recruiters.'
+  end
+
+  test "should list blacklisted recruiters in search results" do
+    bob = recruiters(:bob)
+    bob.blacklist('testing')
+    assert bob.blacklisted?
+
+    get :index, { recruiter_search: {name_like: 'bob'} }
+    assert_response :success
+    assert_select 'tr.recruiter.blacklisted', {count: 1},
+      'Should list blacklisted recruiters.'
+  end
 end

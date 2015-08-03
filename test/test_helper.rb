@@ -15,4 +15,8 @@ class ActiveSupport::TestCase
       assert_equal record.errors.to_hash[field].first, message, 'Unexpected error message'
     end
   end
+
+  def assert_not_select(selector, message)
+    assert_select selector, false, message
+  end
 end
