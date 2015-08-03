@@ -268,4 +268,14 @@ class RecruitersControllerTest < ActionController::TestCase
     assert_equal "text/javascript", @response.content_type
     assert_not bob.graylisted?
   end
+
+  test "should gray out graylisted recruiters in index" do
+    bob = recruiters(:bob)
+    bob.graylist('testing')
+    assert bob.graylisted?
+
+    get :index
+    assert_select 'tr.recruiter.graylisted td:nth-of-type(1) a', {text: 'Bob Banana'},
+      'Should have graylisted Bob Banana.'
+  end
 end
