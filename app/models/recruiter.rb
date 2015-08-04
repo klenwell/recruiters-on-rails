@@ -4,6 +4,7 @@ class Recruiter < ActiveRecord::Base
   has_many :pings, dependent: :destroy
   has_many :merits, dependent: :destroy
   has_many :interviews, dependent: :destroy
+  has_many :blacklists, dependent: :destroy
   belongs_to :recruiter_list
 
   validates :first_name, :email, presence: true
@@ -171,6 +172,80 @@ class Recruiter < ActiveRecord::Base
   end
 
   #
+  # Instance Methods
+  #
+  def blacklist(reason=nil, color='black')
+    blacklist = blacklists.where(color: color).first
+
+    # If blacklisted, nothing to do
+    return if blacklist.present? && blacklist.active?
+
+    # Validate and blacklist
+    self.transaction do
+
+      # If inactive blacklist, activate
+      if blacklist.present?
+        blacklist.update_attributes({reason: reason, active: true})
+
+      # If no blacklist, create
+      else
+        blacklist = Blacklist.new(recruiter_id: id,
+                                  color: color,
+                                  reason: reason,
+                                  active: true)
+
+        # http://stackoverflow.com/a/2718330/1093087
+        unless blacklist.valid?
+          blacklist.errors.full_messages.each do |msg|
+            errors[:base] << "Blacklist Error: #{msg}"
+          end
+
+          raise ActiveRecord::Rollback
+        end
+
+        blacklist.save!
+      end
+
+      # Save demerit
+      Merit.create!(
+        recruiter_id: id,
+        reason: blacklist.color == 'gray' ? 'Graylisted!' : 'Blacklisted!',
+        value: blacklist.demerit_value,
+        date: Date.today
+      )
+    end
+
+    blacklist
+  end
+
+  def graylist(reason)
+    blacklist(reason, 'gray')
+  end
+
+  def unblacklist(color='black')
+    blacklist = blacklists.where(color: color, active: true).first
+    return true if blacklist.nil?
+
+    self.transaction do
+      blacklist.update_attribute(:active, false)
+
+      # Save demerit
+      Merit.create!(
+        recruiter_id: id,
+        reason: blacklist.color == 'gray' ? 'Un-graylisted!' : 'Un-blacklisted!',
+        value: (blacklist.demerit_value * -0.8).to_i,
+        date: Date.today
+      )
+    end
+
+    true
+  end
+
+  def ungraylist
+    unblacklist('gray')
+  end
+
+  #
   # Fields / Virtual Fields
   #
   def phone=(value)
@@ -210,5 +285,13 @@ class Recruiter < ActiveRecord::Base
   def timeline
     events = pings + merits + interviews
     events.sort_by{|event| event.date}
+  end
+
+  def blacklisted?
+    blacklists.where(color: 'black', active: true).any?
+  end
+
+  def graylisted?
+    blacklists.where(color: 'gray', active: true).any?
   end
 end

@@ -1,4 +1,9 @@
 div.row
+  - if @recruiter.blacklisted?
+    h2.blacklisted Blacklisted
+  - elsif @recruiter.graylisted?
+    h2.graylisted Graylisted
+
   div.col-sm-5.recruiter-data
     h2 = @recruiter.name
     h4 = @recruiter.company

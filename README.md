@@ -1,6 +1,6 @@
 # Recruiters on Rails
 
-[![Build Status](https://travis-ci.org/klenwell/recruiters-on-rails.svg?branch=yc0bxeKN-demo-heroku)](https://travis-ci.org/klenwell/recruiters-on-rails)
+[![Build Status](https://travis-ci.org/klenwell/recruiters-on-rails.svg?branch=master)](https://travis-ci.org/klenwell/recruiters-on-rails)
 
 Bring up the topic of recruiters with a developer and you're likely to get [a colorful
 response](https://hn.algolia.com/?query=recruiters&sort=byPopularity&prefix&page=0&dateRange=all&type=story).

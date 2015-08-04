@@ -12,9 +12,13 @@ class RecruitersController < ApplicationController
       Kaminari.paginate_array(@recruiters).page(params[:page]) :
       @recruiters.page(params[:page])
 
+    # Treat email searches differently
     @is_email_search = @recruiters.blank? && search_params['name_like'] &&
       ValidateEmail.valid?(search_params['name_like'])
     @email = search_params['name_like'] if @is_email_search
+
+    # Flag search to filter blacklisted recruiters in non-search views
+    @is_search = search_params.present?
 
     respond_to do |format|
       format.html
@@ -153,6 +157,46 @@ class RecruitersController < ApplicationController
   def typeahead
     @search  = RecruiterSearch.new(typeahead: params[:query])
     render json: @search.results
+  end
+
+  # POST /recruiter/1/blacklist.js
+  def blacklist
+    recruiter = Recruiter.find(params[:id])
+    @blacklist = recruiter.blacklist(params[:reason], params[:color])
+
+    respond_to do |format|
+      if @blacklist.persisted?
+        format.js {
+          flash[:notice] = "Recruiter has been #{params[:color]}listed!"
+          flash.keep(:notice)
+          render js: "window.location = '#{recruiter_path(recruiter)}'"
+        }
+      else
+        format.js { render status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /recruiter/1/unblacklist.js
+  def unblacklist
+    recruiter = Recruiter.find(params[:id])
+    unblacklisted = recruiter.unblacklist(params[:color])
+
+    respond_to do |format|
+      if unblacklisted
+        format.js {
+          flash[:notice] = "Recruiter has been un#{params[:color]}listed!"
+          flash.keep(:notice)
+          render js: "window.location = '#{recruiter_path(recruiter)}'"
+        }
+      else
+        format.js {
+          flash[:danger] = "Unable to un#{params[:color]}list the recruiter."
+          flash.keep(:danger)
+          render js: "window.location = '#{request.referer}'"
+        }
+      end
+    end
   end
 
   private

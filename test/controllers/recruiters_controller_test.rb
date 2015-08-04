@@ -190,4 +190,112 @@ class RecruitersControllerTest < ActionController::TestCase
 
     temp_file.unlink
   end
+
+  test "should blacklist Bob" do
+    Blacklist.destroy_all
+
+    bob = recruiters(:bob)
+    assert_not bob.blacklisted?
+
+    assert_difference('Blacklist.count', +1) do
+      assert_difference('Merit.count', +1) do
+        assert_difference('Recruiter.find_by_id(bob.id).score', -100) do
+          xhr :post, :blacklist, id: bob, color: 'black', reason: "Bob's a schmuck."
+          assert_response :success
+          assert_equal "text/javascript", @response.content_type
+        end
+      end
+    end
+
+    assert bob.blacklisted?
+  end
+
+  test "should return an error and not create blacklist or demerit" do
+    Blacklist.destroy_all
+
+    bob = recruiters(:bob)
+    assert_not bob.blacklisted?
+
+    assert_no_difference('Blacklist.count') do
+      assert_no_difference('Merit.count') do
+        assert_no_difference('Recruiter.find_by_id(bob.id).score') do
+          xhr :post, :blacklist, id: bob, color: 'green', reason: "Bob's a schmuck."
+          assert_response :unprocessable_entity
+          assert_equal "text/javascript", @response.content_type
+        end
+      end
+    end
+
+    assert_not bob.blacklisted?
+  end
+
+  test "should show unblacklist button with recruiter is blacklisted" do
+    blacklist = Blacklist.create!(recruiter_id: @recruiter.id,
+                                  reason: 'testing',
+                                  color: 'black',
+                                  active: true)
+
+    get :edit, id: @recruiter
+    assert_response :success
+    assert_select 'button.btn.unblacklist', 1, 'Should show unblacklist button'
+    assert_select 'button.btn.ungraylist', false, 'Should not show ungraylist button'
+    assert_select 'button.btn.blacklist', false, 'Should not show blacklist button'
+    assert_select 'button.btn.graylist', 1, 'Should show graylist button'
+  end
+
+  test "should unblacklist recruiter" do
+    Blacklist.destroy_all
+
+    bob = recruiters(:bob)
+    bob.blacklist('testing')
+    assert bob.blacklisted?
+
+    xhr :post, :unblacklist, id: bob, color: 'black'
+    assert_response :success
+    assert_equal "text/javascript", @response.content_type
+    assert_not bob.blacklisted?
+  end
+
+  test "should ungraylist recruiter" do
+    Blacklist.destroy_all
+
+    bob = recruiters(:bob)
+    bob.graylist('testing')
+    assert bob.graylisted?
+
+    xhr :post, :unblacklist, id: bob, color: 'gray'
+    assert_response :success
+    assert_equal "text/javascript", @response.content_type
+    assert_not bob.graylisted?
+  end
+
+  test "should gray out graylisted recruiters in index" do
+    bob = recruiters(:bob)
+    bob.graylist('testing')
+    assert bob.graylisted?
+
+    get :index
+    assert_select 'tr.recruiter.graylisted td:nth-of-type(1) a', {text: 'Bob Banana'},
+      'Should have graylisted Bob Banana.'
+  end
+
+  test "should not list blacklisted recruiters in index" do
+    bob = recruiters(:bob)
+    bob.blacklist('testing')
+    assert bob.blacklisted?
+
+    get :index
+    assert_not_select 'tr.recruiter.blacklisted', 'Should not list blacklisted recruiters.'
+  end
+
+  test "should list blacklisted recruiters in search results" do
+    bob = recruiters(:bob)
+    bob.blacklist('testing')
+    assert bob.blacklisted?
+
+    get :index, { recruiter_search: {name_like: 'bob'} }
+    assert_response :success
+    assert_select 'tr.recruiter.blacklisted', {count: 1},
+      'Should list blacklisted recruiters.'
+  end
 end

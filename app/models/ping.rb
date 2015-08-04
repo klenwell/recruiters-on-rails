@@ -40,4 +40,8 @@ class Ping < ActiveRecord::Base
   def description
     kind.capitalize
   end
+
+  def event
+    self.class.to_s
+  end
 end

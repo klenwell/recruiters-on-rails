@@ -47,3 +47,68 @@ div.association
       ]
       span.glyphicon.glyphicon-briefcase aria-hidden="true"
       |  Add Interview
+
+div.association
+  h3 Blacklist
+
+  div.actions
+    - if !(@recruiter.blacklisted?)
+      button.btn.btn-black.blacklist [
+        data-toggle="modal"
+        data-target="#blacklist-modal"
+      ]
+        span.glyphicon.glyphicon-list aria-hidden="true"
+        |  Blacklist
+    - else
+      = button_to unblacklist_recruiter_path(@recruiter),
+        remote: true,
+        method: :post,
+        class:  "btn btn-default unblacklist",
+        data: { confirm: "Are you sure?" } \
+        do
+        = hidden_field_tag 'color', 'black'
+        span.glyphicon.glyphicon-list aria-hidden="true"
+        |  De-Blacklist
+
+    - if !(@recruiter.graylisted?)
+      button.btn.btn-gray.graylist [
+        data-toggle="modal"
+        data-target="#blacklist-modal"
+      ]
+        span.glyphicon.glyphicon-list aria-hidden="true"
+        |  Graylist
+    - else
+      = button_to unblacklist_recruiter_path(@recruiter),
+        remote: true,
+        method: :post,
+        class:  "btn btn-default ungraylist",
+        data: { confirm: "Are you sure?" } \
+        do
+        = hidden_field_tag 'color', 'gray'
+        span.glyphicon.glyphicon-list aria-hidden="true"
+        |  De-Graylist
+
+/! Blacklist Modal
+div.modal [
+  id="blacklist-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="blacklist-modal-reason"
+]
+  div.modal-dialog role="document"
+    div.modal-content
+      div.modal-header
+        button.close [
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close"
+        ]
+          span aria-hidden="true" &times;
+        h3.modal-title#blacklist-modal-reason Blacklist Reason
+        = form_tag blacklist_recruiter_path(@recruiter), remote: true, method: :post do |f|
+          /# Will be overridden dynamically in recruiter.js
+          = hidden_field_tag 'color', 'black'
+          div.form-group
+            = text_field_tag 'reason', nil, {class: 'form-control'}
+          div.form-group
+            = submit_tag 'Submit', {class: 'btn btn-primary'}

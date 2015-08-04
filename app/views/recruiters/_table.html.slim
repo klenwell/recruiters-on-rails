@@ -11,7 +11,13 @@ table.table.table-striped
   tbody
     - if recruiters.present?
       - recruiters.each do |recruiter|
-        tr.recruiter id="recruiter-#{recruiter.id}"
+        - next if recruiter.blacklisted? && !(@is_search)
+        tr [
+          id="recruiter-#{recruiter.id}"
+          class=(['recruiter',
+                  ('blacklisted' if recruiter.blacklisted?),
+                  ('graylisted' if recruiter.graylisted?)].compact.join(' '))
+        ]
           td = link_to recruiter.name, recruiter_path(recruiter)
           td = recruiter.email
           td = recruiter.company
@@ -55,5 +61,3 @@ table.table.table-striped
             #{link_to 'Click here', new_recruiter_path(email: @email)} to create new one.
         - else
           td.no-records colspan=10 No recruiters found.
-
-

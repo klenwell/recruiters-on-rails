@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+graylisted_bob:
+  recruiter_id: <%= ActiveRecord::FixtureSet.identify(:bob) %>
+  color: gray
+  active: false
+  reason: Never followed up with me.

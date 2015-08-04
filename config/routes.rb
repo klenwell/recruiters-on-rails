@@ -9,11 +9,18 @@ Rails.application.routes.draw do
       post :process_import
       get :export
     end
+
+    member do
+      post :blacklist
+      post :unblacklist
+    end
   end
 
   resources :interviews
 
   resources :recruiter_lists, path: 'lists'
+
+  resources :blacklists, only: [:index]
 
   get 'recruiters/typeahead/:query' => 'recruiters#typeahead'
 

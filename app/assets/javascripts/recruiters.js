@@ -36,6 +36,16 @@ var onReady = function() {
     //console.debug('Suggestion clicked:', event, datum, name);
     window.location.href = '/recruiters/' + datum.id;
   });
+
+  // Modal for blacklist button
+  $('div#blacklist-modal').on('show.bs.modal', function(e) {
+    var color = $(e.relatedTarget).hasClass('graylist') ? 'gray' : 'black';
+    $('div#blacklist-modal input#color').val(color);
+  })
+
+  $('div#blacklist-modal form').on('submit', function(e) {
+    $('div#blacklist-modal').modal('hide');
+  })
 };
 
 $(document).ready(onReady);

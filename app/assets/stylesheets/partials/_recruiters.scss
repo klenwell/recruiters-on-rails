@@ -2,7 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body.recruiters {}
+body.recruiters.index {
+  tr.graylisted {
+    background-color: #999999;
+  }
+
+  tr.blacklisted {
+    background-color: #333333;
+    color: #CCCCCC;
+  }
+}
 
 body.recruiters.show {
   div.recruiter-data {
@@ -36,8 +45,37 @@ body.recruiters.show {
     padding: 0;
     margin: 2em 0;
 
-    a.btn {
+    a.btn,
+    button.btn {
       margin: 0 1em 0 0;
     }
+  }
+
+  h2.graylisted {
+    background-color: #999999;
+    color: #333333;
+    padding: 8px;
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  h2.blacklisted {
+    background-color: #333333;
+    color: #000000;
+    padding: 8px;
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+body.recruiters.edit {
+  h3.modal-title {
+    margin-bottom: 1em;
+  }
+
+  form.button_to {
+    display: inline-block;
   }
 }

@@ -2,6 +2,9 @@ class Merit < ActiveRecord::Base
 
   belongs_to :recruiter
 
+  # Validations
+  validates :recruiter, presence: true
+
   # Scopes
   scope :by_date, ->{ order 'date DESC' }
 
@@ -18,6 +21,10 @@ class Merit < ActiveRecord::Base
   end
 
   def description
-    format('%s: %s', kind.capitalize, reason.capitalize)
+    reason.capitalize
+  end
+
+  def event
+    kind.capitalize
   end
 end

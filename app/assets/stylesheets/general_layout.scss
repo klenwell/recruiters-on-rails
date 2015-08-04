@@ -20,9 +20,11 @@ table.table.table-striped {
 
 div.actions {
   padding: 8px;
-}
-div.actions a.btn {
-  margin-left: 1em;
+
+  a.btn,
+  button.btn {
+    margin-left: 1em;
+  }
 }
 
 label.horizontal {
@@ -36,6 +38,19 @@ label.horizontal {
 
 .right-align {
   text-align: right;
+}
+
+div.flash.js {
+  position: fixed;
+  top: 25px;
+  left: 0;
+  width: 100%;
+  z-index: 2000;
+
+  div.alert {
+    width: 400px;
+    margin: 0 auto;
+  }
 }
 
 /*
@@ -90,4 +105,15 @@ div.search .tt-dropdown-menu {
 div.search div.count {
   padding-top: 0.5em;
   text-align: right;
+}
+
+/*
+ * Custom Buttons
+ */
+.btn-black {
+  @include button-variant(white, #222222, black);
+}
+
+.btn-gray {
+  @include button-variant(white, #666666, #444444);
 }
