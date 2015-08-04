@@ -1,0 +1,38 @@
+h2 Blacklists
+
+table.table.table-striped
+  thead
+    tr
+      th Date
+      th Recruiter
+      th Email
+      th Last Contact
+      th Score
+      th
+
+  tbody
+    - if @blacklists.present?
+      - @blacklists.each do | blacklist |
+        tr [
+          id="blacklist-#{blacklist.id}"
+          class='blacklist #{blacklist.color}'
+        ]
+          td = blacklist.created_at.to_date
+          td = link_to blacklist.recruiter.name, recruiter_path(blacklist.recruiter)
+          td = blacklist.recruiter.email
+          td = (blacklist.recruiter.last_contact.present? ? blacklist.recruiter.last_contact : 'N/A')
+          td = blacklist.recruiter.score
+          td
+            = button_to unblacklist_recruiter_path(blacklist.recruiter),
+              remote: true,
+              method: :post,
+              class:  "btn btn-default unblacklist",
+              data: { confirm: "Are you sure?" } \
+              do
+              = hidden_field_tag 'color', blacklist.color
+              span.glyphicon.glyphicon-list aria-hidden="true"
+              |  De-list
+
+    - else
+      tr
+        td.no-records colspan=6 No blacklists yet.

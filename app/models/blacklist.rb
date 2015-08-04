@@ -4,13 +4,14 @@ class Blacklist < ActiveRecord::Base
 
   before_save :default_values
 
-  # Constants
   Colors = ['black', 'gray']
   Demerits = { 'black' => -100, 'gray' => -50 }
 
   validates :recruiter, :color, :reason, presence: true
   validates :color, inclusion: { in: Colors }
   validates :color, uniqueness: {scope: :recruiter, message: "already %{value}listed"}
+
+  scope :indexed, -> { where(active: true).order('created_at DESC') }
 
   def active?
     active

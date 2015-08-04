@@ -190,7 +190,11 @@ class RecruitersController < ApplicationController
           render js: "window.location = '#{recruiter_path(recruiter)}'"
         }
       else
-        format.js { render status: :unprocessable_entity }
+        format.js {
+          flash[:danger] = "Unable to un#{params[:color]}list the recruiter."
+          flash.keep(:danger)
+          render js: "window.location = '#{request.referer}'"
+        }
       end
     end
   end

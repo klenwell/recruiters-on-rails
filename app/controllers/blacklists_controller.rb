@@ -1,5 +1,10 @@
 class BlacklistsController < ApplicationController
 
+  # GET /blacklists
+  def index
+    @blacklists = Blacklist.indexed
+  end
+
   # POST /blacklists.json
   # create -> see recruiters#blacklist
 
