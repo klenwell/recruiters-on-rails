@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731034234) do
+ActiveRecord::Schema.define(version: 20150821143949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,10 +91,12 @@ ActiveRecord::Schema.define(version: 20150731034234) do
     t.datetime "updated_at",         null: false
     t.integer  "recruiter_group_id"
     t.integer  "recruiter_list_id"
+    t.integer  "score"
   end
 
   add_index "recruiters", ["recruiter_group_id"], name: "index_recruiters_on_recruiter_group_id", using: :btree
   add_index "recruiters", ["recruiter_list_id"], name: "index_recruiters_on_recruiter_list_id", using: :btree
+  add_index "recruiters", ["score"], name: "index_recruiters_on_score", using: :btree
 
   add_foreign_key "blacklists", "recruiters"
   add_foreign_key "interviews", "recruiters"
