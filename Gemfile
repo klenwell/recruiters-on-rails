@@ -85,4 +85,7 @@ group :development, :test do
 
   # Console debugger
   gem 'pry'
+
+  # Catch n+1 queries
+  gem 'bullet'
 end
