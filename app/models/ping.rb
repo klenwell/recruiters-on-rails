@@ -1,4 +1,5 @@
 class Ping < ActiveRecord::Base
+  include InTimeline
 
   belongs_to :recruiter
 
@@ -38,10 +39,6 @@ class Ping < ActiveRecord::Base
   end
 
   def description
-    kind.capitalize
-  end
-
-  def event
-    self.class.to_s
+    format('[%s] %s', kind.capitalize, note)
   end
 end

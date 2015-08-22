@@ -1,4 +1,6 @@
 class Interview < ActiveRecord::Base
+  include InTimeline
+
   # Associations
   belongs_to :recruiter
   accepts_nested_attributes_for :recruiter
@@ -26,9 +28,5 @@ class Interview < ActiveRecord::Base
 
   def description
     format('Interview with %s at %s', interviewer.titleize, company.titleize)
-  end
-
-  def event
-    self.class.to_s
   end
 end
