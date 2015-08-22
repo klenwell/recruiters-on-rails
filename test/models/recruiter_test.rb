@@ -24,6 +24,14 @@ class RecruiterTest < ActiveSupport::TestCase
     assert_equal '200', john.phone_extension
   end
 
+  test "that new recruiters score is 0" do
+    homer = Recruiter.new(first_name: 'Homer', email: 'homer@recruiters.net')
+    assert homer.score.nil?
+
+    homer.save!
+    assert_equal 0, homer.score
+  end
+
   test "that recruiters are scored" do
     alice = recruiters(:alice)
 
@@ -75,6 +83,8 @@ class RecruiterTest < ActiveSupport::TestCase
 
   test "that recruiter loses points when blacklisted and unblacklisted" do
     bob = recruiters(:bob)
+    bob.save!   # Update score
+
     assert_difference('bob.score', -20) do
       bob.blacklist({ color: 'black', reason: 'testing' })
       bob.unblacklist
@@ -83,6 +93,7 @@ class RecruiterTest < ActiveSupport::TestCase
 
   test "that user will have no more than one associated blacklist" do
     alice = recruiters(:alice)
+    alice.save!   # Update score
     Blacklist.destroy_all
 
     # Should lose 120 total
