@@ -13,7 +13,7 @@ class Interview < ActiveRecord::Base
   validates :culture, :people, :work, :career, :commute, :salary, :gut, inclusion: 1..5
 
   # Scopes
-  scope :by_date, ->{ order 'date DESC' }
+  scope :by_date, ->{ order('date DESC').includes(:recruiter) }
 
   # Public Methods
   def total
