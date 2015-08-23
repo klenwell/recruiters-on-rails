@@ -7,15 +7,18 @@ class Recruiter < ActiveRecord::Base
   has_many :blacklists, dependent: :destroy
   belongs_to :recruiter_list
 
+  before_save :compute_score
+
   validates :first_name, :email, presence: true
   validates :email, uniqueness: true
 
   scope :recently_pinged, ->{ joins('LEFT JOIN pings ON pings.recruiter_id = recruiters.id')
     .select('recruiters.*, MIN(pings.date) as first_contact, MAX(pings.date) as last_contact')
     .group('recruiters.id')
-    .order('last_contact DESC') }
+    .order('last_contact DESC')
+    .includes(:pings) }
 
-  scope :sorted_by_email, ->{ order('email ASC') }
+  scope :sorted_by_email, ->{ order('email ASC').includes(:pings) }
 
   #
   # Constants
@@ -213,6 +216,10 @@ class Recruiter < ActiveRecord::Base
         value: blacklist.demerit_value,
         date: Date.today
       )
+
+      # Reload merits and recompute score
+      merits(true)
+      save!
     end
 
     blacklist
@@ -236,6 +243,10 @@ class Recruiter < ActiveRecord::Base
         value: (blacklist.demerit_value * -0.8).to_i,
         date: Date.today
       )
+
+      # Reload merits and recompute score
+      merits(true)
+      save!
     end
 
     true
@@ -272,12 +283,6 @@ class Recruiter < ActiveRecord::Base
     format('%s %s', self.first_name, self.last_name)
   end
 
-  def score
-    (pings.any? ? (pings.collect{|ping| ping.value}).sum : 0) +
-    (merits.any? ? (merits.collect{|merit| merit.value}).sum : 0) +
-    (interviews.any? ? (interviews.collect{|interview| interview.total}).sum : 0)
-  end
-
   def last_contact
     pings.any? ? pings.order('date DESC').first.date : nil
   end
@@ -293,5 +298,14 @@ class Recruiter < ActiveRecord::Base
 
   def graylisted?
     blacklists.where(color: 'gray', active: true).any?
+  end
+
+  private
+
+  def compute_score
+    self[:score] =
+      (pings.any? ? (pings.collect{|ping| ping.value}).sum : 0) +
+      (merits.any? ? (merits.collect{|merit| merit.value}).sum : 0) +
+      (interviews.any? ? (interviews.collect{|interview| interview.total}).sum : 0)
   end
 end

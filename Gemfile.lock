@@ -52,6 +52,9 @@ GEM
     bootstrap-typeahead-rails (0.10.5.1)
       railties (>= 3.0)
     builder (3.2.2)
+    bullet (4.14.7)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     byebug (5.0.0)
       columnize (= 0.9.0)
     capistrano (3.4.0)
@@ -203,6 +206,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uniform_notifier (1.9.0)
     valid_email (0.0.11)
       activemodel
       mail (~> 2.6.1)
@@ -220,6 +224,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.4)
   bootstrap-sass-extras
   bootstrap-typeahead-rails
+  bullet
   byebug
   capistrano-rails
   font-awesome-sass
