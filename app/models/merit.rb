@@ -1,4 +1,5 @@
 class Merit < ActiveRecord::Base
+  include InTimeline
 
   belongs_to :recruiter
 

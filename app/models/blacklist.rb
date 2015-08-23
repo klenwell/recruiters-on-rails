@@ -11,7 +11,7 @@ class Blacklist < ActiveRecord::Base
   validates :color, inclusion: { in: Colors }
   validates :color, uniqueness: {scope: :recruiter, message: "already %{value}listed"}
 
-  scope :indexed, -> { where(active: true).order('created_at DESC') }
+  scope :indexed, -> { where(active: true).order('created_at DESC').includes(recruiter: :pings) }
 
   def active?
     active

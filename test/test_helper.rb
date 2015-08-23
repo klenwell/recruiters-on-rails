@@ -2,7 +2,26 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+
+# Enable Bullet
+# https://github.com/flyerhzm/bullet#run-in-tests
+# http://stufftohelpyouout.blogspot.com/2014/03/using-bullet-with-minitest-and.html
+module MiniTestUsesBullet
+  def before_setup
+    Bullet.start_request
+    super if defined?(super)
+  end
+
+  def after_teardown
+    super if defined?(super)
+    Bullet.end_request
+  end
+end
+
+
 class ActiveSupport::TestCase
+  include MiniTestUsesBullet if Bullet.enable?
+
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 

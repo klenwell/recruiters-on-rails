@@ -82,6 +82,6 @@ class PingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ping_params
-      params.require(:ping).permit(:recruiter, :recruiter_id, :kind, :note, :transcript, :value, :date)
+      params.require(:ping).permit(:recruiter, :recruiter_id, :kind, :note, :value, :date)
     end
 end

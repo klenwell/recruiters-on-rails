@@ -19,8 +19,7 @@ class PingsControllerTest < ActionController::TestCase
   test "should create ping" do
     assert_difference('Ping.count') do
       post :create, recruiter_id: @ping.recruiter_id,
-        ping: { date: @ping.date, kind: @ping.kind, note: @ping.note,
-          transcript: @ping.transcript }
+        ping: { date: @ping.date, kind: @ping.kind, note: @ping.note }
     end
 
     assert assigns(:ping)
@@ -39,8 +38,7 @@ class PingsControllerTest < ActionController::TestCase
 
   test "should update ping" do
     patch :update, id: @ping, recruiter_id: @ping.recruiter_id,
-      ping: { date: @ping.date, kind: @ping.kind, note: @ping.note,
-        transcript: @ping.transcript }
+      ping: { date: @ping.date, kind: @ping.kind, note: @ping.note }
     assert_redirected_to edit_recruiter_path(id: @ping.recruiter_id)
   end
 

@@ -2,6 +2,10 @@ require 'test_helper'
 
 class RecruitersControllerTest < ActionController::TestCase
   setup do
+    # Save to compute scores since fixtures don't trigger callbacks
+    recruiters(:alice).save!
+    recruiters(:bob).save!
+
     @recruiter = recruiters(:alice)
   end
 
