@@ -1,4 +1,5 @@
 class Interview < ActiveRecord::Base
+  include Scorable
   include InTimeline
 
   # Associations

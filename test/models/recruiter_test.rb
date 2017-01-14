@@ -32,16 +32,19 @@ class RecruiterTest < ActiveSupport::TestCase
     assert_equal 0, homer.score
   end
 
-  test "that recruiters are scored" do
+  test "expects recruiter to be scored" do
+    # Assume
     alice = recruiters(:alice)
+    ping_interview_points = 10    # 3 (for each ping) + 7 (for interview)
 
+    # Act
     2.times do |n|
       alice.pings << Ping.new(recruiter_id: alice.id, kind: 'email', note: 'test',
         date: Date.today)
       alice.save!
     end
 
-    ping_interview_points = 9   # 2 (for each ping) + 7 (for interview)
+    # Assert
     assert_equal ping_interview_points, alice.score
   end
 

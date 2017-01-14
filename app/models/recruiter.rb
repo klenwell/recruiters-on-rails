@@ -177,6 +177,11 @@ class Recruiter < ActiveRecord::Base
   #
   # Instance Methods
   #
+  def force_rescore
+    # Public alias of compute_score. Called by scorable concern.
+    compute_score
+  end
+
   def blacklist(reason=nil, color='black')
     blacklist = blacklists.where(color: color).first
 
