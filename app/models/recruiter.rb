@@ -18,7 +18,7 @@ class Recruiter < ActiveRecord::Base
     .order('last_contact DESC')
     .includes(:pings) }
 
-  scope :sorted_by_email, ->{ order('email ASC').includes(:pings) }
+  scope :sorted_by_email, ->{ order('email ASC') }
 
   #
   # Constants
