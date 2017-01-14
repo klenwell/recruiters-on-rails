@@ -10,10 +10,17 @@ class MeritsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create merit" do
+  test "expects merit to be created and recruiter score to be updated" do
+    # Assume
+    @merit.recruiter.save!
+    assert_not_nil @merit.recruiter.score
+
+    # Act / Assert
     assert_difference('Merit.count') do
-      post :create, recruiter_id: @merit.recruiter_id,
-        merit: { date: @merit.date, reason: @merit.reason, value: @merit.value }
+      assert_difference('@merit.recruiter.score', @merit.value) do
+        post :create, recruiter_id: @merit.recruiter_id,
+          merit: { date: @merit.date, reason: @merit.reason, value: @merit.value }
+      end
     end
 
     assert assigns(:merit)
