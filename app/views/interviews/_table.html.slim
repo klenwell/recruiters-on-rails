@@ -18,7 +18,7 @@ table.table.table-striped
           td = interview.company
           td = (interview.recruiter ? interview.recruiter.name : 'N/A')
           td = interview.interviewer
-          td = interview.total
+          td = interview.value
           td = interview.result
           td
             a.btn.btn-default href=edit_interview_path(interview)
