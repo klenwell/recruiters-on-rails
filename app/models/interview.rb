@@ -1,4 +1,5 @@
 class Interview < ActiveRecord::Base
+  include Scorable
   include InTimeline
 
   # Associations
@@ -15,15 +16,19 @@ class Interview < ActiveRecord::Base
   validates :culture, :people, :work, :career, :commute, :salary, :gut, inclusion: 1..5
 
   # Scopes
-  scope :by_date, ->{ order('date DESC').includes(:recruiter) }
+  scope :by_date, ->{ order('date DESC') }
 
   # Public Methods
-  def total
-    [culture, people, work, career, commute, salary, gut].sum
-  end
-
   def value
-    total
+    ratings_total = [culture, people, work, career, commute, salary, gut].sum
+    status_factor = case result
+      when 'rejected' then 0.5
+      when 'withdraw' then 0.75
+      when 'advance' then 1.5
+      when 'offer' then 2.0
+      else 1.0
+    end
+    (ratings_total * status_factor).round
   end
 
   def description

@@ -70,7 +70,7 @@ To start the the local server on port 3000:
 
 You should be able to start adding recruiters at http://localhost:3000/.
 
-### Datatypes
+### Data Models
 
 - Recruiters: people who will help you land interviews and a job
 - Pings: interactions with a recruiter that can raise their rating
@@ -94,7 +94,7 @@ All tests:
 
 Single test:
 
-    bundle exec rake TEST=test/models/recruiters_test.rb
+    bundle exec rake test test/models/recruiters_test.rb
 
 ### Contributions
 Pull requests are welcome.

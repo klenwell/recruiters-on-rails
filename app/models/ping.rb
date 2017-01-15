@@ -1,4 +1,5 @@
 class Ping < ActiveRecord::Base
+  include Scorable
   include InTimeline
 
   belongs_to :recruiter

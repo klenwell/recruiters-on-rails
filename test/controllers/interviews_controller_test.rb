@@ -11,10 +11,23 @@ class InterviewsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:interviews)
   end
 
-  test "should get new" do
-    get :new, recruiter_id: @interview.recruiter_id
+  test "expects new interview form" do
+    get :new
     assert_response :success
-    assert_select 'select#interview_recruiter_id', {count: 1}
+  end
+
+  test "expects new interview with recruiter pre-assigned" do
+    # Assume
+    recruiter = recruiters(:alice)
+    interview_selector = 'select#interview_recruiter_id option[selected]'
+
+    # Act
+    get :new, recruiter_id: recruiter.id
+    selected_recruiter_id = assert_select(interview_selector, {count: 1}).first['value']
+
+    # Assert
+    assert_response :success
+    assert_equal(selected_recruiter_id, recruiter.id.to_s)
   end
 
   test "should create interview with recruiter assigned" do

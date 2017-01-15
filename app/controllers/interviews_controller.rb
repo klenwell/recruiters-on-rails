@@ -16,7 +16,8 @@ class InterviewsController < ApplicationController
   def new
     @recruiter = Recruiter.find_or_initialize_by(id: params[:recruiter_id])
     @interview = Interview.new
-    @recruiters = Recruiter.all
+    @interview.recruiter = @recruiter if @recruiter
+    @recruiters = Recruiter.sorted_by_email
 
     # Default assessment values to 3
     Interview::Assessments.each do |assessment|

@@ -18,7 +18,7 @@ class Recruiter < ActiveRecord::Base
     .order('last_contact DESC')
     .includes(:pings) }
 
-  scope :sorted_by_email, ->{ order('email ASC').includes(:pings) }
+  scope :sorted_by_email, ->{ order('email ASC') }
 
   #
   # Constants
@@ -177,6 +177,11 @@ class Recruiter < ActiveRecord::Base
   #
   # Instance Methods
   #
+  def force_rescore
+    # Public alias of compute_score. Called by scorable concern.
+    compute_score
+  end
+
   def blacklist(reason=nil, color='black')
     blacklist = blacklists.where(color: color).first
 
@@ -306,6 +311,6 @@ class Recruiter < ActiveRecord::Base
     self[:score] =
       (pings.any? ? (pings.collect{|ping| ping.value}).sum : 0) +
       (merits.any? ? (merits.collect{|merit| merit.value}).sum : 0) +
-      (interviews.any? ? (interviews.collect{|interview| interview.total}).sum : 0)
+      (interviews.any? ? (interviews.collect{|interview| interview.value}).sum : 0)
   end
 end
