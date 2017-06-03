@@ -19,3 +19,4 @@
 # Project excludes
 .coverage
 .dev
+.ruby-version
