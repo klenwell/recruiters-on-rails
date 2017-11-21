@@ -68,12 +68,6 @@ ActiveRecord::Schema.define(version: 20150822235717) do
     t.datetime "updated_at",   null: false
   end
 
-  create_table "recruiter_groups", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "recruiter_lists", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -86,15 +80,13 @@ ActiveRecord::Schema.define(version: 20150822235717) do
     t.string   "email"
     t.string   "company"
     t.string   "phone"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.integer  "recruiter_group_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "recruiter_list_id"
     t.integer  "score"
   end
 
   add_index "recruiters", ["email"], name: "index_recruiters_on_email", using: :btree
-  add_index "recruiters", ["recruiter_group_id"], name: "index_recruiters_on_recruiter_group_id", using: :btree
   add_index "recruiters", ["recruiter_list_id"], name: "index_recruiters_on_recruiter_list_id", using: :btree
   add_index "recruiters", ["score"], name: "index_recruiters_on_score", using: :btree
 
