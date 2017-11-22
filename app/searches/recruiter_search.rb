@@ -1,15 +1,18 @@
+require "searchlight/adapters/action_view"
+
 class RecruiterSearch < Searchlight::Search
+  include Searchlight::Adapters::ActionView
 
-  search_on Recruiter.all
-
-  searches :name_like, :typeahead
+  def base_query
+    Recruiter.all
+  end
 
   def search_name_like
-    search.where("email ILIKE ?", "%#{name_like}%")
+    query.where("email ILIKE ?", "%#{name_like}%")
   end
 
   def search_typeahead
-    search.where("email ILIKE ?", "%#{typeahead}%")
+    query.where("email ILIKE ?", "%#{typeahead}%")
   end
 
 end

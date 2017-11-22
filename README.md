@@ -20,7 +20,7 @@ a PostgreSQL database.
 
 ### Prerequisites
 
-- [Ruby 2+](https://www.ruby-lang.org/en/downloads/)
+- [Ruby 2.4+](https://www.ruby-lang.org/en/downloads/)
 - [PostgreSQL 9+](http://www.postgresql.org/)
 - [Bundler](http://bundler.io/)
 - [Git](http://git-scm.com/)

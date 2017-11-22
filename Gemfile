@@ -65,7 +65,10 @@ group :development do
   gem 'capistrano-rails'
 
   # Suppress asset logging on dev server
-  gem 'quiet_assets', group: :development
+  gem 'quiet_assets'
+
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
 
   # Rename project
   gem 'rename'
@@ -76,8 +79,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+
 
   # Spring speeds up development by keeping your application running in the background.
   # Read more: https://github.com/rails/spring
