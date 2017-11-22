@@ -10,7 +10,6 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require font-awesome
  *= require bootstrap-datepicker3
  *= require bootstrap-typeahead-rails
  */
@@ -21,3 +20,6 @@
 
 @import "general_layout";
 @import "partials/*";
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
