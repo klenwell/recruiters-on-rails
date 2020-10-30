@@ -3,10 +3,15 @@
   "description": "My demo Rails project.",
   "addons": [
     {
-      "plan": "heroku-postgresql",
-      "options": {
-        "version": "9.6"
-      }
+      "plan": "heroku-postgresql:hobby-dev"
     }
-  ]
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "bundle exec rails db:seed"
+  }
 }
