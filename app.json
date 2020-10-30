@@ -1,4 +1,12 @@
 {
   "name": "Recruiters-on-Rails",
-  "description": "My demo Reails app."
+  "description": "My demo Rails project.",
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ]
 }
