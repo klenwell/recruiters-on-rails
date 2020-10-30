@@ -10,8 +10,5 @@
     {
       "url": "heroku/ruby"
     }
-  ],
-  "scripts": {
-    "postdeploy": "bundle exec rails db:seed"
-  }
+  ]
 }
