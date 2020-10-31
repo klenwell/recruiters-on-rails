@@ -13,4 +13,10 @@ before_script:
 
 script:
   - RAILS_ENV=test bundle exec rake test
-  
+
+# https://stackoverflow.com/a/55994304/1093087
+services:
+    - postgresql
+
+addons:
+    postgresql: '9.6'

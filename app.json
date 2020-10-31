@@ -1,0 +1,18 @@
+{
+  "name": "Recruiters-on-Rails",
+  "description": "My demo Rails project.",
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate"
+  },
+  "stack": "heroku-18"
+}
