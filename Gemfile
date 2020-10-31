@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+# Set Ruby version (for Heroku).
+# Remember to match .travis.yml and rbenv versions.
+ruby "2.5.8"
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
 
