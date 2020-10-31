@@ -13,5 +13,6 @@
   ],
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate"
-  }
+  },
+  "stack": "heroku-18"
 }
